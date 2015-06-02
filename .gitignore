@@ -27,3 +27,5 @@
 *.out
 *.app
 *.pro.user
+build-*/Makefile.*
+build-*/Makefile
