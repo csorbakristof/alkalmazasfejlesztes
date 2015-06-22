@@ -9,10 +9,9 @@ ApplicationWindow {
     height: 480
     visible: true
 
-    signal connectRobotCpp(string s)
-    signal disconnectRobotCpp(string s)
-    signal startRobotCpp(string s)
-    signal stopRobotCpp(string s)
+    signal resetCommandCpp()
+    signal accelerateCommandCpp()
+    signal stopCommandCpp()
 
     /* Istance of the MenuBar is the main menu bar. It contains Menu controls, which contain MenuItem controls. */
     menuBar: MenuBar {
@@ -32,21 +31,17 @@ ApplicationWindow {
         id: mainFormControl
         anchors.fill: parent
 
-        onConnectRobot: {
-            messageDialog.show(qsTr("Connecting robot..."));
-            connectRobotCpp("HELLO");
+        onResetCommand: {
+//            messageDialog.show(qsTr("Resetting robot simulator..."));
+            resetCommandCpp();
         }
-        onDisconnectRobot: {
-            messageDialog.show(qsTr("Disconnecting robot..."));
-            disconnectRobotCpp("HELLO");
+        onAccelerateCommand: {
+//            messageDialog.show(qsTr("Accelerating robot..."));
+            accelerateCommandCpp();
         }
-        onStartRobot: {
-            messageDialog.show(qsTr("Starting robot..."));
-            startRobotCpp("HELLO");
-        }
-        onStopRobot: {
-            messageDialog.show(qsTr("Stopping robot..."));
-            stopRobotCpp("HELLO");
+        onStopCommand: {
+//            messageDialog.show(qsTr("Stopping robot..."));
+            stopCommandCpp();
         }
 
     }

@@ -1,37 +1,29 @@
+#pragma once
 #ifndef MAINWINDOWSEVENTHANDLING_H
 #define MAINWINDOWSEVENTHANDLING_H
 #include <QObject>
 #include <QDebug>
+
+class RobotProxy;
 
 class MainWindowsEventHandling : public QObject
 {
     Q_OBJECT
 
 public:
-    MainWindowsEventHandling();
+    MainWindowsEventHandling(RobotProxy& robot);
 
     ~MainWindowsEventHandling() = default;
 
 public slots:
-    void connectRobot(const QString &msg)
-    {
-        qDebug() << "Called the C++ slot connectRobot with message:" << msg;
-    }
+    void accelerateCommand();
 
-    void disconnectRobot(const QString &msg)
-    {
-        qDebug() << "Called the C++ slot disconnectRobot with message:" << msg;
-    }
+    void stopCommand();
 
-    void startRobot(const QString &msg)
-    {
-        qDebug() << "Called the C++ slot startRobot with message:" << msg;
-    }
+    void resetCommand();
 
-    stopRobot(const QString &msg)
-    {
-        qDebug() << "Called the C++ slot stopRobot with message:" << msg;
-    }
+private:
+    RobotProxy& robot;
 };
 
 #endif // MAINWINDOWSEVENTHANDLING_H

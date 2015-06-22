@@ -8,10 +8,9 @@ Item {
     height: 500
     anchors.fill: parent
 
-    signal connectRobot;
-    signal disconnectRobot;
-    signal startRobot;
-    signal stopRobot;
+    signal resetCommand;
+    signal accelerateCommand;
+    signal stopCommand;
 
     //property alias button3: button3
 
@@ -29,31 +28,22 @@ Item {
             anchors.fill: parent
 
             Button {
-                id: connectBtn
+                id: resetBtn
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Connect")
+                text: qsTr("Reset")
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
-                onClicked: mainFormControl.connectRobot()
+                onClicked: mainFormControl.resetCommand()
             }
             Button {
-                id: disconnectBtn
+                id: accelerateBtn
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Disconnect")
+                text: qsTr("Accelerate")
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
-                onClicked: mainFormControl.disconnectRobot()
-            }
-            Button {
-                id: startBtn
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text: qsTr("Start")
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
-                onClicked: mainFormControl.startRobot()
+                onClicked: mainFormControl.accelerateCommand()
             }
             Button {
                 id: stopBtn
@@ -62,7 +52,7 @@ Item {
                 text: qsTr("Stop")
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
-                onClicked: mainFormControl.stopRobot()
+                onClicked: mainFormControl.stopCommand()
             }
         }
     }
@@ -76,13 +66,6 @@ Item {
         anchors.top : parent.top
         anchors.bottom: connectionGB.bottom
 
-        ColumnLayout {
-            anchors.fill: parent
-
-            Button {
-                text: qsTr("E")
-            }
-        }
     }
 
     GroupBox {
@@ -97,12 +80,54 @@ Item {
         anchors.topMargin: 0
         title: qsTr("Graph (history)")
 
-/*        Rectangle {
-            id: graphRect
-            color: "#ffffff"
-            clip: false
-            visible: true
-            anchors.fill: parent
-        } */
+        ListModel {
+            id: historyModelDebug
+            property string language: "en"
+            ListElement {
+                sx: 0.0
+                sv: 0.0
+                sa: 1.0
+            }
+            ListElement {
+                sx: 0.0
+                sv: 1.0
+                sa: 1.0
+            }
+            ListElement {
+                sx: 1.0
+                sv: 2.0
+                sa: 1.0
+            }
+            ListElement {
+                sx: 2.0
+                sv: 3.0
+                sa: 1.0
+            }
+            ListElement {
+                sx: 5.0
+                sv: 4.0
+                sa: 1.0
+            }
+        }
+
+        // Delegate: this is the appearance of a list item
+        Component {
+            id: stateDelegate
+            Row {
+                id: aState
+                Text { text: " X: " + model.x.toString() }
+                Text { text: " V: " + v.toString() }
+                Text { text: " A: " + a.toString() }
+                // TODO: x nem jó helyre bindol; depends on non-NOTIFYable properties
+            }
+        }
+
+        // This is the actual list view
+        ListView {
+            id: stateHistoryModel
+            width: 100; height: 100
+            model: historyModel //Debug
+            delegate: stateDelegate
+        }
     }
 }

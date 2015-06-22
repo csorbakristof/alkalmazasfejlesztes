@@ -6,7 +6,15 @@ QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 QT += qml quick widgets
 
 SOURCES += main.cpp \
-    MainWindowsEventHandling.cpp
+    MainWindowsEventHandling.cpp \
+    RobotProxy.cpp \
+    RobotState.cpp \
+    RobotStateHistory.cpp \
+    Communication/Communication.cpp \
+    Communication/CommunicationTcpSocket.cpp \
+    Communication/CommunicationTcpSocketServer.cpp \
+    Communication/CommunicationTcpSocketClient.cpp \
+    Simulator/Simulator.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,4 +25,14 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    MainWindowsEventHandling.h
+    MainWindowsEventHandling.h \
+    RobotProxy.h \
+    RobotState.h \
+    RobotStateHistory.h \
+    Communication/Communication.h \
+    Communication/CommunicationTcpSocket.h \
+    Communication/CommunicationTcpSocketServer.h \
+    Communication/CommunicationTcpSocketClient.h \
+    Communication/Parcel.h \
+    Simulator/Simulator.h
+
