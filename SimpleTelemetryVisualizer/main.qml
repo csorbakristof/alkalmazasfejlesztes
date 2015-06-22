@@ -10,6 +10,9 @@ ApplicationWindow {
     visible: true
 
     signal connectRobotCpp(string s)
+    signal disconnectRobotCpp(string s)
+    signal startRobotCpp(string s)
+    signal stopRobotCpp(string s)
 
     /* Istance of the MenuBar is the main menu bar. It contains Menu controls, which contain MenuItem controls. */
     menuBar: MenuBar {
@@ -35,12 +38,15 @@ ApplicationWindow {
         }
         onDisconnectRobot: {
             messageDialog.show(qsTr("Disconnecting robot..."));
+            disconnectRobotCpp("HELLO");
         }
         onStartRobot: {
             messageDialog.show(qsTr("Starting robot..."));
+            startRobotCpp("HELLO");
         }
         onStopRobot: {
             messageDialog.show(qsTr("Stopping robot..."));
+            stopRobotCpp("HELLO");
         }
 
     }

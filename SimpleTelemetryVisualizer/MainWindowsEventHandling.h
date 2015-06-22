@@ -17,6 +17,21 @@ public slots:
     {
         qDebug() << "Called the C++ slot connectRobot with message:" << msg;
     }
+
+    void disconnectRobot(const QString &msg)
+    {
+        qDebug() << "Called the C++ slot disconnectRobot with message:" << msg;
+    }
+
+    void startRobot(const QString &msg)
+    {
+        qDebug() << "Called the C++ slot startRobot with message:" << msg;
+    }
+
+    stopRobot(const QString &msg)
+    {
+        qDebug() << "Called the C++ slot stopRobot with message:" << msg;
+    }
 };
 
 #endif // MAINWINDOWSEVENTHANDLING_H

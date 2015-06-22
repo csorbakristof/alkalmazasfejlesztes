@@ -16,6 +16,12 @@ int main(int argc, char *argv[])
 
     QObject::connect(rootObject, SIGNAL(connectRobotCpp(QString)),
                      &handler, SLOT(connectRobot(QString)));
+    QObject::connect(rootObject, SIGNAL(disconnectRobotCpp(QString)),
+                     &handler, SLOT(disconnectRobot(QString)));
+    QObject::connect(rootObject, SIGNAL(startRobotCpp(QString)),
+                     &handler, SLOT(startRobot(QString)));
+    QObject::connect(rootObject, SIGNAL(stopRobotCpp(QString)),
+                     &handler, SLOT(stopRobot(QString)));
 
     return app.exec();
 }

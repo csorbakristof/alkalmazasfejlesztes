@@ -44,7 +44,7 @@ Item {
                 text: qsTr("Disconnect")
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
-                onClicked: mainFormControl.disconnectRobot
+                onClicked: mainFormControl.disconnectRobot()
             }
             Button {
                 id: startBtn
@@ -53,7 +53,7 @@ Item {
                 text: qsTr("Start")
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
-                onClicked: mainFormControl.startRobot
+                onClicked: mainFormControl.startRobot()
             }
             Button {
                 id: stopBtn
@@ -62,7 +62,7 @@ Item {
                 text: qsTr("Stop")
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
-                onClicked: mainFormControl.stopRobot
+                onClicked: mainFormControl.stopRobot()
             }
         }
     }
