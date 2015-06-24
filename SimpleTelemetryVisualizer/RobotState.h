@@ -29,32 +29,32 @@ public:
     ~RobotState() = default;
 
     /** Status or command */
-    Q_PROPERTY(Status status READ status WRITE setStatus MEMBER _status)
+    Q_PROPERTY(Status status READ status WRITE setStatus MEMBER _status NOTIFY statusChanged)
     Status status() const { return _status; }
     void setStatus(const Status status) { _status = status; }
 
     /** Timestamp in ms */
-    Q_PROPERTY(qint64 timestamp READ timestamp WRITE setTimestamp MEMBER _timestamp)
+    Q_PROPERTY(qint64 timestamp READ timestamp WRITE setTimestamp MEMBER _timestamp NOTIFY timestampChanged)
     qint64 timestamp() const { return _timestamp; }
     void setTimestamp(const qint64 timestamp) { _timestamp = timestamp; }
 
     /** Position in meter */
-    Q_PROPERTY(float x READ x WRITE setX MEMBER _x)
+    Q_PROPERTY(float x READ x WRITE setX MEMBER _x NOTIFY xChanged)
     float x() const { return _x; }
     void setX(float x) { _x = x; }
 
     /** Velocity in m/s */
-    Q_PROPERTY(float v READ v WRITE setV MEMBER _v)
+    Q_PROPERTY(float v READ v WRITE setV MEMBER _v NOTIFY vChanged)
     float v() const { return _v; }
     void setV(float v) { _v = v; }
 
     /** Acceleration in m/s2 */
-    Q_PROPERTY(float a READ a WRITE setA MEMBER _a)
+    Q_PROPERTY(float a READ a WRITE setA MEMBER _a NOTIFY aChanged)
     float a() const { return _a; }
     void setA(float a) { _a = a; }
 
     /** Status information of the headlights of the robot. */
-    Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light)
+    Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light NOTIFY lightChanged)
     float light() const { return _light; }
     void setLight(float light) { _light = light; }
 
@@ -63,6 +63,15 @@ public:
     void CopyFrom(const RobotState& other);
 
     QString getStatusName() const;
+
+signals:
+    void statusChanged();
+    void timestampChanged();
+    void xChanged();
+    void vChanged();
+    void aChanged();
+    void lightChanged();
+
 
 private:
     Status _status;

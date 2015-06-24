@@ -80,36 +80,6 @@ Item {
         anchors.topMargin: 0
         title: qsTr("Graph (history)")
 
-        ListModel {
-            id: historyModelDebug
-            property string language: "en"
-            ListElement {
-                sx: 0.0
-                sv: 0.0
-                sa: 1.0
-            }
-            ListElement {
-                sx: 0.0
-                sv: 1.0
-                sa: 1.0
-            }
-            ListElement {
-                sx: 1.0
-                sv: 2.0
-                sa: 1.0
-            }
-            ListElement {
-                sx: 2.0
-                sv: 3.0
-                sa: 1.0
-            }
-            ListElement {
-                sx: 5.0
-                sv: 4.0
-                sa: 1.0
-            }
-        }
-
         // Delegate: this is the appearance of a list item
         Component {
             id: stateDelegate
@@ -126,7 +96,7 @@ Item {
         ListView {
             id: stateHistoryModel
             width: 100; height: 100
-            model: historyModel //Debug
+            model: historyModel
             delegate: stateDelegate
         }
     }

@@ -15,6 +15,8 @@ public:
     RobotStateHistory();
     virtual ~RobotStateHistory() = default;
 
+    // This needs to be a QObject* list. Pointers to derived classes are
+    //  not recognized by QML for proper data binding.
     QList<QObject*> stateList;
 
     /** This container handles the ownership of the elements referenced in stateList */
@@ -25,7 +27,6 @@ public:
 
 signals:
     void historyChanged();
-
 };
 
 #endif // ROBOTSTATEHISTORY_H
