@@ -14,15 +14,15 @@ public:
     explicit Simulator(int port);
     ~Simulator() = default;
 
-    void start(int intervalMs);
+    void start(float intervalSec);
 
 private:
     CommunicationTcpSocketServer communication;
 
     QTimer timer;
 
-    // Sampling rate of the simulation
-    unsigned long dt;
+    // Sampling rate of the simulation (in seconds)
+    float dt;
 
     RobotState state;
 

@@ -5,13 +5,15 @@
 #include <QDebug>
 
 class RobotProxy;
+class QQmlContext;
+class RobotStateHistory;
 
 class MainWindowsEventHandling : public QObject
 {
     Q_OBJECT
 
 public:
-    MainWindowsEventHandling(RobotProxy& robot);
+    MainWindowsEventHandling(RobotProxy& robot, QQmlContext &qmlContext, RobotStateHistory &history);
 
     ~MainWindowsEventHandling() = default;
 
@@ -22,8 +24,14 @@ public slots:
 
     void resetCommand();
 
+    void historyChanged();
+
 private:
     RobotProxy& robot;
+
+    // Followings are needed for data binding refresh operations
+    QQmlContext &qmlContext;
+    RobotStateHistory &history;
 };
 
 #endif // MAINWINDOWSEVENTHANDLING_H

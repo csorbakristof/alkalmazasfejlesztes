@@ -2,7 +2,7 @@
 #include "RobotState.h"
 
 RobotStateHistory::RobotStateHistory()
-    : QObject(nullptr)
+    : QObject(nullptr), currentState(nullptr)
 {
 }
 
@@ -12,6 +12,7 @@ void RobotStateHistory::Add(const RobotState& state)
     std::unique_ptr<RobotState> newState = std::make_unique<RobotState>();
     newState->CopyFrom(state);
     stateList.append(newState.get());
+    currentState = (RobotState*)newState.get(); // This has to be done before moving ownership
     container.push_back(std::move(newState));
     emit historyChanged();
 }

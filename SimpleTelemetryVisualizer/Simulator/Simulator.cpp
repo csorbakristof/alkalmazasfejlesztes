@@ -7,16 +7,16 @@ Simulator::Simulator(int port)
     connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
 }
 
-void Simulator::start(int intervalMs)
+void Simulator::start(float intervalSec)
 {
-    dt = intervalMs / 1000.0;
+    dt = intervalSec;
     state.setStatus(RobotState::Status::Default);
     state.setTimestamp(0);
     state.setX(0.0F);
     state.setV(0.0F);
     state.setA(0.0F);
     state.setLight(0);
-    timer.start(intervalMs);
+    timer.start((long)(intervalSec*1000.0F));
 }
 
 void Simulator::tick()

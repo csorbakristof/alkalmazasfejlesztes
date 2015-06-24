@@ -17,7 +17,7 @@ Item {
     Component.onCompleted: mainFormControl.connectRobot
 
     GroupBox {
-        id: connectionGB
+        id: commandsGB
         title: "Connection and commands"
         anchors.left : parent.left
         anchors.top : parent.top
@@ -57,15 +57,39 @@ Item {
         }
     }
 
+    // Delegate: this is the appearance of a list item
+    Component {
+        id: stateDelegate
+        Row {
+            id: aState
+            Text { text: " Status: " + model.statusName }
+            Text { text: " X: " + model.x.toString() }
+            Text { text: " V: " + model.v.toString() }
+            Text { text: " A: " + model.a.toString() }
+        }
+    }
+
+
     GroupBox {
         id: currentValuesGB
         anchors.right: parent.right
         anchors.rightMargin: 0
         title: "Current values"
-        anchors.left : connectionGB.right
+        anchors.left : commandsGB.right
         anchors.top : parent.top
-        anchors.bottom: connectionGB.bottom
+//        anchors.bottom: connectionGB.bottom
 
+        ColumnLayout {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            Text { text: " Status: " + currentState.statusName }
+            Text { text: " Timestamp: " + currentState.timestamp }
+            Text { text: " X: " + currentState.x }
+            Text { text: " V: " + currentState.v.toString() }
+            Text { text: " A: " + currentState.a.toString() }
+            Text { text: " Light: " + currentState.light.toString() }
+        }
     }
 
     GroupBox {
@@ -76,21 +100,10 @@ Item {
         anchors.leftMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-        anchors.top: connectionGB.bottom
+        // From commandsGB and currentValuesGB, align to the lower bottom
+        anchors.top: (commandsGB.bottom > currentValuesGB.bottom ? commandsGB.bottom : currentValuesGB.bottom )
         anchors.topMargin: 0
         title: qsTr("Graph (history)")
-
-        // Delegate: this is the appearance of a list item
-        Component {
-            id: stateDelegate
-            Row {
-                id: aState
-                Text { text: " X: " + model.x.toString() }
-                Text { text: " V: " + v.toString() }
-                Text { text: " A: " + a.toString() }
-                // TODO: x nem jó helyre bindol; depends on non-NOTIFYable properties
-            }
-        }
 
         // This is the actual list view
         ListView {

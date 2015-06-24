@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "RobotState.h"
 
 std::map<int,QString> RobotState::statusNames;
@@ -30,6 +31,7 @@ QString RobotState::getStatusName() const
 {
     auto it = statusNames.find((int)_status);
     Q_ASSERT(it != statusNames.end());
+    qDebug() << "RobotState::getStatusName(): (int)_status " << (int)_status << ": " << it->second;
     return it->second;
 }
 

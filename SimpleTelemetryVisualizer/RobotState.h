@@ -28,13 +28,15 @@ public:
 
     ~RobotState() = default;
 
+    // We do not implement the NOTIFY signals, just declare them.
+
     /** Status or command */
     Q_PROPERTY(Status status READ status WRITE setStatus MEMBER _status NOTIFY statusChanged)
     Status status() const { return _status; }
     void setStatus(const Status status) { _status = status; }
 
     /** Timestamp in ms */
-    Q_PROPERTY(qint64 timestamp READ timestamp WRITE setTimestamp MEMBER _timestamp NOTIFY timestampChanged)
+    Q_PROPERTY(float timestamp READ timestamp WRITE setTimestamp MEMBER _timestamp NOTIFY timestampChanged)
     qint64 timestamp() const { return _timestamp; }
     void setTimestamp(const qint64 timestamp) { _timestamp = timestamp; }
 
@@ -58,6 +60,10 @@ public:
     float light() const { return _light; }
     void setLight(float light) { _light = light; }
 
+    /** Status name exposed as property */
+    // In QML, it will be accessible as model.statusName
+    Q_PROPERTY(QString statusName READ getStatusName NOTIFY statusChanged)
+
     virtual void WriteTo(QDataStream& stream) const override;
     void ReadFrom(QDataStream& stream);
     void CopyFrom(const RobotState& other);
@@ -75,7 +81,7 @@ signals:
 
 private:
     Status _status;
-    qint64 _timestamp;
+    float _timestamp;
     float _x,_v,_a;
     qint8 _light;
 

@@ -19,6 +19,9 @@ public:
     //  not recognized by QML for proper data binding.
     QList<QObject*> stateList;
 
+    /** Pointer to the most current state. Updated by add(). */
+    RobotState *currentState;
+
     /** This container handles the ownership of the elements referenced in stateList */
     std::vector<std::unique_ptr<RobotState>> container;
 
