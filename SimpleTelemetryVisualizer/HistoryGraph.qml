@@ -1,19 +1,40 @@
 import QtQuick 2.0
 import jbQuick.Charts 1.0
 
-Rectangle {
-    id: historyGraph
+import QtQuick.Controls 1.3 // for Button
 
+
+Rectangle {
 /*    color: "red"
     border.color: "black"
     border.width: 1
     radius: 5 */
 
+    function redraw()
+    {
+        // Should be called when data changes
+        console.log("HistoryGraph.redraw started");
+        historyChart.repaintWithDataUpdate();
+        historyChart.requestPaint();
+        console.log("HistoryGraph.redraw finished");
+    }
+
+    Button {
+        id: graphRepaintButton
+        width: 100
+        height: 20
+        text: qsTr("Redraw")
+        onClicked: {
+            parent.redraw();
+        }
+    }
+
+
     Chart {
-      id: chart_line;
+      id: historyChart;
       width: 400;
       height: 200;
-      chartAnimated: true;
+      chartAnimated: false;
       chartAnimationEasing: Easing.Linear;
       chartAnimationDuration: 2000;
       chartType: Charts.ChartType.LINE;
@@ -29,7 +50,7 @@ Rectangle {
                       pointStrokeColor: "#fff",
                       pointHighlightFill: "#fff",
                       pointHighlightStroke: "rgba(220,220,220,1)",
-                      data: historyGraphDataRow1
+                      data: historyGraphVelocity
                   },
                   {
                       label: "Data row 2",
@@ -39,13 +60,12 @@ Rectangle {
                       pointStrokeColor: "#fff",
                       pointHighlightFill: "#fff",
                       pointHighlightStroke: "rgba(151,187,205,1)",
-                      data: historyGraphDataRow2
+                      data: historyGraphAcceleration
                   }
               ]
             } // end chartData
         }
     }
-
 }
 
 // https://github.com/jwintz/qchart.js

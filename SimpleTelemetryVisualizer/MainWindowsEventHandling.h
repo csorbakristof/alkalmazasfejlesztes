@@ -26,6 +26,10 @@ public slots:
 
     void historyChanged();
 
+signals:
+    // Used to instruct the history graph (QML control) to redraw itself
+    void historyContextUpdated();
+
 private:
     RobotProxy& robot;
 

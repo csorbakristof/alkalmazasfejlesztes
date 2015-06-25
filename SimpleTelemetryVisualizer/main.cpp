@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     setupQmlImportPath(engine);
 
     // Bind data row to the chart
-    QList<int> timestamps;
+/*    QList<int> timestamps;
     timestamps.append(0);
     timestamps.append(1);
     timestamps.append(2);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     datarow2.append(30);
     context->setContextProperty(QStringLiteral("historyGraphTimestamps"), QVariant::fromValue(timestamps));
     context->setContextProperty(QStringLiteral("historyGraphDataRow1"), QVariant::fromValue(datarow1));
-    context->setContextProperty(QStringLiteral("historyGraphDataRow2"), QVariant::fromValue(datarow2));
+    context->setContextProperty(QStringLiteral("historyGraphDataRow2"), QVariant::fromValue(datarow2));*/
 
 
 

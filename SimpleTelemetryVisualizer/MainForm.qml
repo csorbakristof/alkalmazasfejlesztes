@@ -117,6 +117,10 @@ Item {
             }
 
             HistoryGraph {
+                id: historyGraph
+                // To allow finding it via findChild from C++
+                objectName: "historyGraph"
+
                 width: 200
                 anchors.left: stateHistoryList.right
                 anchors.top: parent.top

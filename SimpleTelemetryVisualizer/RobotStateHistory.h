@@ -28,6 +28,12 @@ public:
     /** Adds a copy of the state to the end of the history. */
     void Add(const RobotState& state);
 
+    // Containers for direct visualization
+    QList<int> graphTimestamps;
+    QList<int> graphVelocities;
+    QList<int> graphAcceleration;
+    const int shownStateNumber = 20;
+
 signals:
     void historyChanged();
 };
