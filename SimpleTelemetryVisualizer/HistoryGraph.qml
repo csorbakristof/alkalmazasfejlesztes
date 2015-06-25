@@ -1,17 +1,17 @@
 import QtQuick 2.0
-//import jbQuick.Charts 1.0
+import jbQuick.Charts 1.0
 
 Rectangle {
     id: historyGraph
 
     color: "red"
     border.color: "black"
-    border.width: 5
-    radius: 10
+    border.width: 1
+    radius: 5
 
     Text { text: "HELOOOO HISTORYGRAPH" }
 
-/*    QChart {
+    Chart {
       id: chart_line;
       width: 400;
       height: 400;
@@ -46,7 +46,7 @@ Rectangle {
               ]
             } // end chartData
         }
-    } */
+    }
 
 }
 
