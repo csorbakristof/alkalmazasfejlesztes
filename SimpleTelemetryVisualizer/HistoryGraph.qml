@@ -1,36 +1,45 @@
 import QtQuick 2.0
-import jbQuick.Charts 1.0
+//import jbQuick.Charts 1.0
 
 import QtQuick.Controls 1.3 // for Button
 
 
-Rectangle {
+Canvas {
 /*    color: "red"
     border.color: "black"
     border.width: 1
     radius: 5 */
 
-    function redraw()
-    {
-        // Should be called when data changes
-        console.log("HistoryGraph.redraw started");
-        historyChart.repaintWithDataUpdate();
-        historyChart.requestPaint();
-        console.log("HistoryGraph.redraw finished");
-    }
+    property var graphTimestamps;
+    property var graphVelocities;
+    property var graphAccelerations;
 
-    Button {
-        id: graphRepaintButton
-        width: 100
-        height: 20
-        text: qsTr("Redraw")
-        onClicked: {
-            parent.redraw();
+    onPaint: {
+        // Get drawing context
+        var context = getContext("2d");
+
+        // Make canvas all gray
+        context.beginPath();
+        context.fillStyle = "gray"
+        context.fillRect(0, 0, width, height);
+        context.fill();
+
+        // Draw a line
+        context.beginPath();
+        context.lineWidth = 2;
+        context.strokeStyle = "red"
+        context.moveTo(0, graphVelocities[0]);
+        for(var i=0; i<graphVelocities.length;i++)
+        {
+            console.log(graphVelocities[i]);
+            context.lineTo(10*i, 50+graphVelocities[i]);
         }
-    }
+        context.stroke();
+
+    } // end onPaint
 
 
-    Chart {
+/*    Chart {
       id: historyChart;
       width: 400;
       height: 200;
@@ -65,7 +74,7 @@ Rectangle {
               ]
             } // end chartData
         }
-    }
+    } */
 }
 
 // https://github.com/jwintz/qchart.js

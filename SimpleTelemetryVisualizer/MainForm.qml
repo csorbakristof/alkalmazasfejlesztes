@@ -119,12 +119,28 @@ Item {
             HistoryGraph {
                 id: historyGraph
                 // To allow finding it via findChild from C++
-                objectName: "historyGraph"
+                //objectName: "historyGraph"
 
                 width: 200
                 anchors.left: stateHistoryList.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
+
+                graphTimestamps: historyGraphTimestamps
+                graphVelocities: historyGraphVelocity
+                graphAccelerations: historyGraphAcceleration
+
+                Button {
+                    text: qsTr("Paint");
+                    onClicked: {
+                        parent.requestPaint();//historyGraph.redraw()
+                    }
+                }
+
+/*                function redraw()
+                {
+                    requestPaint();
+                } */
             }
         }
 //    }

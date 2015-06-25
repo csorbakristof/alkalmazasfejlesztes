@@ -19,7 +19,7 @@ void RobotStateHistory::Add(const RobotState& state)
     graphTimestamps.clear();
     graphVelocities.clear();
     graphAcceleration.clear();
-    /*int graphStateNumber = stateList.size() < shownStateNumber ? stateList.size() : shownStateNumber;
+    int graphStateNumber = stateList.size() < shownStateNumber ? stateList.size() : shownStateNumber;
     auto it = container.end()-graphStateNumber;
     for(;it!=container.end();++it)
     {
@@ -27,13 +27,13 @@ void RobotStateHistory::Add(const RobotState& state)
         graphTimestamps.append(currentState->timestamp());
         graphVelocities.append(currentState->v());
         graphAcceleration.append(currentState->a());
-    }*/
-    for(int i=0; i<20; i++)
+    }
+/*    for(int i=0; i<20; i++)
     {
         graphTimestamps.append(i);
         graphVelocities.append(i+rand()%20);
         graphAcceleration.append(20-i+rand()%20);
-    }
+    } */
 
     emit historyChanged();
 }
