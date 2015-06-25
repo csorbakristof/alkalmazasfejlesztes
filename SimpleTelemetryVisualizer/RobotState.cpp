@@ -31,7 +31,7 @@ QString RobotState::getStatusName() const
 {
     auto it = statusNames.find((int)_status);
     Q_ASSERT(it != statusNames.end());
-    qDebug() << "RobotState::getStatusName(): (int)_status " << (int)_status << ": " << it->second;
+//    qDebug() << "RobotState::getStatusName(): (int)_status " << (int)_status << ": " << it->second;
     return it->second;
 }
 

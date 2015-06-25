@@ -105,12 +105,23 @@ Item {
         anchors.topMargin: 0
         title: qsTr("Graph (history)")
 
-        // This is the actual list view
-        ListView {
-            id: stateHistoryModel
-            width: 100; height: 100
-            model: historyModel
-            delegate: stateDelegate
+//        RowLayout {
+            // This is the actual list view
+            ListView {
+                id: stateHistoryList
+                width: 200
+                model: historyModel
+                delegate: stateDelegate
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+            }
+
+            HistoryGraph {
+                width: 200
+                anchors.left: stateHistoryList.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+            }
         }
-    }
+//    }
 }
