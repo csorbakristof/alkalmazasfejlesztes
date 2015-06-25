@@ -47,6 +47,32 @@ int main(int argc, char *argv[])
 
     setupQmlImportPath(engine);
 
+    // Bind data row to the chart
+    QList<int> timestamps;
+    timestamps.append(0);
+    timestamps.append(1);
+    timestamps.append(2);
+    timestamps.append(3);
+    timestamps.append(4);
+    QList<int> datarow1;
+    datarow1.append(10);
+    datarow1.append(20);
+    datarow1.append(30);
+    datarow1.append(40);
+    datarow1.append(50);
+    QList<int> datarow2;
+    datarow2.append(70);
+    datarow2.append(60);
+    datarow2.append(50);
+    datarow2.append(40);
+    datarow2.append(30);
+    context->setContextProperty(QStringLiteral("historyGraphTimestamps"), QVariant::fromValue(timestamps));
+    context->setContextProperty(QStringLiteral("historyGraphDataRow1"), QVariant::fromValue(datarow1));
+    context->setContextProperty(QStringLiteral("historyGraphDataRow2"), QVariant::fromValue(datarow2));
+
+
+
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     auto rootObjects = engine.rootObjects();
