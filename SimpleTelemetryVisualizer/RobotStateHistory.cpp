@@ -28,12 +28,6 @@ void RobotStateHistory::Add(const RobotState& state)
         graphVelocities.append(currentState->v());
         graphAcceleration.append(currentState->a());
     }
-/*    for(int i=0; i<20; i++)
-    {
-        graphTimestamps.append(i);
-        graphVelocities.append(i+rand()%20);
-        graphAcceleration.append(20-i+rand()%20);
-    } */
 
     emit historyChanged();
 }

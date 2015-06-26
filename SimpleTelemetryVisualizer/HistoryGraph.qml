@@ -27,7 +27,7 @@ Canvas {
         // Draw a line
         context.beginPath();
         context.lineWidth = 2;
-        context.strokeStyle = "red"
+        context.strokeStyle = "rgba(220,220,220,1)"
         context.moveTo(0, graphVelocities[0]);
         for(var i=0; i<graphVelocities.length;i++)
         {

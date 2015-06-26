@@ -12,7 +12,8 @@ Item {
     signal accelerateCommand;
     signal stopCommand;
 
-    //property alias button3: button3
+    // Make historyGraph easier to access from CPP for signal connection
+    //property alias historyGraph: graphGB.historyGraph
 
     Component.onCompleted: mainFormControl.connectRobot
 
@@ -119,7 +120,7 @@ Item {
             HistoryGraph {
                 id: historyGraph
                 // To allow finding it via findChild from C++
-                //objectName: "historyGraph"
+                objectName: "historyGraph"
 
                 width: 200
                 anchors.left: stateHistoryList.right

@@ -8,6 +8,9 @@ class RobotProxy;
 class QQmlContext;
 class RobotStateHistory;
 
+class QQuickItem;
+class QQmlApplicationEngine;
+
 class MainWindowsEventHandling : public QObject
 {
     Q_OBJECT
@@ -16,6 +19,9 @@ public:
     MainWindowsEventHandling(RobotProxy& robot, QQmlContext &qmlContext, RobotStateHistory &history);
 
     ~MainWindowsEventHandling() = default;
+
+    /** Connects the used QML signals. Call this after the QML environment is set up. */
+    void ConnectQmlSignals(QObject *rootObject);
 
 public slots:
     void accelerateCommand();
@@ -36,6 +42,10 @@ private:
     // Followings are needed for data binding refresh operations
     QQmlContext &qmlContext;
     RobotStateHistory &history;
+
+    static QQuickItem* FindItemByName(QList<QObject*> nodes, const QString& name);
+
+    static QQuickItem* FindItemByName(QObject *rootObject, const QString& name);
 };
 
 #endif // MAINWINDOWSEVENTHANDLING_H
