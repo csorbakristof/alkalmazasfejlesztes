@@ -84,12 +84,12 @@ Item {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            Text { text: " Status: " + currentState.statusName }
-            Text { text: " Timestamp: " + currentState.timestamp.toFixed(3) }
-            Text { text: " X: " + currentState.x.toFixed(3) }
-            Text { text: " V: " + currentState.v.toFixed(3) }
-            Text { text: " A: " + currentState.a.toFixed(3) }
-            Text { text: " Light: " + currentState.light.toString() }
+            Text { text: " Status: " + (currentState!=null ? currentState.statusName : "?") }
+            Text { text: " Timestamp: " + (currentState!=null ? currentState.timestamp.toFixed(3) : "?") }
+            Text { text: " X: " + (currentState!=null ? currentState.x.toFixed(3) : "?") }
+            Text { text: " V: " + (currentState!=null ? currentState.v.toFixed(3) : "?") }
+            Text { text: " A: " + (currentState!=null ? currentState.a.toFixed(3) : "?") }
+            Text { text: " Light: " + (currentState!=null ? currentState.light.toString() : "?") }
         }
     }
 
@@ -106,43 +106,43 @@ Item {
         anchors.topMargin: 0
         title: qsTr("Graph (history)")
 
-//        RowLayout {
+        RowLayout {
+            anchors.fill: parent
+            spacing: 0
             // This is the actual list view
-            ListView {
-                id: stateHistoryList
-                width: 200
-                model: historyModel
-                delegate: stateDelegate
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
+            ScrollView {
+                // TODO Add scrollbar, auto scroll to the end
+                // Attached properties (in RowLayout,
+                //  but belonging to this child element)
+                // http://doc.qt.io/qt-5/qml-qtquick-layouts-rowlayout.html
+                Layout.fillWidth: true
+                Layout.minimumWidth: 250
+                Layout.preferredWidth: 250
+                Layout.maximumWidth: 300
+                Layout.minimumHeight: 150
+
+                ListView {
+                    id: stateHistoryList
+                    model: historyModel
+                    delegate: stateDelegate
+                }
             }
+
 
             HistoryGraph {
                 id: historyGraph
                 // To allow finding it via findChild from C++
                 objectName: "historyGraph"
 
-                width: 200
-                anchors.left: stateHistoryList.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
+                Layout.fillWidth: true
+                Layout.minimumWidth: 200
+                Layout.preferredWidth: 400
+                Layout.minimumHeight: 150
 
                 graphTimestamps: historyGraphTimestamps
                 graphVelocities: historyGraphVelocity
                 graphAccelerations: historyGraphAcceleration
-
-                Button {
-                    text: qsTr("Paint");
-                    onClicked: {
-                        parent.requestPaint();//historyGraph.redraw()
-                    }
-                }
-
-/*                function redraw()
-                {
-                    requestPaint();
-                } */
             }
         }
-//    }
+    }
 }
