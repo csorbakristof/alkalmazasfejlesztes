@@ -64,9 +64,9 @@ Item {
         Row {
             id: aState
             Text { text: " Status: " + model.statusName }
-            Text { text: " X: " + model.x.toString() }
-            Text { text: " V: " + model.v.toString() }
-            Text { text: " A: " + model.a.toString() }
+            Text { text: " X: " + model.x.toFixed(3) }
+            Text { text: " V: " + model.v.toFixed(3) }
+            Text { text: " A: " + model.a.toFixed(3) }
         }
     }
 
@@ -85,10 +85,10 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             Text { text: " Status: " + currentState.statusName }
-            Text { text: " Timestamp: " + currentState.timestamp }
-            Text { text: " X: " + currentState.x }
-            Text { text: " V: " + currentState.v.toString() }
-            Text { text: " A: " + currentState.a.toString() }
+            Text { text: " Timestamp: " + currentState.timestamp.toFixed(3) }
+            Text { text: " X: " + currentState.x.toFixed(3) }
+            Text { text: " V: " + currentState.v.toFixed(3) }
+            Text { text: " A: " + currentState.a.toFixed(3) }
             Text { text: " Light: " + currentState.light.toString() }
         }
     }
