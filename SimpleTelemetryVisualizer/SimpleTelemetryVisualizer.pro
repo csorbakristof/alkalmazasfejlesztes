@@ -4,6 +4,7 @@ CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 QT += qml quick widgets
+QT += serialport
 
 SOURCES += main.cpp \
     MainWindowsEventHandling.cpp \
@@ -14,7 +15,8 @@ SOURCES += main.cpp \
     Communication/CommunicationTcpSocket.cpp \
     Communication/CommunicationTcpSocketServer.cpp \
     Communication/CommunicationTcpSocketClient.cpp \
-    Simulator/Simulator.cpp
+    Simulator/Simulator.cpp \
+    Communication/CommunicationSerialPort.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +36,5 @@ HEADERS += \
     Communication/CommunicationTcpSocketServer.h \
     Communication/CommunicationTcpSocketClient.h \
     Communication/Parcel.h \
-    Simulator/Simulator.h
+    Simulator/Simulator.h \
+    Communication/CommunicationSerialPort.h
