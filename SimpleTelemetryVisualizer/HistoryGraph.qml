@@ -5,11 +5,6 @@ import QtQuick.Controls 1.3 // for Button
 
 
 Canvas {
-/*    color: "red"
-    border.color: "black"
-    border.width: 1
-    radius: 5 */
-
     property var graphTimestamps;
     property var graphVelocities;
     property var graphAccelerations;
@@ -25,19 +20,6 @@ Canvas {
         context.fill();
 
         drawDataset(context, graphVelocities, "rgba(220,220,220,1)", 5.0);
-
-/*        // Draw a line
-        context.beginPath();
-        context.lineWidth = 2;
-        context.strokeStyle = "rgba(220,220,220,1)" // #fff
-        context.moveTo(0, graphVelocities[0]);
-        for(var i=0; i<graphVelocities.length;i++)
-        {
-            console.log(graphVelocities[i]);
-            context.lineTo(10*i, 50+graphVelocities[i]);
-        }
-        context.stroke(); */
-
     } // end onPaint
 
     function drawDataset(context, datarow, strokeStyle, verticalScaler)

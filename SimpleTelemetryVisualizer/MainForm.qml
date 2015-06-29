@@ -125,9 +125,13 @@ Item {
                     id: stateHistoryList
                     model: historyModel
                     delegate: stateDelegate
+
+                    onCountChanged: {
+                        // Keep the last element selected
+                        stateHistoryList.currentIndex = stateHistoryList.count - 1;
+                    }
                 }
             }
-
 
             HistoryGraph {
                 id: historyGraph

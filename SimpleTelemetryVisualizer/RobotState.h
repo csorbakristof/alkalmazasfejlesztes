@@ -77,7 +77,6 @@ signals:
     void aChanged();
     void lightChanged();
 
-
 private:
     Status _status;
     float _timestamp;
@@ -88,7 +87,10 @@ private:
     void initStatusNames();
 };
 
+/** Wraps the RobotState.WriteTo method. */
 QDataStream &operator<<(QDataStream &, const RobotState &);
+
+/** Wraps the RobotState.ReadFrom method. */
 QDataStream &operator>>(QDataStream &, RobotState &);
 
 #endif // ROBOTSTATE_H
