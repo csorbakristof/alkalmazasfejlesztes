@@ -54,11 +54,12 @@ void CommunicationTcpSocket::sendBufferContent()
     }
     if (!isConnected())
     {
+        qDebug() << "ERROR: Tried to send data with socket not connected.";
         emit errorOccurred(QString("ERROR: Tried to send data with socket not connected."));
         return;
     }
 
-    //qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bytes:\n" << sendBuffer.toHex();
+    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bytes:\n" << sendBuffer.toHex();
     socket->write(sendBuffer);
     sendBuffer.clear();
 }

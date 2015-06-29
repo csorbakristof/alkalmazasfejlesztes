@@ -35,7 +35,6 @@ QString RobotState::getStatusName() const
     return it->second;
 }
 
-
 void RobotState::WriteTo(QDataStream& stream) const
 {
     stream << (qint32)_status;
@@ -67,4 +66,16 @@ void RobotState::CopyFrom(const RobotState &other)
     _v = other._v;
     _a = other._a;
     _light = other._light;
+}
+
+QDataStream &operator<<(QDataStream& stream, const RobotState& state)
+{
+    state.WriteTo(stream);
+    return stream;
+}
+
+QDataStream &operator>>(QDataStream& stream, RobotState& state)
+{
+    state.ReadFrom(stream);
+    return stream;
 }

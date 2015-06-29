@@ -1,14 +1,13 @@
 #pragma once
 #ifndef ROBOTSTATE_H
 #define ROBOTSTATE_H
-#include "Communication/Parcel.h"
 #include <QDataStream>
 #include <QString>
 
 /** Represents the full state of the robot in a given time.
  * All visualization can be bound to an instance, or to the history as a list of
  * instances. */
-class RobotState : public QObject, public Parcel
+class RobotState : public QObject
 {
     Q_OBJECT
 
@@ -64,7 +63,7 @@ public:
     // In QML, it will be accessible as model.statusName
     Q_PROPERTY(QString statusName READ getStatusName NOTIFY statusChanged)
 
-    virtual void WriteTo(QDataStream& stream) const override;
+    void WriteTo(QDataStream& stream) const;
     void ReadFrom(QDataStream& stream);
     void CopyFrom(const RobotState& other);
 
@@ -88,5 +87,8 @@ private:
     static std::map<int,QString> statusNames;
     void initStatusNames();
 };
+
+QDataStream &operator<<(QDataStream &, const RobotState &);
+QDataStream &operator>>(QDataStream &, RobotState &);
 
 #endif // ROBOTSTATE_H

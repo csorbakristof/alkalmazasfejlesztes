@@ -35,6 +35,5 @@ HEADERS += \
     Communication/CommunicationTcpSocket.h \
     Communication/CommunicationTcpSocketServer.h \
     Communication/CommunicationTcpSocketClient.h \
-    Communication/Parcel.h \
     Simulator/Simulator.h \
     Communication/CommunicationSerialPort.h

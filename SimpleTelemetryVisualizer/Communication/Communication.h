@@ -30,7 +30,33 @@ public:
     /** Add a parcel to the data to send.
      * After serializing the data into the send buffer,
      * calls sendBufferContent(). */
-    void send(const Parcel& parcel);
+    template<typename T>
+    void send(const T& toSendObject)
+    {
+        // TODO: check connection status
+        auto stream = getSendStream();
+
+        // Store start position in stream to calculate message size
+        const qint64 startPos = stream->device()->size();
+        qint32 msgSize = 0;
+        // Temporally, write 0 message size.
+        // We will come back here and set the correct value
+        //  after serialization is complete.
+        *stream << msgSize;
+        // Send ID, timestamp and value
+        *stream << toSendObject;
+        const qint64 endPos = stream->device()->size();
+
+        // Jump back to the beginning and write the correct message size.
+        stream->device()->seek(startPos);
+        msgSize = endPos - startPos;
+        *stream << msgSize;
+        // Jump to the end of the serialized data stream.
+        stream->device()->seek(endPos);
+
+        // Send the data (w.r.t. the used protocol)
+        sendBufferContent();
+    }
 
 signals:
     /* A socket a handleError-on kereszül emittálja. */
