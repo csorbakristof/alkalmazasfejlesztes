@@ -1,6 +1,5 @@
 #include <QTimer>
 #include "Communication.h"
-#include "Communication/Parcel.h"
 
 Communication::Communication()
     : receiveStream(nullptr), currentMessageSize(0)

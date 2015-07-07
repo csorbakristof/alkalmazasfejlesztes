@@ -46,17 +46,14 @@ QQuickItem* MainWindowsEventHandling::FindItemByName(QList<QObject*> nodes, cons
 {
     for(int i = 0; i < nodes.size(); i++)
     {
-//        qDebug() << "Node: " << nodes[i]->objectName();
         // search for node
         if (nodes.at(i) && nodes.at(i)->objectName() == name)
         {
-//            qDebug() << "MainWindowsEventHandling::FindItemByName: object found";
             return dynamic_cast<QQuickItem*>(nodes.at(i));
         }
         // search in children
         else if (nodes.at(i) && nodes.at(i)->children().size() > 0)
         {
-//            qDebug() << "MainWindowsEventHandling::FindItemByName: recursion to children";
             QQuickItem* item = FindItemByName(nodes.at(i)->children(), name);
             if (item)
                 return item;

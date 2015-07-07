@@ -2,12 +2,6 @@
 
 CommunicationTcpSocketClient::CommunicationTcpSocketClient()
 {
-
-}
-
-CommunicationTcpSocketClient::~CommunicationTcpSocketClient()
-{
-
 }
 
 void CommunicationTcpSocketClient::connect(QString url, int port)

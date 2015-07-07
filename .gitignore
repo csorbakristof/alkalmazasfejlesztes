@@ -30,3 +30,4 @@
 build-*/Makefile.*
 build-*/Makefile
 build-SimpleTelemetryVisualizer-Desktop_Qt_5_4_0_MinGW_32bit-Debug/*
+SimpleTelemetryVisualizer/docs/*

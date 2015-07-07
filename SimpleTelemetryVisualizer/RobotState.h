@@ -6,22 +6,46 @@
 
 /** Represents the full state of the robot in a given time.
  * All visualization can be bound to an instance, or to the history as a list of
- * instances. */
+ * instances.
+ *
+ * Also used as a command when sent from the client to the robot.
+ */
 class RobotState : public QObject
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Possible states of the robot
+     */
     enum class Status
     {
+        /** Default operation */
         Default = 0,
+        /** Reset. Used as a command when sent to the robot. */
         Reset = 1,
+        /** Instructs the robot to decelerate until stopped.
+         * Used both as command and status. */
         Stopping = 2,
-        Accelerate = 3    // Command, copies RobotStatus.a
+        /** Instructs the robot to accelerate.
+         * The robot will take the acceleration value from RobotState::a. */
+        Accelerate = 3
     };
 
+    /**
+     * @brief Constructor
+     */
     RobotState();
 
+    /**
+     * @brief Constructor with given initial values.
+     * @param status    Robot status
+     * @param timestamp Timestamp of the state
+     * @param x Position
+     * @param v Velocity
+     * @param a Acceleration
+     * @param light Robot light status
+     */
     RobotState(Status status, qint64 timestamp,
         float x, float v, float a, qint8 light);
 
@@ -63,19 +87,30 @@ public:
     // In QML, it will be accessible as model.statusName
     Q_PROPERTY(QString statusName READ getStatusName NOTIFY statusChanged)
 
+    /** Serializes the object into a stream. */
     void WriteTo(QDataStream& stream) const;
+
+    /** Deserializes the object content from a stream. */
     void ReadFrom(QDataStream& stream);
+
+    /** Copies the values from another instance.
+     * Needed due to limitations on copy ctor of QObject instances. */
     void CopyFrom(const RobotState& other);
 
+    /** Returns the name of the status as a human readable string. */
     QString getStatusName() const;
 
 signals:
+    /** \addtogroup (Now unused) signals of property changes
+     *  @{
+     */
     void statusChanged();
     void timestampChanged();
     void xChanged();
     void vChanged();
     void aChanged();
     void lightChanged();
+    /** @}*/
 
 private:
     Status _status;
@@ -83,7 +118,11 @@ private:
     float _x,_v,_a;
     qint8 _light;
 
+    /** Map of status values and their corresponding, human readable strings.
+     * Used by getStatusName(). */
     static std::map<int,QString> statusNames;
+
+    /** Initializes statusNames, called by ctor. */
     void initStatusNames();
 };
 

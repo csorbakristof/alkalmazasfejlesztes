@@ -17,3 +17,28 @@ void RobotProxy::dataReady(QDataStream &stream)
     state.ReadFrom(stream);
     history.Add(state);
 }
+
+void RobotProxy::reset()
+{
+    RobotState newState;
+    newState.setStatus(RobotState::Status::Reset);
+    communication.send(newState);
+    qDebug() << "Reset command sent to robot.";
+}
+
+void RobotProxy::accelerate()
+{
+    RobotState newState;
+    newState.setStatus(RobotState::Status::Accelerate);
+    newState.setA(1);
+    communication.send(newState);
+    qDebug() << "Accelerate command sent to robot.";
+}
+
+void RobotProxy::stop()
+{
+    RobotState newState;
+    newState.setStatus(RobotState::Status::Stopping);
+    communication.send(newState);
+    qDebug() << "Stop command sent to robot.";
+}

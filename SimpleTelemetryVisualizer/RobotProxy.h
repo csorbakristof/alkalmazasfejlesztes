@@ -8,42 +8,50 @@
 class RobotStateHistory;
 class Communication;
 
+/**
+ * A proxy representation of the robot. It is used to send commands to the robot
+ * and it can receive the messages from the robot and store them in the status history.
+ *
+ * The constructor connects the dataReady() slot to the communication and makes sure
+ * that received data will be stored appropriately.
+ */
 class RobotProxy : public QObject
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructor.
+     * @param history   The history container to use.
+     * @param communication The communication object used.
+     */
     RobotProxy(RobotStateHistory& history, Communication& communication);
     ~RobotProxy() = default;
 
-    void reset()
-    {
-        RobotState newState;
-        newState.setStatus(RobotState::Status::Reset);
-        communication.send(newState);
-        qDebug() << "Reset command sent to robot.";
-    }
+    /**
+     * @brief Instructs the robot to reset itself.
+     */
+    void reset();
 
-    void accelerate()
-    {
-        RobotState newState;
-        newState.setStatus(RobotState::Status::Accelerate);
-        newState.setA(1);
-        communication.send(newState);
-        qDebug() << "Accelerate command sent to robot.";
-    }
+    /**
+     * @brief Instructs the robot to accelerate.
+     */
+    void accelerate();
 
-    void stop()
-    {
-        RobotState newState;
-        newState.setStatus(RobotState::Status::Stopping);
-        communication.send(newState);
-        qDebug() << "Stop command sent to robot.";
-    }
+    /**
+     * @brief Instructs the robot to stop.
+     */
+    void stop();
 
 public slots:
-    // A whole message has been received.
-    // Connected to the communication object.
+    /**
+     * Called when a whole RobotState message has been received.
+     * Processes and stores the message.
+     *
+     * This slot is connected to the communication object by the constructor.
+     *
+     * @param stream    The input data stream to read the RobotState from.
+     */
     void dataReady(QDataStream& stream);
 
 private:

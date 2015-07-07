@@ -7,16 +7,26 @@
 #include <vector>
 #include "RobotState.h"
 
+/**
+ * @brief Stores the robot states as a history.
+ */
 class RobotStateHistory : public QObject
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Contructor.
+     */
     RobotStateHistory();
     virtual ~RobotStateHistory() = default;
 
-    // This needs to be a QObject* list. Pointers to derived classes are
-    //  not recognized by QML for proper data binding.
+    /**
+     * List of states to be binded to the QML models.
+     * This list stores only pointers to objects owned by container.
+     *
+     * @warning This needs to be a QObject* list. Pointers to derived classes are not recognized by QML for proper data binding.
+     */
     QList<QObject*> stateList;
 
     /** Pointer to the most current state. Updated by add(). */
@@ -28,13 +38,21 @@ public:
     /** Adds a copy of the state to the end of the history. */
     void Add(const RobotState& state);
 
-    // Containers for direct visualization
+    /** \addtogroup Containers for direct visualization.
+     * They contain only the last shownStateNumber values.
+     * Updated by Add().
+     *  @{
+     */
     QList<int> graphTimestamps;
     QList<int> graphVelocities;
     QList<int> graphAcceleration;
+    /** @}*/
+
+    /** The number of shown states. */
     const int shownStateNumber = 20;
 
 signals:
+    /** Signal emitted upon Add(), as the history has changed. */
     void historyChanged();
 };
 

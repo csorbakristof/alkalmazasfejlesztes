@@ -4,12 +4,7 @@
 CommunicationTcpSocket::CommunicationTcpSocket()
     : Communication(), socket(nullptr)
 {
-    // Connect base classes slots to the socket.
-}
-
-CommunicationTcpSocket::~CommunicationTcpSocket()
-{
-
+    // TODO: Connect base classes slots to the socket.
 }
 
 void CommunicationTcpSocket::setSocket(QTcpSocket *newSocket)

@@ -6,8 +6,6 @@
 #include <QDateTime>
 #include <QAbstractSocket>
 
-class Parcel;
-
 /** Stream based communication functions.
  * After creation, use connectToDevice to connect the receiving dats stream.
  * (You may call connectToDevice multiple times.)
@@ -17,19 +15,26 @@ class Communication : public QObject
     Q_OBJECT
 
 public:
+    /** Constructor */
     Communication();
+    /** Destructor */
     ~Communication();
 
-    /** device may be a QTcpSocket for example. */
+    /** Connects to a device. It may be a QTcpSocket for example. */
     void connectToDevice(QIODevice *device);
 
+    /** Returns connection status. */
     virtual bool isConnected() const = 0;
 
+    /** Returns the stream used to receive data. */
     QDataStream *getReceiveStream();
 
-    /** Add a parcel to the data to send.
-     * After serializing the data into the send buffer,
-     * calls sendBufferContent(). */
+    /** Writes the object content to the sendBuffer
+     * and calls sendBufferContent().
+     *
+     * This method enables sending any class that has operator<< for QDataStream.
+     * This way, no base class for the valid parameters is required.
+     */
     template<typename T>
     void send(const T& toSendObject)
     {
@@ -59,10 +64,11 @@ public:
     }
 
 signals:
-    /* A socket a handleError-on kereszül emittálja. */
+    /** Indicates an error in the communication. */
+    // A socket a handleError-on kereszül emittálja.
     void errorOccurred(const QString&);
 
-    // A whole message has been received.
+    /** A whole message has been received. */
     void dataReady(QDataStream& stream);
 
 protected:
@@ -77,18 +83,18 @@ protected:
     // TODO: can we send correctly if the stream is already distroyed when calling send() ?!
     std::unique_ptr<QDataStream> getSendStream();
 
-    /** Really send all data added earlier. Derived classes
+    /** Really send all data serialized into sendBuffer earlier. Derived classes
      * have to override this to send the data w.r.t. the protocol. */
     virtual void sendBufferContent() = 0;
 
 private:
-    /* Size of message currently under reception. Used by dataReceived. */
+    /** Size of message currently under reception. Used by dataReceived. */
     qint32 currentMessageSize;
 
 private slots:
-    // The following slots have to be connected in derived classes like CommunicationTcpSocket.
-
-    // Data received, not necessarily a whole message yet.
+    /** Data received, not necessarily a whole message yet.
+     * Should be connected in derived classes like CommunicationTcpSocket.
+     */
     void dataReceived();
 };
 

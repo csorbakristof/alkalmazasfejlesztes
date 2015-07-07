@@ -16,13 +16,9 @@ CommunicationTcpSocketServer::CommunicationTcpSocketServer(int port)
     connect(&serverSocket, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
-CommunicationTcpSocketServer::~CommunicationTcpSocketServer()
-{
-
-}
-
 void CommunicationTcpSocketServer::newConnection()
 {
+    // TODO: do not fail if there is already an open connection!
     QTcpSocket *newSocket = serverSocket.nextPendingConnection();
     if (newSocket)
     {

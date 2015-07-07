@@ -6,9 +6,13 @@
 class CommunicationTcpSocketClient : public CommunicationTcpSocket
 {
 public:
+    /** Constructor */
     CommunicationTcpSocketClient();
-    ~CommunicationTcpSocketClient();
 
+    /** Destructor */
+    ~CommunicationTcpSocketClient() = default;
+
+    /** Connect client to a server on given URL and port. */
     void connect(QString url, int port);
 
 private:
