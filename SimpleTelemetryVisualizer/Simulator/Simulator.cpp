@@ -35,6 +35,8 @@ void Simulator::tick()
         state.setV( 10.0F );
     }
 
+    state.setLight( state.v()==10.0F ? 1.0F : 0.0F );
+
     // Simulate robot higher functions
     switch(state.status())
     {

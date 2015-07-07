@@ -1,8 +1,4 @@
 import QtQuick 2.0
-//import jbQuick.Charts 1.0
-
-import QtQuick.Controls 1.3 // for Button
-
 
 Canvas {
     property var graphTimestamps;
@@ -15,24 +11,44 @@ Canvas {
 
         // Make canvas all gray
         context.beginPath();
-        context.fillStyle = "gray"
+        context.fillStyle = "white"
         context.fillRect(0, 0, width, height);
         context.fill();
 
-        drawDataset(context, graphVelocities, "rgba(220,220,220,1)", 5.0);
+        // Draw horizontal grid
+        drawHorizontalLine(context, 0.0, "rgba(0,0,0,1)", 5.0)
+        drawHorizontalLine(context, 5.0, "rgba(100,100,100,1)", 5.0)
+        drawHorizontalLine(context, -5.0, "rgba(100,100,100,1)", 5.0)
+        drawHorizontalLine(context, 10.0, "rgba(0,0,0,1)", 5.0)
+        drawHorizontalLine(context, -10.0, "rgba(0,0,0,1)", 5.0)
+
+        // Draw data sets
+        drawDataset(context, graphVelocities, "rgba(110,220,110,1)", 5.0);
+        drawDataset(context, graphAccelerations, "rgba(220,110,110,1)", 5.0);
     } // end onPaint
+
+    function drawHorizontalLine(context, dataValue, strokeStyle, verticalScaler)
+    {
+        var offset = height/2;
+
+        context.beginPath();
+        context.lineWidth = 1;
+        context.strokeStyle = strokeStyle;
+        context.moveTo(0, offset - verticalScaler * dataValue);
+        context.lineTo(width, offset - verticalScaler * dataValue);
+        context.stroke();
+    }
 
     function drawDataset(context, datarow, strokeStyle, verticalScaler)
     {
         var offset = height/2;
 
         context.beginPath();
-        context.lineWidth = 2;
+        context.lineWidth = 3;
         context.strokeStyle = strokeStyle;
         context.moveTo(0, offset-datarow[0]);
         for(var i=0; i<graphVelocities.length;i++)
         {
-//            console.log(graphVelocities[i]);
             context.lineTo(10*i, offset - verticalScaler * datarow[i]);
         }
         context.stroke();
