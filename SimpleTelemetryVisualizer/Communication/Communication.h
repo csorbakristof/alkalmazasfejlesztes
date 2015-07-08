@@ -78,8 +78,8 @@ protected:
     /** Send buffer accessed via currentSendStream. Use getSendStream to access it. */
     QByteArray sendBuffer;
 
-    /** Returns a stream. Data written to it will be sent by send().
-     * Use sendValue to send data and commands. This is only used by sendValue internally. */
+    /** Returns a stream. Data written to it will be sent by sendBufferContent().
+     * Use send() to send data and commands. This is only used by sendValue internally. */
     // TODO: can we send correctly if the stream is already distroyed when calling send() ?!
     std::unique_ptr<QDataStream> getSendStream();
 

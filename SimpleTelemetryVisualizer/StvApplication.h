@@ -8,9 +8,15 @@
 #include "Communication/CommunicationTcpSocketClient.h"
 #include "RobotStateHistory.h"
 
+/**
+ * @brief Application class. main() instantiates it and runs it.
+ *
+ * Important constructions and signal linkings are performed in the constructor.
+ */
 class StvApplication : public QApplication
 {
 public:
+    /** Constructor. Important initialization is performed here. */
     StvApplication(int argc, char *argv[]);
     ~StvApplication() = default;
 
