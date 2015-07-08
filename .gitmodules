@@ -1,3 +1,0 @@
-[submodule "SimpleTelemetryVisualizer/jbQuick/Charts"]
-	path = SimpleTelemetryVisualizer/jbQuick/Charts
-	url = git://github.com/jwintz/qchart.js.git
