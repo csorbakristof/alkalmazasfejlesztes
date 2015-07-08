@@ -114,7 +114,7 @@ signals:
 
 private:
     Status _status;
-    float _timestamp;
+    qint64 _timestamp;
     float _x,_v,_a;
     qint8 _light;
 

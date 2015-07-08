@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     Communication/CommunicationTcpSocketServer.cpp \
     Communication/CommunicationTcpSocketClient.cpp \
     Simulator/Simulator.cpp \
-    Communication/CommunicationSerialPort.cpp
+    Communication/CommunicationSerialPort.cpp \
+    StvApplication.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +37,5 @@ HEADERS += \
     Communication/CommunicationTcpSocketServer.h \
     Communication/CommunicationTcpSocketClient.h \
     Simulator/Simulator.h \
-    Communication/CommunicationSerialPort.h
+    Communication/CommunicationSerialPort.h \
+    StvApplication.h

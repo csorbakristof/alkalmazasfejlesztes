@@ -3,7 +3,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 
 Item {
-    id: mainFormControl
+//    id: mainFormControl
     width: 500
     height: 500
     anchors.fill: parent
