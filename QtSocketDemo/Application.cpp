@@ -4,9 +4,9 @@
 Application::Application(int argc, char *argv[], SocketServer &server, SocketClient &client)
     : QCoreApplication(argc,argv), server(server), client(client), counter(0)
 {
-    connect(&client, SIGNAL(dataReady(QDataStream&)), this, SLOT(clientDataReady(QDataStream&)));
-    connect(&server, SIGNAL(dataReady(QDataStream&)), this, SLOT(serverDataReady(QDataStream&)));
-    connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
+    connect(&client, &SocketClient::dataReady, this, &Application::clientDataReady);
+    connect(&server, &SocketServer::dataReady, this, &Application::serverDataReady);
+    connect(&timer, &QTimer::timeout, this, &Application::tick);
 }
 
 void Application::clientDataReady(QDataStream& inStream)

@@ -23,7 +23,7 @@ void SocketServer::start(unsigned int port)
     }
 
     // Bekötjük a newConnection slotot.
-    connect(&serverSocket, SIGNAL(newConnection()), this, SLOT(newConnection()));
+    connect(&serverSocket, &QTcpServer::newConnection, this, &SocketServer::newConnection);
 }
 
 void SocketServer::newConnection()
@@ -34,20 +34,22 @@ void SocketServer::newConnection()
     if (newSocket)
     {
         // Bekötjük a disconnected slotot.
-        connect(newSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+        connect(newSocket, &QTcpSocket::disconnected, this, &SocketServer::disconnected);
 
         if (currentConnectionSocket != nullptr && newSocket != currentConnectionSocket)
         {
             // Már volt egy kapcsolat, annak leválasztjuk a signaljait.
             qDebug() << "SocketServer::newConnection: Korábbi socket signaljainak leválasztása.";
+            // Ősosztályok signaljainál nem mindig működik még az új connect szintaxis:
+            //  https://codereview.qt-project.org/#/c/55606/
             QObject::disconnect(currentConnectionSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(CommunicationTcpSocket::handleError(QAbstractSocket::SocketError)));
             QObject::disconnect(currentConnectionSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
         }
         qDebug() << "SocketServer::newConnection: Új socket signaljainak csatlakoztatása.";
         // Elmentjük a socketet
         currentConnectionSocket = newSocket;
-        QObject::connect(currentConnectionSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
-        QObject::connect(currentConnectionSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
+        connect(currentConnectionSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
+        connect(currentConnectionSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
         // Létrehozzuk az adatfogadási streamet és a sockethez kötjük.
         receiveStream = std::make_unique<QDataStream>(currentConnectionSocket);
