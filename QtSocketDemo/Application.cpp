@@ -13,14 +13,14 @@ void Application::clientDataReady(QDataStream& inStream)
 {
     QString text;
     inStream >> text;
-    qDebug() << "Data ready in the client socket: " << text;
+    qWarning() << "A kliens socketen üzenet érkezett: " << text;
 }
 
 void Application::serverDataReady(QDataStream& inStream)
 {
     QString text;
     inStream >> text;
-    qDebug() << "Data ready in the server socket: " << text;
+    qWarning() << "A szerver socketen üzenet érkezett: " << text;
 
     if (text == "Mizu?")
     {
@@ -35,14 +35,14 @@ void Application::startSending()
 
 void Application::tick()
 {
-    qDebug() << "Application::tick";
+    qDebug() << "Application::tick hívás";
     counter++;
     if (counter > 10)
     {
-        qDebug() << "Ran 10 times, now exiting. Bye!";
+        qDebug() << "10-szer lefutott a tick, itt a demó vége.";
+        // A QCoreApplication osztálynak van exit() metódusa.
         this->exit(0);
         return;
     }
     client.send(QString("Mizu?"));
 }
-
