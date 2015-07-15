@@ -42,6 +42,7 @@ ApplicationWindow {
         id: mainFormControl
         anchors.fill: parent
 
+        // Az eseménykezelőkben tovább hívjuk az itteni signalokat a C++ oldal felé.
         onResetCommand: {
             resetCommandCpp();
         }
@@ -52,14 +53,4 @@ ApplicationWindow {
             stopCommandCpp();
         }
     }
-
-/*    MessageDialog {
-        id: messageDialog
-        title: qsTr("Default message...")
-
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
-        }
-    } */
 }

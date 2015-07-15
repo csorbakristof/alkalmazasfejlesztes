@@ -30,7 +30,7 @@ void MainWindowsEventHandling::resetCommand()
 
 void MainWindowsEventHandling::historyChanged()
 {
-    // Reset model of history view to apply changed
+    // Reset model of history view to apply changes
     qmlContext.setContextProperty(QStringLiteral("historyModel"), QVariant::fromValue(history.stateList));
     qmlContext.setContextProperty(QStringLiteral("currentState"), QVariant::fromValue(history.currentState));
 
