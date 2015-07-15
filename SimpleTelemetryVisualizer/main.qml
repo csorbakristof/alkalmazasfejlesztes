@@ -3,50 +3,57 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
+// Ez lesz az alkalmazás főablaka
 ApplicationWindow {
     title: qsTr("Hello World")
     width: 640
     height: 480
     visible: true
 
+    // Signalok, melyeket a C++ oldalon fogunk C++ slotokhoz kötni
+    //  az StvApplication osztály konstruktorában.
     signal resetCommandCpp()
     signal accelerateCommandCpp()
     signal stopCommandCpp()
 
-    /* Istance of the MenuBar is the main menu bar. It contains Menu controls, which contain MenuItem controls. */
+    // Az ablak menuBar tulajdonságának értékül adunk egy MenuBar példányt, amit itt rakunk össze.
     menuBar: MenuBar {
+        // A MenuBar-on belül vannak a menük, Menu példányok formájában. Most csak egy "Exit" menünk van,
+        //  benne egyetlen menüponttal.
         Menu {
-            /* The Menu has a title property. The & sign indicates the hotkey: Alt-C enters this menu. */
+            // A menünek a title tulajdonsága egyúttal az & jellel megadja a billentyű parancsot is: Alt-x
             title: qsTr("&Exit")
+            // Az egyetlen menüpont
             MenuItem {
                 text: qsTr("E&xit")
+                // A menüpont Triggered signaljához kapcsolunk eseménykezelőt
+                //  úgy, hogy értéket adunk az onTriggered tulajdonságnak. Az eseménykezelőt
+                //  JavaScript nyelven írjuk meg.
                 onTriggered: Qt.quit();
             }
         }
     }
 
-    /* Istantiating the MainForm control which contains everything in the main form,
+    /* Instantiating the MainForm control which contains everything in the main form,
         except the menu. */
+    // A MainForm elem példányosítása. Itt adjuk meg az ID-ját, a helyét (anchors),
+    //  valamint a signaljainak az eseménykezelőit.
     MainForm {
         id: mainFormControl
         anchors.fill: parent
 
         onResetCommand: {
-//            messageDialog.show(qsTr("Resetting robot simulator..."));
             resetCommandCpp();
         }
         onAccelerateCommand: {
-//            messageDialog.show(qsTr("Accelerating robot..."));
             accelerateCommandCpp();
         }
         onStopCommand: {
-//            messageDialog.show(qsTr("Stopping robot..."));
             stopCommandCpp();
         }
-
     }
 
-    MessageDialog {
+/*    MessageDialog {
         id: messageDialog
         title: qsTr("Default message...")
 
@@ -54,5 +61,5 @@ ApplicationWindow {
             messageDialog.text = caption;
             messageDialog.open();
         }
-    }
+    } */
 }

@@ -54,19 +54,6 @@ Item {
         }
     }
 
-    // Delegate: this is the appearance of a list item
-    Component {
-        id: stateDelegate
-        Row {
-            id: aState
-            Text { text: model.statusName }
-            Text { text: " X: " + model.x.toFixed(3) }
-            Text { text: " V: " + model.v.toFixed(3) }
-            Text { text: " A: " + model.a.toFixed(3) }
-        }
-    }
-
-
     GroupBox {
         id: currentValuesGB
         anchors.right: parent.right
@@ -85,6 +72,18 @@ Item {
             Text { text: " V: " + (currentState!=null ? currentState.v.toFixed(3) : "?") }
             Text { text: " A: " + (currentState!=null ? currentState.a.toFixed(3) : "?") }
             Text { text: " Light: " + (currentState!=null ? currentState.light.toString() : "?") }
+        }
+    }
+
+    // Delegate: this is the appearance of a list item
+    Component {
+        id: stateDelegate
+        Row {
+            id: aState
+            Text { text: model.statusName }
+            Text { text: " X: " + model.x.toFixed(3) }
+            Text { text: " V: " + model.v.toFixed(3) }
+            Text { text: " A: " + model.a.toFixed(3) }
         }
     }
 
