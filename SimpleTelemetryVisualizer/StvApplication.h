@@ -1,3 +1,4 @@
+#pragma once
 #ifndef STVAPPLICATION_H
 #define STVAPPLICATION_H
 #include <QApplication>
@@ -9,14 +10,14 @@
 #include "RobotStateHistory.h"
 
 /**
- * @brief Application class. main() instantiates it and runs it.
+ * @brief Alkalmazás osztály. A main() példányosítja és indítja el.
  *
- * Important constructions and signal linkings are performed in the constructor.
+ * A konstruktor elvégzi az alapvető példányosításokat és a signalok összekapcsolását.
  */
 class StvApplication : public QApplication
 {
 public:
-    /** Constructor. Important initialization is performed here. */
+    /** Konstruktor. Alapvető példányosítások és signal bekötések. */
     StvApplication(int argc, char *argv[]);
     ~StvApplication() = default;
 

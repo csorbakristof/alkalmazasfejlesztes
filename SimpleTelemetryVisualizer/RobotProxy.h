@@ -9,11 +9,10 @@ class RobotStateHistory;
 class Communication;
 
 /**
- * A proxy representation of the robot. It is used to send commands to the robot
- * and it can receive the messages from the robot and store them in the status history.
+ * A robot proxyja. Ezen kereszül lehet adatok küldeni és állapotjelzéseket fogadni a robottól.
+ * A korábbi állapotokat a kapott RobotStateHistory objektumban tárolja.
  *
- * The constructor connects the dataReady() slot to the communication and makes sure
- * that received data will be stored appropriately.
+ * A konstruktor köti a dataReady() slotot a kommunikációs objektumhoz és kezeli az adatfogadást.
  */
 class RobotProxy : public QObject
 {
@@ -21,44 +20,45 @@ class RobotProxy : public QObject
 
 public:
     /**
-     * @brief Constructor.
-     * @param history   The history container to use.
-     * @param communication The communication object used.
+     * @brief Konstruktor.
+     * @param history   A használandó RobotStateHistory példány.
+     * @param communication A használandó kommunikációs objektum.
      */
     RobotProxy(RobotStateHistory& history, Communication& communication);
     ~RobotProxy() = default;
 
     /**
-     * @brief Instructs the robot to reset itself.
+     * @brief Reseteli a robotot.
      */
     void reset();
 
     /**
-     * @brief Instructs the robot to accelerate.
+     * @brief Gyorsítási parancsot küld a robotnak.
      */
     void accelerate();
 
     /**
-     * @brief Instructs the robot to stop.
+     * @brief Megállási parancs a robotnak.
      */
     void stop();
 
 public slots:
     /**
-     * Called when a whole RobotState message has been received.
-     * Processes and stores the message.
+     * Akkor hívódik, ha új állapot érkezett a robottól.
+     * Feldolgozza és eltárolja az üzenetet.
      *
-     * This slot is connected to the communication object by the constructor.
+     * A konstruktor köti a kommunikációs objektum üzenet beérkezést jelző
+     * signaljához.
      *
-     * @param stream    The input data stream to read the RobotState from.
+     * @param stream    A bejövő adatfolyam, amiből az állapotot ki kell olvasni.
      */
     void dataReady(QDataStream& stream);
 
 private:
-    /** This is used to store all the states of the robot. */
+    /** A korábbi és aktuális állapotot tároló RobotStateHistory példány. */
     RobotStateHistory& history;
 
-    /** Communication object */
+    /** A kommunikációs objektum */
     Communication& communication;
 };
 

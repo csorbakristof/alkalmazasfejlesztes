@@ -30,7 +30,7 @@ void MainWindowsEventHandling::resetCommand()
 
 void MainWindowsEventHandling::historyChanged()
 {
-    // Reset model of history view to apply changes
+    // Ahhoz, hogy frissüljenek a QML oldali adatok, frissíteni kell a változók összekapcsolását.
     qmlContext.setContextProperty(QStringLiteral("historyModel"), QVariant::fromValue(history.stateList));
     qmlContext.setContextProperty(QStringLiteral("currentState"), QVariant::fromValue(history.currentState));
 
@@ -38,7 +38,7 @@ void MainWindowsEventHandling::historyChanged()
     qmlContext.setContextProperty(QStringLiteral("historyGraphVelocity"), QVariant::fromValue(history.graphVelocities));
     qmlContext.setContextProperty(QStringLiteral("historyGraphAcceleration"), QVariant::fromValue(history.graphAcceleration));
 
-    // Now the views can repaint themselves.
+    // Jelzünk a QML controloknak, hogy újrarajzolhatják magukat, beállítottuk az új értékeket.
     emit historyContextUpdated();
 }
 
@@ -46,12 +46,12 @@ QQuickItem* MainWindowsEventHandling::FindItemByName(QList<QObject*> nodes, cons
 {
     for(int i = 0; i < nodes.size(); i++)
     {
-        // search for node
+        // Node keresése
         if (nodes.at(i) && nodes.at(i)->objectName() == name)
         {
             return dynamic_cast<QQuickItem*>(nodes.at(i));
         }
-        // search in children
+        // Gyerekekben keresés
         else if (nodes.at(i) && nodes.at(i)->children().size() > 0)
         {
             QQuickItem* item = FindItemByName(nodes.at(i)->children(), name);
@@ -59,8 +59,8 @@ QQuickItem* MainWindowsEventHandling::FindItemByName(QList<QObject*> nodes, cons
                 return item;
         }
     }
-    // not found
-    return NULL;
+    // Nem találtuk.
+    return nullptr;
 }
 
 QQuickItem* MainWindowsEventHandling::FindItemByName(QObject *rootObject, const QString& name)
@@ -77,6 +77,6 @@ void MainWindowsEventHandling::ConnectQmlSignals(QObject *rootObject)
     }
     else
     {
-        qDebug() << "ERROR: Cannot find historyGraph object in the QML context.";
+        qDebug() << "HIBA: Nem találom a historyGraph objektumot a QML környezetben.";
     }
 }

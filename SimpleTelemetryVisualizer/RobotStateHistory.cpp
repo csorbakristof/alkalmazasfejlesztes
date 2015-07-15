@@ -15,7 +15,10 @@ void RobotStateHistory::Add(const RobotState& state)
     currentState = (RobotState*)newState.get(); // This has to be done before moving ownership
     container.push_back(std::move(newState));
 
-    // Assemble graph data set
+    // Összeállítjuk a grafikon számára az adatszerkezetet.
+    // Ezek a listák QList<int> típusú listák, amiket direkt arra hozunk létre, hogy a QML elemek
+    //  ezekből olvassák ki az adatokat, mivel erre a fenti container nem alkalmas. (Az std::vector
+    //  nem támogatja a Qt metaobject rendszerét.)
     graphTimestamps.clear();
     graphVelocities.clear();
     graphAcceleration.clear();
@@ -29,5 +32,6 @@ void RobotStateHistory::Add(const RobotState& state)
         graphAcceleration.append(currentState->a());
     }
 
+    // Jelezzük a history változását.
     emit historyChanged();
 }

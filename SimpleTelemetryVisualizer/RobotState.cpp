@@ -19,11 +19,11 @@ void RobotState::initStatusNames()
 {
     if (statusNames.empty())
     {
-        // Not yet initialized...
-        statusNames[(int)Status::Accelerate] = QString("Accelerate");
-        statusNames[(int)Status::Default] = QString("Default");
+        // Még nincsen inicializálva.
+        statusNames[(int)Status::Accelerate] = QString("Gyorsítás");
+        statusNames[(int)Status::Default] = QString("Alap");
         statusNames[(int)Status::Reset] = QString("Reset");
-        statusNames[(int)Status::Stopping] = QString("Stopping");
+        statusNames[(int)Status::Stopping] = QString("Megállás");
     }
 }
 
@@ -31,7 +31,6 @@ QString RobotState::getStatusName() const
 {
     auto it = statusNames.find((int)_status);
     Q_ASSERT(it != statusNames.end());
-//    qDebug() << "RobotState::getStatusName(): (int)_status " << (int)_status << ": " << it->second;
     return it->second;
 }
 
@@ -47,7 +46,6 @@ void RobotState::WriteTo(QDataStream& stream) const
 
 void RobotState::ReadFrom(QDataStream& stream)
 {
-    // Hogy adom vissza, az örökléshez pointer kell!
     qint32 tmpQint32;
     stream >> tmpQint32;
     _status = (Status)tmpQint32;

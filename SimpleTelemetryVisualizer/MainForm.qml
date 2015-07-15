@@ -181,6 +181,9 @@ Item {
                 //  itt pedig értéket adunk nekik. Az alábbi változókat (pl. historyGraphTimestamps)
                 //  szintén a MainWindowsEventHandling::historyChanged metódus teszi elérhetővé
                 //  a QML oldal számára.
+                // Ezek az értékek C++ oldalon folyamatosan változnak. Minden változás esetén
+                //  lefut a MainWindowsEventHandling::historyChanged és ezeket újraregisztrálja a QML
+                //  oldal számára, így frissülni fog a HistoryGraph tulajdonság is.
                 graphTimestamps: historyGraphTimestamps
                 graphVelocities: historyGraphVelocity
                 graphAccelerations: historyGraphAcceleration

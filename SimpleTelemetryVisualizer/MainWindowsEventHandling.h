@@ -12,77 +12,80 @@ class QQuickItem;
 class QQmlApplicationEngine;
 
 /**
- * The class containing the GUI event handlers.
+ * Ez az osztály tartalmazza a felhasználó felület (GUI) eseménykezelőit.
  *
- * Use it by assigning required components to the constructor and
- * connect the event handling slots to the corresponding signals of the GUI elements.
+ * A függőségeit a konstruktoron kereszül kapja meg és kapcsolódik a GUI
+ * signaljaihoz.
  *
- * Call ConnectQmlSignals() with the QML root object. The function will link the necessary
- *  notification signals towards the QML GUI.
+ * A ConnectQmlSignals() metódust meg kell hívni a QML gyökér objektummal, hogy
+ * a megfelelő signalokat be tudja kötni.
  */
 class MainWindowsEventHandling : public QObject
 {
     Q_OBJECT
 
 public:
-    /** Constructor
-     * @param robot Reference to the robot instance
-     * @param qmlContext    Reference to the QML context
-     * @param history   Reference to the robot state history instance.
+    /** Konstruktor
+     * @param robot A robot proxy példány
+     * @param qmlContext    A QML context objektum
+     * @param history   A használt RobotStateHistory objektum.
      */
     MainWindowsEventHandling(RobotProxy& robot, QQmlContext &qmlContext, RobotStateHistory &history);
 
     ~MainWindowsEventHandling() = default;
 
-    /** Connects the used QML signals. Call this after the QML environment is set up.
-     * @param rootObject    The QML root object of the user interface.
+    /** Csatlakoztatja a QML oldali signalokat. Az után kell meghívni, hogy a QML környezet felállt.
+     * @param rootObject    A QML gyökérelem.
      */
     void ConnectQmlSignals(QObject *rootObject);
 
 public slots:
-    /** Instructs the robot to accelerate. Event handler of the Accelerate button. */
+    /** Gyorsulási parancsot küld a robotnak. A gyorsítási nyomógomb eseménykezelője. */
     void accelerateCommand();
 
-    /** Instructs the robot to stop. Event handler of the Stop button. */
+    /** A Stop nyomógomb eseménykezelője. */
     void stopCommand();
 
-    /** Instructs the robot to reset itself. Event handler of the Reset button. */
+    /** A Reset nyomógomb eseménykezelője. */
     void resetCommand();
 
-    /** Indicates that the state history has changed. Typically due to data reception from the simulator.
-     * Updates the QML properties and notifies the controls via emitting historyContextUpdated().
+    /** Azt jelzi, hogy változott az állapot history. (Tipikusan mert új állapot érkezett a robottól.)
+     * Frissíti a QML számára elérhetővé tett, C++ oldali változókat (propertyket) és
+     * kiváltja a historyContextUpdated() signalt.
     */
     void historyChanged();
 
 signals:
-    /** Signal used to instruct the history graph (QML control) to redraw itself */
+    /** Jelzi, hogy változott a megjelenítés számára az adatmodell.
+     * Ilyenkor az érintett QML elemek (a grafikon) újrarajzolják magukat.
+     */
     void historyContextUpdated();
 
 private:
-    /** Internal reference to the robot to control. */
+    /** A használt robot proxy. */
     RobotProxy& robot;
 
-    /** \addtogroup References used for data binding
+    /** \addtogroup Hivatkozások adatkötéshez
      *  @{
      */
-    /** QML Context used for refreshing the robot data. */
+    /** QML context a robot adatok frissítéséhez. */
     QQmlContext &qmlContext;
-    /** Reference to the state history container. */
+    /** A history objektum. */
     RobotStateHistory &history;
     /** @}*/
 
-    /** Helper method to recursively locate QML items.
-     * Used by FindItemByName(QObject *rootObject, const QString& name).
-     * @param nodes List of nodes where to look for a QML object with given objectName
-     * @param name  The objectName to look for.
-     */
-    static QQuickItem* FindItemByName(QList<QObject*> nodes, const QString& name);
-
-    /** Helper method to recursively locate QML items.
-     * @param rootObject The QML root object to start the search with.
-     * @param name The objectName to look for.
+    /** Segédfüggvény QML elemek rekurzív megkeresésére.
+     * @param rootObject A QML gyökérelem, amivel a keresést kezdjük.
+     * @param name Az objectName (QML elemek tulajdonsága), amit keresünk.
      */
     static QQuickItem* FindItemByName(QObject *rootObject, const QString& name);
+
+    /** Segédfüggvény QML elemek rekurzív megkeresésére.
+     * A FindItemByName(QObject *rootObject, const QString& name) használja.
+     * @param nodes Azon node-ok listája, melyekben (rekurzívan) az adott nevű elemet keressük.
+     * @param name  Az objectName (QML elemek tulajdonsága), amit keresünk.
+     */
+    static QQuickItem* FindItemByName(QList<QObject*> nodes, const QString& name);
 };
 
 #endif // MAINWINDOWSEVENTHANDLING_H

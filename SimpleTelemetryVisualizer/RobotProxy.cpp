@@ -6,13 +6,14 @@
 RobotProxy::RobotProxy(RobotStateHistory& history, Communication &communication)
     : history(history), communication(communication)
 {
-    // We need to get notified if a new RobotState arrives.
+    // Jelzést kérünk, ha új robot állapot (RobotState) érkezik.
     QObject::connect(&communication, SIGNAL(dataReady(QDataStream&)), this, SLOT(dataReady(QDataStream&)));
 }
 
 void RobotProxy::dataReady(QDataStream &stream)
 {
-    // Robot state is received and written into history.
+    // Új robot állapto érkezett, elmentjük a historyba.
+    //  (Onnan vesszük majd azt is, hogy mi az aktuális állapot.)
     RobotState state;
     state.ReadFrom(stream);
     history.Add(state);
@@ -20,10 +21,11 @@ void RobotProxy::dataReady(QDataStream &stream)
 
 void RobotProxy::reset()
 {
+    // Reset parancs küldése.
     RobotState newState;
     newState.setStatus(RobotState::Status::Reset);
     communication.send(newState);
-    qDebug() << "Reset command sent to robot.";
+    qDebug() << "Reset parancs elküldve.";
 }
 
 void RobotProxy::accelerate()
@@ -32,7 +34,7 @@ void RobotProxy::accelerate()
     newState.setStatus(RobotState::Status::Accelerate);
     newState.setA(1);
     communication.send(newState);
-    qDebug() << "Accelerate command sent to robot.";
+    qDebug() << "Gyorsítási parancs elküldve.";
 }
 
 void RobotProxy::stop()
@@ -40,5 +42,5 @@ void RobotProxy::stop()
     RobotState newState;
     newState.setStatus(RobotState::Status::Stopping);
     communication.send(newState);
-    qDebug() << "Stop command sent to robot.";
+    qDebug() << "Stop parancs elküldve.";
 }

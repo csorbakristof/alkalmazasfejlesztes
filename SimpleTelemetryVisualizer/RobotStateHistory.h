@@ -2,13 +2,13 @@
 #ifndef ROBOTSTATEHISTORY_H
 #define ROBOTSTATEHISTORY_H
 #include <QtCore>
-//#include <QList>
 #include <memory>
 #include <vector>
 #include "RobotState.h"
 
 /**
- * @brief Stores the robot states as a history.
+ * @brief Visszamenőleg tárolja a robot állapotait,
+ * valamint innen lehet lekérdezni a legutóbbi érvényes állapotot is.
  */
 class RobotStateHistory : public QObject
 {
@@ -16,31 +16,32 @@ class RobotStateHistory : public QObject
 
 public:
     /**
-     * @brief Contructor.
+     * @brief Konstruktor.
      */
     RobotStateHistory();
     virtual ~RobotStateHistory() = default;
 
     /**
-     * List of states to be binded to the QML models.
-     * This list stores only pointers to objects owned by container.
+     * Állapotok listája, melyet a QML oldalhoz lehet kötni.
+     * Ez a lista csak pointereket tárol a container-ben lévő elemekre.
      *
-     * @warning This needs to be a QObject* list. Pointers to derived classes are not recognized by QML for proper data binding.
+     * @warning Ennek QObject* listának kell lennie. A leszármaztatott osztályokra
+     * mutató pointereket nem ismeri fel a QML adatkötés.
      */
     QList<QObject*> stateList;
 
-    /** Pointer to the most current state. Updated by add(). */
+    /** Mutató a legutolsó érvényes állapotra. Az add() frissíti. */
     RobotState *currentState;
 
-    /** This container handles the ownership of the elements referenced in stateList */
+    /** Ez a tároló tárolja ténylegesen az állapotokat. (Övé az ownership.) */
     std::vector<std::unique_ptr<RobotState>> container;
 
-    /** Adds a copy of the state to the end of the history. */
+    /** A paraméterül kapott állapot egy másolatát a history végéhez fűzi és aktuálissá teszi. */
     void Add(const RobotState& state);
 
-    /** \addtogroup Containers for direct visualization.
-     * They contain only the last shownStateNumber values.
-     * Updated by Add().
+    /** \addtogroup Tárolók a követlen megjelenítéshez.
+     * Csak a legutolsó shownStateNumber számú elemet tárolják.
+     * Az Add() frissíti.
      *  @{
      */
     QList<int> graphTimestamps;
@@ -48,11 +49,11 @@ public:
     QList<int> graphAcceleration;
     /** @}*/
 
-    /** The number of shown states. */
+    /** A megjelenítendő állapotok száma. */
     const int shownStateNumber = 20;
 
 signals:
-    /** Signal emitted upon Add(), as the history has changed. */
+    /** Add() után kiadott signal. */
     void historyChanged();
 };
 
