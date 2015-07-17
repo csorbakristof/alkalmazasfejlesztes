@@ -4,7 +4,8 @@
 #include <QTcpSocket>
 #include "Communication.h"
 
-/** TCP socket alapú kommunikációra kialakított leszármazottja az általános
+/**
+ * @brief TCP socket alapú kommunikációra kialakított leszármazottja az általános
  * Communication osztálynak.
  *
  * A leszármazott osztályain keresztül érdemes használni.

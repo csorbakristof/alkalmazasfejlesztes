@@ -14,6 +14,9 @@
 // Azon belül: http://sourceforge.net/projects/com0com/
 // (Win8 alatt nekem nem települt fel... :( )
 
+/**
+ * @brief Soros port kommunikáció
+ */
 class CommunicationSerialPort : public Communication
 {
 public:

@@ -3,7 +3,7 @@
 #define COMMUNICATIONTCPSOCKETCLIENT_H
 #include "CommunicationTcpSocket.h"
 
-/** QTcpSocket alapú kommunikáció kliens oldala. */
+/** @brief QTcpSocket alapú kommunikáció kliens oldala. */
 class CommunicationTcpSocketClient : public CommunicationTcpSocket
 {
 public:

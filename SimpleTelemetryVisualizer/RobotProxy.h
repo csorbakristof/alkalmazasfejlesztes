@@ -9,7 +9,9 @@ class RobotStateHistory;
 class Communication;
 
 /**
- * A robot proxyja. Ezen kereszül lehet adatok küldeni és állapotjelzéseket fogadni a robottól.
+ * @brief A robot proxyja.
+ *
+ * Ezen kereszül lehet adatok küldeni és állapotjelzéseket fogadni a robottól.
  * A korábbi állapotokat a kapott RobotStateHistory objektumban tárolja.
  *
  * A konstruktor köti a dataReady() slotot a kommunikációs objektumhoz és kezeli az adatfogadást.

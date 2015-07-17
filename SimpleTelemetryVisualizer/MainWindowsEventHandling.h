@@ -12,7 +12,7 @@ class QQuickItem;
 class QQmlApplicationEngine;
 
 /**
- * Ez az osztály tartalmazza a felhasználó felület (GUI) eseménykezelőit.
+ * @brief Ez az osztály tartalmazza a felhasználó felület (GUI) eseménykezelőit.
  *
  * A függőségeit a konstruktoron kereszül kapja meg és kapcsolódik a GUI
  * signaljaihoz.

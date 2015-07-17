@@ -6,7 +6,9 @@
 #include <QDateTime>
 #include <QAbstractSocket>
 
-/** Stream alapú kommunikációs ősosztály.
+/**
+ * @brief Stream alapú kommunikációs ősosztály.
+ *
  * Példányosítás után a connectToDevice metódussal lehet a belső
  * adatfogadási streamet az eszközhöz csatlakoztatni.
 */

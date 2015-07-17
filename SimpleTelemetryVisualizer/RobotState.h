@@ -103,25 +103,20 @@ public:
     QString getStatusName() const;
 
 signals:
-    /** @name Ezeket a signalokat most nem használjuk */
-    /**@{*/
+    // Ezeket a signalokat most nem használjuk */
     void statusChanged();
     void timestampChanged();
     void xChanged();
     void vChanged();
     void aChanged();
     void lightChanged();
-    /**@}*/
 
 private:
     Status _status;
     qint64 _timestamp;
-    /**@{*/
-    /** Fizikai állapothatározók */
     float _x;   /** Pozíció (m) */
     float _v;   /** Sebesség (m/s) */
     float _a;   /** Gyorsulás (m/s2) */
-    /**@}*/
     qint8 _light;
 
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
