@@ -1,3 +1,4 @@
+#pragma once
 #ifndef COMMUNICATIONTCPSOCKETCLIENT_H
 #define COMMUNICATIONTCPSOCKETCLIENT_H
 #include "CommunicationTcpSocket.h"

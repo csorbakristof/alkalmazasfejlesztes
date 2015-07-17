@@ -1,4 +1,7 @@
-# Architektúra áttekintés
+@mainpage
+@tableofcontents
+
+@section Architektura Architektúra áttekintés
 
 A Simple Telemetry Visualizer (STV) alkalmazás három fő részből áll:
 
@@ -6,13 +9,13 @@ A Simple Telemetry Visualizer (STV) alkalmazás három fő részből áll:
    * Felhasználói felület: QML alapú megjelenítése a vezérlő nyomógomboknak, valamint az aktuális és korábbi állapotoknak.
    * Kommunikáció: TCP/IP alapú kommunikáció a szimulációval. Kialakítása miatt könnyű az átállás más, péládul Bluetooth alapú kommunikációra. A kommunikációs adatcsomagok egyetlen osztály példányait küldik mindkét irányba (RobotState), ebben továbbítódnak a konkrét állapotok és a parancsok is.
 
-## StvApplication: az alkalmazás osztály
+@section StvApplication StvApplication: az alkalmazás osztály
 
 Az StvApplication osztály egyetlen példányát hozza létre a main() függvény. A konstruktor létrehozza a további objektum példányokat, összekapcsolja őket. A main() függvény ezután elindítja a Qt fő eseménykezelő ciklusát.
 
 Az StvApplication környezetét az alábbi osztálydiagram ábrázolja:
 
-![Main class diagram](diagrams/main_ClassDiagram.png)
+![](diagrams/main_ClassDiagram.png)
 
 A CommunicationTcpSocket példánya felelős minden kommunikációért a kliens irányból (a másik a szimulátor, mely a mélyén tartalmaz egy CommunicationTcpSocketServer objektumot).
 
@@ -24,11 +27,11 @@ A RobotStateHistory-t a RobotProxy használja az aktuális és korábbi állapot
 
 A MainWindowsEventHandling felelős minden a felhasználói felületet érintő esemény lekezeléséért. Hozzá futnak be a GUI nyomógombjainak eseményei és a RobotStateHistory változásáról tájékoztató signal is.
 
-## Kommunikáció 
+@section Kommunikacio Kommunikáció 
 
 A kommunikációért felelős osztályok egy általános kommunikációs interfészre (Communication osztály) épülnek. Ezt egészítik ki egy TCP/IP socket használatára, melynek két alesete van: a szerver és a kliens oldal. Ezt az alábbi osztály diagram szemlélteti:
 
-![Communication class diagram](diagrams/communication_ClassDiagram.png)
+![](diagrams/communication_ClassDiagram.png)
 
 A Communication bizonyos műveleteket (isConnected, sendBufferContent) még csak absztrakt metódus formájában tartalmaz. A működési alapelve, hogy a send() metódussal bármilyen objektumot ki lehet írni a küldési bufferbe, amire értelmezett az operator<< QDataStream-re. A send() metúdus ennek segítségével sorosítja az üzenet objektumot, majd a sendBufferContent() metódussal elküldi azt. Ebből a folyamatból csak a sendBufferContent() az, ami függ a tényleges kommunikációs implementációtól, így az itt még absztrakt.
 
@@ -52,15 +55,19 @@ A kommunikáció mélyén lévő QTcpSocket a kliens dataReceived slotján keres
 
 Amennyiben egy teljes adatcsomag átjött, a RobotProxy ezt kiolvassa (ehhez létrehoz egy új RobotState példányt), majd azt továbbítja a RobotStateHistory példányának. A history pedig ezt egyrészt elmenti, másrészt a historyChange signal segítségével jelez a felhasználói felületnek, hogy frissíteni kell a megjelenítést.
 
-## Robot reprezentáció
+Végezetül még a kommunikációval kapcsolatos signal-slot hálózat képe az alábbi:
+
+![](diagrams/StvSignalMap_Comm.png)
+
+(Az ábrán négyzetekben láthatók az érintett objektumok, bal oldalukon a slotjaik, jobb oldalon pedig a signaljaik, valamint ezek kapcsolatai.)
+
+@section Robot Robot reprezentáció
 
 A robot reprezentációját az alábbi osztály diagram foglalja össze:
 
 ![Robot class diagram](diagrams/robot_ClassDiagram.png)
 
 A RobotProxy felelős a kliens többi része felé a kapcsolattartásért.
-
-xxxxx TODO: RobotProxy.dataReady() hova van bekötve???
 
 A robot pillanatnyi állapotát a RobotState osztály írja le. (A szimulátornak egyetlen RobotState osztály példánya van és mindent az alapján szimulál.) Feladata csak az információ tárolás.
 
@@ -70,7 +77,19 @@ A RobotStateHistory három formában is tárol RobotState-et:
   * currentState: egy pointer az aktuális állapotra. Mivel az ownership a containeré, ezért ha változik az aktuális állapot, ezt a pointert nyugodtan át lehet állítani bármi egyéb teendő nélkül.
   * stateList: egy pointer lista a container minden elemére. Erre azért van szükség, mert a QML megjelenítés csak ilyen listához tud adatkötést felépíteni, a unique_ptr vectorhoz nem. 
 
-## Felhasználói felület
+A robot reprezentációért felelős osztályok signal-slot hálózata az alábbi:
+
+![](diagrams/StvSignalMap_App.png)
+
+@section Szimulator A szimulátor
+
+A szimulátort a Simulator osztály foglalja magába, mely belül egy CommunicationTcpSocketServer és egy RobotState objektumra támaszkodik. Minden bejövő üzenetet azonnal feldolgoz és egy QTimer segítségével periodikusan lefuttatja a szimulációt. Minden szimulációs lépés után elküldi az állapotát.
+
+A kapcsolódó signal-slot hálózat az alábbi:
+
+![](diagrams/StvSignalMap_Sim.png)
+
+@section UI Felhasználói felület
 
 Az alkalmazás felhasználói felülete egy QML alapú GUI, melyben a QML oldal felelős az adatkötésért a RobotStateHistory felé, az ottani változások esetén a megjelenítés frissítéséért (RobotStateHistory.historyChanged signal), valamint a menük és nyomógombok kezeléséért.
 
@@ -81,3 +100,4 @@ A Reset nyomógomb megnyomása esetét mutatja be a következő szekvencia diagr
 A QML oldalon a resetBtn nyomógomb eseményét a mainFormControl resetCommand slotja kapja meg (onResetCommand), mely tovább küldi azt a resetCommandCpp signal formájában, ami már a C++ oldalon van bekötve a MainWindowsEventHandling resetCommand slotjába. Az itteni eseménykezelő meghívja a robotProxy.reset() metódust, ami pedig összeállítja a reset parancsot a robot számára és elküldi a Communication send() metódusával.
 
 A többi nyomógomb ehhez hasonlóan működik.
+

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 #include <QObject>
@@ -7,6 +8,7 @@
 
 /**
  * @brief A robot szimulátor.
+ *
  * Van egy belső, RobotState típusú állapota, melyet egy QTimer segítségével periodikusan frissít.
  * Létrehoz egy CommunicationTcpSocketServer objektumot a kommunikációhoz, amihez lehet csatlakozni.
  * Minden szimulációs lépés után elküldi az állapotát.

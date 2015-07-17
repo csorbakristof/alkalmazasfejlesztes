@@ -11,7 +11,7 @@
  * A robottól érkezve az aktuális állapotot képviseli, míg az ellenkező irányba küldve
  *  parancsként a kívánt állapotot írja le.
  *
- * A history ilyen objektumoko sorozata.
+ * A history ilyen objektumok sorozata.
  */
 class RobotState : public QObject
 {
@@ -103,21 +103,25 @@ public:
     QString getStatusName() const;
 
 signals:
-    /** \addtogroup (Most nem használt) signalok a tulajdonságok változásairól.
-     *  @{
-     */
+    /** @name Ezeket a signalokat most nem használjuk */
+    /**@{*/
     void statusChanged();
     void timestampChanged();
     void xChanged();
     void vChanged();
     void aChanged();
     void lightChanged();
-    /** @}*/
+    /**@}*/
 
 private:
     Status _status;
     qint64 _timestamp;
-    float _x,_v,_a;
+    /**@{*/
+    /** Fizikai állapothatározók */
+    float _x;   /** Pozíció (m) */
+    float _v;   /** Sebesség (m/s) */
+    float _a;   /** Gyorsulás (m/s2) */
+    /**@}*/
     qint8 _light;
 
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
