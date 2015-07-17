@@ -17,7 +17,7 @@ Communication::~Communication()
 
 void Communication::connectToDevice(QIODevice *device)
 {
-    // Connect receive stream
+    // A fogadási adatfolyam csatlakozatotása az eszközhöz (pl. sockethez)
     if (receiveStream != nullptr)
     {
         delete receiveStream;
@@ -37,26 +37,27 @@ QDataStream *Communication::getReceiveStream()
 
 void Communication::dataReceived()
 {
-    // Read as long as a whole message is received. After that, emit Communication::dataReady signal.
+    // Addig olvasunk, amíg nem jön meg egy egész üzenet.
+    //  Utána kiadunk egy Communication::dataReady signalt.
     QDataStream &inStream = *getReceiveStream();
     QIODevice *socket = inStream.device();
 
-    // It's a new block
     if (currentMessageSize == 0) {
-        /* Még nem tudjuk a csomag méretét... */
-        // There's not enough bytes arrived to determine the size
+        // Új üzenet kezdődik
+        // Még nem tudjuk a csomag méretét
         if (socket->bytesAvailable() < (int) sizeof(qint32)) {
-            /* Még a csomag mérete sem jött meg. */
+            // Még a csomag mérete sem jött meg.
             return;
         }
 
-        // Computing blockSize
+        // Üzenet hosszának beolvasása
         inStream >> currentMessageSize;
     }
-    /* Már tudjuk a csomag méretét. */
+
+    // Már tudjuk a csomag méretét.
 
     if (socket->bytesAvailable() < (int) (currentMessageSize - sizeof(qint32))) {
-        /* Nem jött még meg az egész csomag. */
+        // Nem jött még meg az egész csomag.
         return;
     }
 
@@ -64,7 +65,7 @@ void Communication::dataReceived()
      * Tömb esetében a QVector úgy szerializálja ki magát, hogy abban benne van a méret is. */
     emit dataReady(inStream);
 
-    // Maybe we got the first bytes of a next packet
+    // Lehet, hogy még egy következő üzenet elejét is megkaptuk.
     currentMessageSize = 0;
     if (socket->bytesAvailable() > 0) {
         /* A QTimer-t használva még egyszer belelövünk

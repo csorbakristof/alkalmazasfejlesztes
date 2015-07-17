@@ -27,7 +27,7 @@ void CommunicationSerialPort::connect()
         return;
     }
 
-    // Connect receive stream
+    // A foradási adatfolyam csatlakoztatása
     if (receiveStream != nullptr)
     {
         delete receiveStream;
@@ -35,7 +35,7 @@ void CommunicationSerialPort::connect()
     receiveStream = new QDataStream(&serialPort);
     QObject::connect(&serialPort, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
-    qDebug() << "Serial port opened, receive data stream connected.";
+    qDebug() << "Soros port nyitva, adatfogadás készen áll.";
 }
 
 bool CommunicationSerialPort::isConnected() const
@@ -47,11 +47,11 @@ void CommunicationSerialPort::sendBufferContent()
 {
     if (!isConnected())
     {
-        emit errorOccurred(QString("ERROR: Tried to send data with serial port not open."));
+        emit errorOccurred(QString("HIBA: Küldésnél nincs nyitva a soros port."));
         return;
     }
 
-    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bytes:\n" << sendBuffer.toHex();
+    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bájt:\n" << sendBuffer.toHex();
     serialPort.write(sendBuffer);
     sendBuffer.clear();
 }
@@ -59,6 +59,5 @@ void CommunicationSerialPort::sendBufferContent()
 void CommunicationSerialPort::handleError(QSerialPort::SerialPortError error)
 {
     Q_UNUSED(error);
-    // Emit signal with error string.
     emit this->errorOccurred(serialPort.errorString());
 }

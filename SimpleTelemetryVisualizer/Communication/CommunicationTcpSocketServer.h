@@ -1,38 +1,38 @@
+#pragma once
 #ifndef COMMUNICATIONTCPSOCKETSERVER_H
 #define COMMUNICATIONTCPSOCKETSERVER_H
 #include <QTcpServer>
 #include "CommunicationTcpSocket.h"
 
 /**
- * @brief TCP/IP socket server.
+ * @brief TCP/IP szerver socket.
  *
- * After instantiation, it listens to the given port and accepts new connections.
- * New connections are automatically handled.
+ * Inicializálása után a megadott porton hallgatózik és fogadja az új kapcsolatokat.
  *
- * @warning After instantiation, do not forget to connect the signals inherited from Communication.
+ * @warning Inicializálás után be kell kötni a Communication-től örökölt signalokat, hogy
+ * a bejövő üzenetekről értesítést adjon.
  */
 class CommunicationTcpSocketServer : public CommunicationTcpSocket
 {
     Q_OBJECT
 
 public:
-    /** Constructor */
+    /** Konstruktor */
     CommunicationTcpSocketServer(int port);
-    ~CommunicationTcpSocketServer() = default;
+    virtual ~CommunicationTcpSocketServer() = default;
 
 private:
-    /** Underlying server socket instance. */
+    /** A belső QTcpServer példány. */
     QTcpServer serverSocket;
 
 private slots:
-    /** Server socket received new connection.
-     * Links data reception signal, enables send and sets connected status
-     * This slot is connected by the ctor.
+    /** A szerver sockethez új kapcsolatot érkezett.
+     * Beköti az adatfogadási signalt és előkészíti az adat fogadást.
+     * Ezt a slotot a konstruktor köti be.
      */
     void newConnection();
 
-    /** Client has disconnected. */
-    // TODO: disconnect client socket, suspend send functions, unlink data reception signal
+    /** A kapcsolat lezárult. */
     void disconnected();
 };
 

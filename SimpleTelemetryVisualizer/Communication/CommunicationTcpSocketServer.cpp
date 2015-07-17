@@ -5,12 +5,12 @@ CommunicationTcpSocketServer::CommunicationTcpSocketServer(int port)
 {
     if (!serverSocket.listen(QHostAddress::Any, port))
     {
-        qWarning() << "Failed to open server socket: ";
+        qWarning() << "Nem sikerült megnyitni a szerver socketet: ";
         qWarning() << serverSocket.errorString();
     }
     else
     {
-        qWarning() << "Server socket is now waiting for connection.\n";
+        qWarning() << "A szerver socket kapcsolatra vár.";
     }
 
     connect(&serverSocket, SIGNAL(newConnection()), this, SLOT(newConnection()));
@@ -18,20 +18,18 @@ CommunicationTcpSocketServer::CommunicationTcpSocketServer(int port)
 
 void CommunicationTcpSocketServer::newConnection()
 {
-    // TODO: do not fail if there is already an open connection!
     QTcpSocket *newSocket = serverSocket.nextPendingConnection();
     if (newSocket)
     {
         if (newSocket->isOpen()) {
             connect(newSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
         }
-        // Connect new socket to underlying layers.
         setSocket(newSocket);
-        qWarning() << "New connection established.\n";
+        qWarning() << "Új kapcsolat létesült.\n";
     }
 }
 
 void CommunicationTcpSocketServer::disconnected()
 {
-    qWarning() << "Server side client socket was disconnected.\n";
+    qWarning() << "A szerver oldali socket lezáródott.";
 }

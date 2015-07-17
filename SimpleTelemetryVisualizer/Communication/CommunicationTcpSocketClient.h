@@ -2,21 +2,20 @@
 #define COMMUNICATIONTCPSOCKETCLIENT_H
 #include "CommunicationTcpSocket.h"
 
-/** Client side for TcpSocket based communication. */
+/** QTcpSocket alapú kommunikáció kliens oldala. */
 class CommunicationTcpSocketClient : public CommunicationTcpSocket
 {
 public:
-    /** Constructor */
+    /** Konstruktor */
     CommunicationTcpSocketClient();
 
-    /** Destructor */
-    ~CommunicationTcpSocketClient() = default;
+    virtual ~CommunicationTcpSocketClient() = default;
 
-    /** Connect client to a server on given URL and port. */
+    /** Kapcsolat felépítése. */
     void connect(QString url, int port);
 
 private:
-    /** The underlying QTcpSocket instance. */
+    /** A belső QTcpSocket példány. */
     QTcpSocket socket;
 
 };

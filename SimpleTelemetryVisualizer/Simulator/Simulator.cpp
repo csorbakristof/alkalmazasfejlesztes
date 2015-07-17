@@ -3,7 +3,9 @@
 Simulator::Simulator(int port)
     : communication(port), state()
 {
+    // Fogadni akarjuk a parancsokat
     connect(&communication, SIGNAL(dataReady(QDataStream&)), this, SLOT(dataReady(QDataStream&)));
+    // Periodikusan futnia kell a szimulációnak
     connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
 }
 
@@ -21,7 +23,7 @@ void Simulator::start(float intervalSec)
 
 void Simulator::tick()
 {
-    // Physical simulation
+    // Fizikai szimuláció
     state.setTimestamp(state.timestamp() + dt);
     state.setX(state.x() + state.v()*dt);
     state.setV(state.v() + state.a()*dt);
@@ -37,13 +39,13 @@ void Simulator::tick()
 
     state.setLight( state.v()==10.0F ? 1.0F : 0.0F );
 
-    // Simulate robot higher functions
+    // Magasabb szintű funkciók
     switch(state.status())
     {
     case RobotState::Status::Default:
         break;
     case RobotState::Status::Reset:
-        qDebug() << "Resetting simulator.";
+        qDebug() << "Simulator: Reset";
         state.setStatus(RobotState::Status::Default);
         state.setX(0.0F);
         state.setV(0.0F);
@@ -53,48 +55,48 @@ void Simulator::tick()
     case RobotState::Status::Stopping:
         if (state.v() > 1.5F)
         {
-            qDebug() << "Answering stop command: quick decelerating";
+            qDebug() << "Simulator: Stop parancs, gyors lassítás";
             state.setA(-1.0F);
         }
         else if (state.v() > 0.1F)
         {
-            qDebug() << "Answering stop command: slow decelerating";
+            qDebug() << "Simulator: Stop parancs, lassú lassítás";
             state.setA(-0.05F);
         }
         else if (state.v() < -1.5F)
         {
-            qDebug() << "Answering stop command: quick accelerating to stop reverse movement";
+            qDebug() << "Simulator: Stop parancs, gyorsítás előre";
             state.setA(1.0F);
         }
         else if (state.v() < -0.1F)
         {
-            qDebug() << "Answering stop command: slow accelerating to stop reverse movement";
+            qDebug() << "Simulator: Stop parancs, lassú gyorsítás előre";
             state.setA(0.05F);
         }
         else
         {
-            // Almost stopped
-            qDebug() << "Stopped.";
+            // Majdnem megállt
+            qDebug() << "Simulator: Megállt.";
             state.setStatus(RobotState::Status::Default);
             state.setA(0.0F);
         }
         break;
     case RobotState::Status::Accelerate:
-        // Note: acceleration was already set upon command reception
-        qDebug() << "ERROR: Simulator should not have got into (Status::Accelerate).";
+        // Megjegyzés: a gyorsulás kért értékét már a parancs fogadásakor beállítottuk
+        qDebug() << "HIBA: A szimulátor nem kerülhetne a Status::Accelerate állapotba.";
         break;
     default:
         Q_UNREACHABLE();
     }
 
-    qDebug() << "Simulator tick (" << state.timestamp()
-             << "): status=" << state.getStatusName()
+    qDebug() << "Simulator: tick (" << state.timestamp()
+             << "): állapot=" << state.getStatusName()
              << ", x=" << state.x()
              << ", v=" << state.v()
              << ", a=" << state.a()
-             << ", light:" << state.light();
+             << ", lámpa:" << state.light();
 
-    // Send results
+    // Állapot küldése
     if (communication.isConnected())
     {
         communication.send(state);
@@ -103,26 +105,24 @@ void Simulator::tick()
 
 void Simulator::dataReady(QDataStream &inputStream)
 {
-    // TODO: check message size and framing
-
     RobotState receivedState;
     receivedState.ReadFrom(inputStream);
 
     switch(receivedState.status())
     {
     case RobotState::Status::Default:
-        qDebug() << "Simulator: OK command received. Well, yes, I am OK, thanks.";
+        qDebug() << "Simulator: OK parancs. Igen, minden OK, köszönöm!";
         break;
     case RobotState::Status::Reset:
-        qDebug() << "Simulator: Reset command received.";
+        qDebug() << "Simulator: Reset parancs.";
         state.setStatus(RobotState::Status::Reset);
         break;
     case RobotState::Status::Stopping:
-        qDebug() << "Simulator: Stopping command received.";
+        qDebug() << "Simulator: Stop parancs.";
         state.setStatus(RobotState::Status::Stopping);
         break;
     case RobotState::Status::Accelerate:
-        qDebug() << "Simulator: Accelerate command received. Acceleration set.";
+        qDebug() << "Simulator: Gyorsítási parancs.";
         state.setStatus(RobotState::Status::Default);
         state.setA(receivedState.a());
         break;

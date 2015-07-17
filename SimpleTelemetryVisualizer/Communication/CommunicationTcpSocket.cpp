@@ -4,12 +4,11 @@
 CommunicationTcpSocket::CommunicationTcpSocket()
     : Communication(), socket(nullptr)
 {
-    // TODO: Connect base classes slots to the socket.
 }
 
 void CommunicationTcpSocket::setSocket(QTcpSocket *newSocket)
 {
-    // Connect slots to the new socket.
+    // Slotok csatlakoztatása az új sockethez
     if (socket != nullptr && newSocket != socket)
     {
         QObject::disconnect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(CommunicationTcpSocket::handleError(QAbstractSocket::SocketError)));
@@ -19,7 +18,7 @@ void CommunicationTcpSocket::setSocket(QTcpSocket *newSocket)
     QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
     QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
-    // Connect underlying layer to the socket.
+    // Alsóbb réteg (ősosztály) csatlakoztatása a sockethez
     Communication::connectToDevice(socket);
 }
 
@@ -44,25 +43,22 @@ void CommunicationTcpSocket::sendBufferContent()
 {
     if (socket == nullptr)
     {
-        emit errorOccurred(QString("ERROR: Tried to send data without a valid socket."));
+        emit errorOccurred(QString("HIBA: Adatküldés socket nélkül."));
         return;
     }
     if (!isConnected())
     {
-        qDebug() << "ERROR: Tried to send data with socket not connected.";
-        emit errorOccurred(QString("ERROR: Tried to send data with socket not connected."));
+        emit errorOccurred(QString("HIBA: Adatküldés nyitott socket nélkül."));
         return;
     }
 
-    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bytes:\n" << sendBuffer.toHex();
+    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bájt:\n" << sendBuffer.toHex();
     socket->write(sendBuffer);
     sendBuffer.clear();
 }
 
 void CommunicationTcpSocket::handleError(QAbstractSocket::SocketError socketError)
 {
-    // Do not use socketError variable.
     Q_UNUSED(socketError)
-    // Emit signal with error string.
     emit this->errorOccurred(socket->errorString());
 }

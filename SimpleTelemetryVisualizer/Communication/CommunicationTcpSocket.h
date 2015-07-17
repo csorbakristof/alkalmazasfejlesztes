@@ -4,42 +4,44 @@
 #include <QTcpSocket>
 #include "Communication.h"
 
-/** TCP socket based functions extending Communication.
- * Use derived classes ...Client and ...Server to use it.
- * Note: does not own a QTcpSocket. Use setSocket to set it. (Derived classes should handle that internally.) */
+/** TCP socket alapú kommunikációra kialakított leszármazottja az általános
+ * Communication osztálynak.
+ *
+ * A leszármazott osztályain keresztül érdemes használni.
+ * Megjegyzés: a leszármaztatott osztályok használjál a setSocket metódust
+ * az örökölt belső socket csatlakoztatására. */
 class CommunicationTcpSocket : public Communication
 {
     Q_OBJECT
 
 public:
-    /** Constructor */
+    /** Konstruktor */
     CommunicationTcpSocket();
-    ~CommunicationTcpSocket() = default;
+    virtual ~CommunicationTcpSocket() = default;
 
     /**
-     * @brief Set the socket to be used.
-     * @param newSocket The socket to use.
-     *
-     * Use nullptr to disconnect signals from the socket.
+     * @brief Beállítja a használt socketet.
+     * @param newSocket Az új socket, amihez az adat fogadást csatlakoztatni kell.
+     *  nullptr esetén leválasztja a signalokat a belső socketről.
      */
     void setSocket(QTcpSocket *newSocket);
 
-    /** Returns connection status. */
+    /** Visszaadja, hogy van-e kapcsolat. */
     virtual bool isConnected() const override;
 
-    /** Disconnect the used socket. */
+    /** Kapcsoat bontása. */
     void disconnect();
 
 protected:
-    /** Sends the content of the internal buffer through the socket. */
+    /** A belső küldési buffer tartalmát elküldi. Akkor kell meghívni, miután az üzenet bekerült a bufferbe. */
     virtual void sendBufferContent() override;
 
 private:
-    /** Pointer to the underlying socket. May be null if there is currently none. */
+    /** Ha van felépült kapcsolat, arra mutató pointer. Egyébként nullptr. */
     QTcpSocket *socket;
 
 private slots:
-    /** Forwards signal to errorOccurred. */
+    /** Továbbítja a hibajelzést. */
     void handleError(QAbstractSocket::SocketError socketError);
 };
 

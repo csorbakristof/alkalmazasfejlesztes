@@ -22,7 +22,7 @@ public:
             QSerialPort::DataBits dataBits,
             QSerialPort::Parity parity,
             QSerialPort::StopBits stopBits);
-    ~CommunicationSerialPort() = default;
+    virtual ~CommunicationSerialPort() = default;
 
     virtual void connect();
     virtual bool isConnected() const override;

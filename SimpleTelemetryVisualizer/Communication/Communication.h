@@ -6,94 +6,96 @@
 #include <QDateTime>
 #include <QAbstractSocket>
 
-/** Stream based communication functions.
- * After creation, use connectToDevice to connect the receiving dats stream.
- * (You may call connectToDevice multiple times.)
+/** Stream alapú kommunikációs ősosztály.
+ * Példányosítás után a connectToDevice metódussal lehet a belső
+ * adatfogadási streamet az eszközhöz csatlakoztatni.
 */
 class Communication : public QObject
 {
     Q_OBJECT
 
 public:
-    /** Constructor */
+    /** Konstruktor */
     Communication();
-    /** Destructor */
-    ~Communication();
+    virtual ~Communication();
 
-    /** Connects to a device. It may be a QTcpSocket for example. */
+    /** Csatlakozás egy eszközhöz (Pl. QTcpSocket), amit használni fog. */
     void connectToDevice(QIODevice *device);
 
-    /** Returns connection status. */
+    /** Visszaadja, hogy van-e nyitott kapcsolat. */
     virtual bool isConnected() const = 0;
 
-    /** Returns the stream used to receive data. */
+    /** Visszaad egy pointert az adatfogadási folyamra. */
     QDataStream *getReceiveStream();
 
-    /** Writes the object content to the sendBuffer
-     * and calls sendBufferContent().
+    /** Egy objektum tartalmát elküldi: kiírja a sendBuffer-be, majd meghívja
+     * a sendBufferContent() metódust.
      *
-     * This method enables sending any class that has operator<< for QDataStream.
-     * This way, no base class for the valid parameters is required.
+     * Ezzel a metódussal minden olyan objektumot el lehet küldeni, amit az operator<<
+     * segítségével bele lehet írni egy QDataStreambe, vagyis értelmezett rá ez a művelet.
+     * Megjegyzés: így nem kell egy ősosztály, amiből az elküldhető osztályoknak származnia kell.
      */
     template<typename T>
     void send(const T& toSendObject)
     {
-        // TODO: check connection status
         auto stream = getSendStream();
 
-        // Store start position in stream to calculate message size
+        // Elmentjük a jelenlegi stream pozíciót
         const qint64 startPos = stream->device()->size();
         qint32 msgSize = 0;
-        // Temporally, write 0 message size.
-        // We will come back here and set the correct value
-        //  after serialization is complete.
+        // Ideiglenesen az elejére méretnek 0-t írunk. Majd
+        //  ha már le tudjuk mérni az üzenet hosszát, visszajövünk ide és
+        //  beírjuk a tényleges értéket.
         *stream << msgSize;
-        // Send ID, timestamp and value
+        // A tényleges adattartalom sorosítása
         *stream << toSendObject;
         const qint64 endPos = stream->device()->size();
 
-        // Jump back to the beginning and write the correct message size.
+        // Visszaugrunk és beírjuk a helyes üzenet méretet.
         stream->device()->seek(startPos);
         msgSize = endPos - startPos;
         *stream << msgSize;
-        // Jump to the end of the serialized data stream.
+        // Visszaugrunk az üzenet végére
         stream->device()->seek(endPos);
 
-        // Send the data (w.r.t. the used protocol)
+        // Ténylegesen elküldjük az üzenetet.
+        //  (Ez absztrakt metódus, majd minden protokoll implementálja, ahogy kell.)
         sendBufferContent();
     }
 
 signals:
-    /** Indicates an error in the communication. */
-    // A socket a handleError-on kereszül emittálja.
+    /** Hibajelzés. */
+    // Ezt majd minden protokoll megfelelően beköti.
     void errorOccurred(const QString&);
 
-    /** A whole message has been received. */
+    /** Egy teljes üzenet megérkezett. */
     void dataReady(QDataStream& stream);
 
 protected:
-    /** Reception stream initialized in connectToDevice. */
+    /** Az adat fogadási stream. A connectToDevice() állítja be. */
     QDataStream *receiveStream;
 
-    /** Send buffer accessed via currentSendStream. Use getSendStream to access it. */
+    /** Tényleges küldés előtt ide kerül be minden küldendő adat.
+     * A getSendStream() metódussal lehet elérni. */
     QByteArray sendBuffer;
 
-    /** Returns a stream. Data written to it will be sent by sendBufferContent().
-     * Use send() to send data and commands. This is only used by sendValue internally. */
+    /** Visszaad egy streamet, ami a tényleges adatküldéshez a sendBuffer-be beírja a
+     * küldendő adatokat. Utána már csaa a sendBufferContent() metódust kell meghívni.
+     * Kívülről a send() metódust kell használni, az tovább hív ide. */
     // TODO: can we send correctly if the stream is already distroyed when calling send() ?!
     std::unique_ptr<QDataStream> getSendStream();
 
-    /** Really send all data serialized into sendBuffer earlier. Derived classes
-     * have to override this to send the data w.r.t. the protocol. */
+    /** Ténylegesen elküldi a sendBuffer tartalmát. A leszármazott osztályoknak a
+     * protokolljuknak megfelelően kell implementálniuk. */
     virtual void sendBufferContent() = 0;
 
 private:
-    /** Size of message currently under reception. Used by dataReceived. */
+    /** Az éppen fogadott üzenet mérete. A dataReceived() használja. */
     qint32 currentMessageSize;
 
-private slots:
-    /** Data received, not necessarily a whole message yet.
-     * Should be connected in derived classes like CommunicationTcpSocket.
+protected slots:
+    /** Adat érkezett, de nem feltétlenül egy egész üzenet.
+     * A leszármazott osztályok ezen kereszül jelzik, hogy van új adat.
      */
     void dataReceived();
 };
