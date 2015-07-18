@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include <algorithm>
 
 using namespace std;
 
@@ -29,12 +30,22 @@ public:
     }
 
     // Execute a lambda on all stored elements
-    void ForEach(std::function<void(const Blob&)> lambda )
+    void ForEach(std::function<void(const Blob&)> lambda ) const
     {
         for(const auto& blob : blobs)
         {
             lambda(*blob);
         }
+    }
+
+    auto begin()
+    {
+        return blobs.begin();
+    }
+
+    auto end()
+    {
+        return blobs.end();
     }
 
 private:
@@ -67,4 +78,11 @@ int main()
 
     cout << "Contents:" << endl;
     blobs.ForEach( [](const Blob& blob){ cout << blob << endl; } );
+
+    cout << "The same with iterators and std::for_each" << endl;
+    std::for_each(
+        blobs.begin(),
+        blobs.end(),
+        [](std::unique_ptr<Blob>& blob)
+            { cout << *blob << endl; });
 }
