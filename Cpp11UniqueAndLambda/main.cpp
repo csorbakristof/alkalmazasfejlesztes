@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Some kind of blob we need to store.
+// Valami adat, amiket tárolni akarunk.
 class Blob
 {
 public:
@@ -19,17 +19,16 @@ public:
     int x,y;
 };
 
-// Stores blobs
 class BlobContainer
 {
 public:
     void add(std::unique_ptr<Blob>& newBlob)
     {
-        // Cannot simply copy, we need to move.
+        // Nem lehet simán másolni, move szemantika kell.
         blobs.push_back(std::move(newBlob));
     }
 
-    // Execute a lambda on all stored elements
+    // Egy lambda lefuttatása minden elemen
     void ForEach(std::function<void(const Blob&)> lambda ) const
     {
         for(const auto& blob : blobs)
@@ -49,12 +48,12 @@ public:
     }
 
 private:
-    // This is where we store the blobs
+    // Itt tároljuk a blobokat
     std::vector<std::unique_ptr<Blob>> blobs;
 
 };
 
-// To make the output easier
+// Hogy könnyebb legyen a megjelenítés
 std::ostream& operator<<(std::ostream& stream, const Blob& blob)
 {
     stream << "Blob(" << blob.x << "," << blob.y << ")";
@@ -63,23 +62,23 @@ std::ostream& operator<<(std::ostream& stream, const Blob& blob)
 
 int main()
 {
-    // Create a set of blobs (which takes ownership)
+    // Kell egy blob tároló
     BlobContainer blobs;
 
-    // Add 2 blobs
+    // Rakunk bele 2 blobot
     std::unique_ptr<Blob> newBlob = std::make_unique<Blob>(12,34);
     blobs.add(newBlob);
     newBlob = std::make_unique<Blob>(56,78);
     blobs.add(newBlob);
 
-    // After adding, the newBlob pointer is null, as the ownership has moved
-    //  into the container.
-    cout << ( newBlob ? "newBlob is still valid" : "newBlob is invalid" ) << endl;
+    // Az add() után a newBlob weak_ptr már nullptr, mivel
+    // a konténer átvette az ownershipet.
+    cout << ( newBlob ? "newBlob még érvényes" : "newBlob érvénytelen" ) << endl;
 
-    cout << "Contents:" << endl;
+    cout << "Tartalom:" << endl;
     blobs.ForEach( [](const Blob& blob){ cout << blob << endl; } );
 
-    cout << "The same with iterators and std::for_each" << endl;
+    cout << "A tartalom iterátorokkal és std::for_each függvénnyel:" << endl;
     std::for_each(
         blobs.begin(),
         blobs.end(),
