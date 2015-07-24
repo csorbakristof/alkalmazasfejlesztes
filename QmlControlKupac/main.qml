@@ -22,7 +22,7 @@ ApplicationWindow {
                 onTriggered: addGreenEntry();
             }
             MenuItem {
-                text: qsTr("E&xit")
+                text: qsTr("&Kilépés")
                 onTriggered: Qt.quit();
             }
         }
