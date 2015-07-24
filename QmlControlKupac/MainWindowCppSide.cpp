@@ -1,4 +1,8 @@
+#include <QQmlProperty>
 #include "MainWindowCppSide.h"
+
+// További információ és példák a C++ - QML kapcsolatról:
+// http://doc.qt.io/qt-5/qtqml-cppintegration-interactqmlfromcpp.html
 
 MainWindowCppSide::MainWindowCppSide(QObject *rootObject)
     : QObject(nullptr)
@@ -40,13 +44,15 @@ void MainWindowCppSide::addGreenEntryHandler()
     // Metódus meghívása
 
     QVariant returnedValue;
-    QVariant messageText = "Zöldre váltás C++-ból!";
+    QVariant messageText = "Zöldre váltás (és vonalvastagítás) C++-ból!";
     QVariant color = "green";
     qDebug() << "selectColor QML függvény meghívása...";
     QMetaObject::invokeMethod(radioCanvasList, "selectColor",
         Q_RETURN_ARG(QVariant, returnedValue),
         Q_ARG(QVariant, messageText),
         Q_ARG(QVariant, color));
+
+    QQmlProperty::write(radioCanvasList, "lineWidth", 5);
 }
 
 QQuickItem* MainWindowCppSide::findItemByName(QObject *rootObject, const QString& name)
