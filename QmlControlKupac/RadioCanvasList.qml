@@ -3,13 +3,24 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 
 Item {
-//    id: item1
-/*    width: 600
-    height: 400 */
     anchors.fill: parent
+    objectName: "RadioCanvasList"
 
     property int margin: 10
-    property color selectedColor : red
+
+    property color selectedColor : "grey"
+
+    // C++ oldal is el tudja érni
+    property int lineWidth : 3
+
+    // C++ oldal is el tudja érni
+    function selectColor(messageText, color)
+    {
+        selectedColor = color;
+        drawingCanvas.requestPaint();
+        eventLogModel.append( { message: messageText, colorCode: color } );
+        console.log("selectColor(" + messageText + ", " + color + ")");
+    }
 
     RowLayout {
         id: baseGrid
@@ -31,9 +42,7 @@ Item {
                     text: "Piros"
                     exclusiveGroup: radioButtonExclusiveGroup
                     onClicked: {
-                        selectedColor = "red";
-                        drawingCanvas.requestPaint();
-                        eventLogModel.append( { name: "Váltás pirosra.", colorCode: "red" } );
+                        selectColor("Váltás pirosra.", "red");
                     }
                 }
 
@@ -42,9 +51,7 @@ Item {
                     text: "Kék"
                     exclusiveGroup: radioButtonExclusiveGroup
                     onClicked: {
-                        selectedColor = "blue";
-                        drawingCanvas.requestPaint();
-                        eventLogModel.append( { name: "Váltás kékre.", colorCode: "blue" } );
+                        selectColor("Váltás kékre.", "blue");
                     }
                 }
 
@@ -55,12 +62,14 @@ Item {
 
                     onPaint: {
                         var context = getContext("2d");
+                        context.reset();
                         context.fillStyle = selectedColor
-                        context.fillRect(0, 0, width, height);
-                        context.lineWidth = 3;
+                        context.fillRect(0, 0, width/2, height);
+                        context.lineWidth = lineWidth;
                         context.strokeStyle = "rgba(255,255,0,1)";
                         context.ellipse(width/2-30,height/2-30,60,60);
                         context.stroke();
+                        console.log("drawingCanvas.onPaint complete");
                     }
                 }
             }
@@ -79,7 +88,6 @@ Item {
                 anchors.fill: parent
                 anchors.margins: 10
                 delegate: GroupBox {
-                    Layout.fillWidth: true
                     anchors.left: parent.left
                     anchors.right: parent.right
                     Row {
@@ -90,7 +98,7 @@ Item {
                             color: colorCode
                         }
                         Text {
-                            text: name
+                            text: message
                             anchors.verticalCenter: parent.verticalCenter
                             font.bold: true
                         }
@@ -100,11 +108,11 @@ Item {
                 model: ListModel {
                     id: eventLogModel
                     ListElement {
-                        name: "Indul a program..."
+                        message: "Indul a program..."
                         colorCode: "grey"
                     }
                     ListElement {
-                        name: "Pirossal kezdünk"
+                        message: "Pirossal kezdünk"
                         colorCode: "red"
                     }
                 }
@@ -115,7 +123,6 @@ Item {
 
         GroupBox {
             Layout.fillHeight: true
-//            Layout.fillWidth: true
             Layout.rowSpan: 3
             width: 200
 
@@ -138,7 +145,7 @@ Item {
                     text: "Üzenet hozzáadása"
 
                     onClicked: {
-                        eventLogModel.append( { name: messageTextField.text, colorCode: "grey" } );
+                        eventLogModel.append( { message: messageTextField.text, colorCode: "grey" } );
                     }
                 }
 

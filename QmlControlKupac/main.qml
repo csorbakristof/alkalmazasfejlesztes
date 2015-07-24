@@ -9,12 +9,17 @@ ApplicationWindow {
     height: 480
     visible: true
 
+    // Used by C++ to locate
+    objectName: "ApplicationWindow"
+
+    signal addGreenEntry();
+
     menuBar: MenuBar {
         Menu {
-            title: qsTr("&File")
+            title: qsTr("&Minden")
             MenuItem {
-                text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
+                text: qsTr("&Zöld")
+                onTriggered: addGreenEntry();
             }
             MenuItem {
                 text: qsTr("E&xit")

@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include "MainWindowCppSide.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,5 +9,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
+    MainWindowCppSide mainWindowCppSide(engine.rootObjects()[0]);
+
     return app.exec();
 }
+
