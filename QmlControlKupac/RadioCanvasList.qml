@@ -69,7 +69,7 @@ Item {
                         context.strokeStyle = "rgba(255,255,0,1)";
                         context.ellipse(width/2-30,height/2-30,60,60);
                         context.stroke();
-                        console.log("drawingCanvas.onPaint complete");
+                        console.log("drawingCanvas.onPaint kész");
                     }
                 }
             }
@@ -81,7 +81,6 @@ Item {
         {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.rowSpan: 3
 
             ListView {
                 id: eventLog
@@ -123,7 +122,6 @@ Item {
 
         GroupBox {
             Layout.fillHeight: true
-            Layout.rowSpan: 3
             width: 200
 
             ColumnLayout {

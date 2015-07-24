@@ -4,25 +4,24 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
-    title: qsTr("Hello World")
+    title: "QmlControlKupac"
     width: 640
     height: 480
     visible: true
 
-    // Used by C++ to locate
+    // A C++ oldal számára
     objectName: "ApplicationWindow"
-
     signal addGreenEntry();
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("&Minden")
+            title: "&Minden"
             MenuItem {
-                text: qsTr("&Zöld")
+                text: "&Zöld"
                 onTriggered: addGreenEntry();
             }
             MenuItem {
-                text: qsTr("&Kilépés")
+                text: "&Kilépés"
                 onTriggered: Qt.quit();
             }
         }
