@@ -26,17 +26,6 @@ MainWindowCppSide::MainWindowCppSide(QObject *rootObject)
     qDebug() << "MainWindowCppSide inicializálva.";
 }
 
-QQuickItem* MainWindowCppSide::findItemByName(const QString& name)
-{
-    Q_ASSERT(mainWindowObject != nullptr);
-    if (mainWindowObject->objectName() == name)
-    {
-        return mainWindowObject;
-    }
-    return findItemByName(mainWindowObject->children(), name);
-}
-
-/** Eseménykezelő a QML oldali addBlueEntry signalhoz. */
 void MainWindowCppSide::addGreenEntryHandler()
 {
     qDebug() << "MainWindowCppSide::addGreenEntryHandler()";
@@ -53,6 +42,16 @@ void MainWindowCppSide::addGreenEntryHandler()
         Q_ARG(QVariant, color));
 
     QQmlProperty::write(radioCanvasList, "lineWidth", 5);
+}
+
+QQuickItem* MainWindowCppSide::findItemByName(const QString& name)
+{
+    Q_ASSERT(mainWindowObject != nullptr);
+    if (mainWindowObject->objectName() == name)
+    {
+        return mainWindowObject;
+    }
+    return findItemByName(mainWindowObject->children(), name);
 }
 
 QQuickItem* MainWindowCppSide::findItemByName(QObject *rootObject, const QString& name)
