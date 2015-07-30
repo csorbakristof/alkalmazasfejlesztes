@@ -33,3 +33,8 @@ build-SimpleTelemetryVisualizer-Desktop_Qt_5_4_0_MinGW_32bit-Debug/*
 SimpleTelemetryVisualizer/docs/*
 build-*/*
 Backup_of_AlkFejlSignalMaps.cdr
+AproPeldak/ClassDiagram.bmp
+AproPeldak/JamMvp_ExportMeasurementSeq.bmp
+AproPeldak/JamMvp_JunctionClass.bmp
+AproPeldak/JamMvp_PathIdentificationSeq.bmp
+AproPeldak/SequenceDiagram.bmp
