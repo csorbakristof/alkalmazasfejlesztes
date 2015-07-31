@@ -3,6 +3,7 @@
 #include <memory>
 #include <QPoint>
 #include "SignalPelda.h"
+#include <exception>
 
 using namespace std;
 
@@ -30,6 +31,32 @@ void signalPelda()
                         &sp, SLOT(jelzesSlot(int)));
 }
 
+class InvalidTurnException: public exception
+{
+public:
+    InvalidTurnException(float degrees)
+        : deg(degrees) { }
+    float deg;
+    virtual const char* what() const throw()
+    {
+        return "Érvénytelen kormányszög";
+    }
+};
+
+bool isRobotOnline()
+{
+    return false;
+}
+
+void turn(float deg)
+{
+    if (deg>60)
+        throw InvalidTurnException(deg);
+    if (!isRobotOnline())
+        throw std::runtime_error(
+            "Kapcsolat hiba");
+}
+
 int main(int argc, char *argv[])
 {
     Q_UNUSED(argc);
@@ -38,5 +65,24 @@ int main(int argc, char *argv[])
     UniquePtrPelda();
     qDebug() << "Signal példa:";
     signalPelda();
+    qDebug() << "Exception példa:";
+    try
+    {
+        turn(70);
+    }
+    catch (InvalidTurnException& ite)
+    {
+        qDebug() << ite.what();
+        qDebug() << "Szög: " << ite.deg;
+    }
+    catch (std::runtime_error& e)
+    {
+        qDebug() << e.what();
+    }
+    catch (...)
+    {
+        qDebug() << "Valami rossz :(";
+    }
+
     return 0;
 }
