@@ -2,6 +2,7 @@
 #ifndef SOCKETSERVER_H
 #define SOCKETSERVER_H
 #include <QTcpServer>
+#include <QDataStream>
 #include <memory>
 
 // Ez kell a currentConnectionSocket deklarálásához. Viszont az csak pointer,
