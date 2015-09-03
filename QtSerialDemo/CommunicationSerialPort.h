@@ -1,7 +1,7 @@
-﻿#pragma once
+#pragma once
 #ifndef COMMUNICATIONSERIALPORT_H
 #define COMMUNICATIONSERIALPORT_H
-#include "Communication/Communication.h"
+#include "Communication.h"
 #include <QtSerialPort/QSerialPort>
 
 // http://doc.qt.io/qt-5/qtserialport-index.html
@@ -14,6 +14,8 @@
  */
 class CommunicationSerialPort : public Communication
 {
+    Q_OBJECT
+
 public:
     CommunicationSerialPort(QString portName,
             qint32 baudRate,
