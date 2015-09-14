@@ -10,7 +10,7 @@ Communication::~Communication()
 {
     if (receiveStream != nullptr)
     {
-        delete receiveStream;
+        // (Ha volt korábbi érték, az most megszűnik a unique_ptr miatt.)
         receiveStream = nullptr;
     }
 }
@@ -18,11 +18,8 @@ Communication::~Communication()
 void Communication::connectToDevice(QIODevice *device)
 {
     // A fogadási adatfolyam csatlakozatotása az eszközhöz (pl. sockethez)
-    if (receiveStream != nullptr)
-    {
-        delete receiveStream;
-    }
-    receiveStream = new QDataStream(device);
+    // (Ha volt korábbi, az most megszűnik a unique_ptr miatt.)
+    receiveStream = std::make_unique<QDataStream>(device);
 }
 
 std::unique_ptr<QDataStream> Communication::getSendStream()
@@ -32,7 +29,7 @@ std::unique_ptr<QDataStream> Communication::getSendStream()
 
 QDataStream *Communication::getReceiveStream()
 {
-    return receiveStream;
+    return receiveStream.get();
 }
 
 void Communication::dataReceived()

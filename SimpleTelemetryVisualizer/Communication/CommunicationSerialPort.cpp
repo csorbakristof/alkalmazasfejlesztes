@@ -30,11 +30,8 @@ void CommunicationSerialPort::connect()
     }
 
     // A foradási adatfolyam csatlakoztatása
-    if (receiveStream != nullptr)
-    {
-        delete receiveStream;
-    }
-    receiveStream = new QDataStream(&serialPort);
+    // (Ha volt korábbi, az most megszűnik a unique_ptr miatt.)
+    receiveStream = std::make_unique<QDataStream>(&serialPort);
     QObject::connect(&serialPort, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
     qDebug() << "Soros port nyitva, adatfogadás készen áll.";

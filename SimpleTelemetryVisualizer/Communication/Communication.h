@@ -75,7 +75,7 @@ signals:
 
 protected:
     /** Az adat fogadási stream. A connectToDevice() állítja be. */
-    QDataStream *receiveStream;
+    std::unique_ptr<QDataStream> receiveStream;
 
     /** Tényleges küldés előtt ide kerül be minden küldendő adat.
      * A getSendStream() metódussal lehet elérni. */
