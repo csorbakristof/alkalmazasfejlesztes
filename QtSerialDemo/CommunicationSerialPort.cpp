@@ -17,8 +17,9 @@ CommunicationSerialPort::CommunicationSerialPort(
 
     serialPort.setFlowControl(QSerialPort::NoFlowControl);
 
-    QObject::connect(&serialPort, SIGNAL(error(QSerialPort::SerialPortError)),
-                     this, SLOT(handleError(QSerialPort::SerialPortError)));
+    QObject::connect(&serialPort,
+        SIGNAL(error(QSerialPort::SerialPortError)),
+        this, SLOT(handleError(QSerialPort::SerialPortError)));
 }
 
 void CommunicationSerialPort::connect()
