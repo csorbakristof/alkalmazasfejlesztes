@@ -14,6 +14,7 @@
  */
 class CommunicationSerialPort : public Communication
 {
+    Q_OBJECT
 public:
     CommunicationSerialPort(QString portName,
             qint32 baudRate,

@@ -50,7 +50,7 @@ void CommunicationSerialPort::sendBufferContent()
         return;
     }
 
-    qDebug() << "CommunicationTcpSocket::send() " << sendBuffer.size() << " bájt:\n" << sendBuffer.toHex();
+    qDebug() << "CommunicationSerialPort::send() " << sendBuffer.size() << " bájt:\n" << sendBuffer.toHex();
     serialPort.write(sendBuffer);
     sendBuffer.clear();
 }
