@@ -11,7 +11,6 @@ public:
     {
     }
 
-    // Default kezelo nem csinal semmit. Jobb, mintha abstract lenne.
     virtual void Tick() { }
     virtual void AccelerationStartMarkDetected() { }
     virtual void AccelerationEndMarkDetected() { }

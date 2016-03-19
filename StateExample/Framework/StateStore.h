@@ -10,14 +10,22 @@ class StateStore
 public:
     static StateStore Instance;
 
+    enum States
+    {
+        Default = 0,
+        Fast = 1,
+        EmergencyLineSearch = 2,
+        stateCount = 3
+    };
+
     StateStore();
 
     void Init(Robot& robot);
 
-    State* GetState(std::string name);
+    State* GetState(States state);
 
 private:
-    std::map<std::string, std::unique_ptr<State>> states;
+    State **states;
 };
 
 #endif // STATESTORE

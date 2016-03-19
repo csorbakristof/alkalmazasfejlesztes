@@ -26,6 +26,7 @@ public:
             std::cout << "ERROR EmergencyLineSearchState: lastKnownLineLocation not set prior to entering this state! Fallback..." << std::endl;
             lastKnownLineLocation = 0;
         }
+        // Manuálisan kanyarodunk és lassan haladva várjuk, hogy visszaérjünk a vonalra.
         robot.OverrideSteering(lastKnownLineLocation);
         robot.SetReferenceSpeed(0.2F);
 
@@ -35,6 +36,8 @@ public:
     virtual void LineFound()
     {
         robot.AutoSteering();
+        // Kell egy kis idő, mire rendesen rááll a robot a vonalra,
+        //  addig még nem váltunk állapotot.
         tickCountAfterLineFound = InitialTickCountAfterLineFound;
         std::cout << "EmergencyLineSearchState: line found, waiting for proper vehicle alignment." << std::endl;
     }
@@ -48,7 +51,7 @@ public:
             {
                 // Lehet, hogy nem vettuk eszre a gyorsitasi szakasz veget,
                 //  igy kockazatos a Fast allapotba visszaterni.
-                robot.SetState(StateStore::Instance.GetState("Default"));
+                robot.SetState(StateStore::Instance.GetState(StateStore::States::Default));
             }
         }
     }

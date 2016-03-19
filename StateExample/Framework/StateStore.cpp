@@ -11,12 +11,17 @@ StateStore::StateStore()
 
 void StateStore::Init(Robot& robot)
 {
-    states["Default"] = std::make_unique<DefaultState>(robot);
-    states["Fast"] = std::make_unique<FastState>(robot);
-    states["EmergencyLineSearch"] = std::make_unique<EmergencyLineSearchState>(robot);
+    states = new State*[States::stateCount];
+
+    states[States::Default] = new DefaultState(robot);
+    states[States::Fast] = new FastState(robot);
+    states[States::EmergencyLineSearch] = new EmergencyLineSearchState(robot);
+
+    // Ezek az objektumok a program teljes életciklusa alatt kelleni fognak,
+    //  így felszabadításuktól most eltekintünk.
 }
 
-State* StateStore::GetState(std::string name)
+State* StateStore::GetState(States state)
 {
-    return states[name].get();
+    return states[state];
 }

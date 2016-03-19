@@ -13,7 +13,7 @@ public:
 
     virtual void AccelerationStartMarkDetected() override
     {
-        robot.SetState(StateStore::Instance.GetState("Fast"));
+        robot.SetState(StateStore::Instance.GetState(StateStore::States::Fast));
     }
 
     virtual void OnEnteringState() override

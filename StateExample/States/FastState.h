@@ -26,7 +26,7 @@ public:
         if (tickCounter > maxTickCountInThisState)
         {
             std::cout << "Warning FastState: suspiciously long time has passed in this state. Fallback to default state." << std::endl;
-            robot.SetState(StateStore::Instance.GetState("Default"));
+            robot.SetState(StateStore::Instance.GetState(StateStore::States::Default));
         }
 
         if (tickCountBeforeBreaking>0)
@@ -34,7 +34,7 @@ public:
             tickCountBeforeBreaking--;
             if (tickCountBeforeBreaking==0)
             {
-                robot.SetState(StateStore::Instance.GetState("Default"));
+                robot.SetState(StateStore::Instance.GetState(StateStore::States::Default));
             }
         }
     }
@@ -48,12 +48,11 @@ public:
     virtual void LineLost(int lastKnownLocation) override
     {
         std::cout << "ERROR FastState: Lost the line!" << std::endl;
-        EmergencyLineSearchState *s = (EmergencyLineSearchState*)StateStore::Instance.GetState("EmergencyLineSearch");
+        EmergencyLineSearchState *s = (EmergencyLineSearchState*)StateStore::Instance.
+                GetState(StateStore::States::EmergencyLineSearch);
         s->SetLastKnownLineLocation(lastKnownLocation);
         robot.SetState(s);
     }
-
-    // Jobb minden allapot belepesenel beallitani a sebesseget, nem az OnLeavingState-ben...
 
 private:
     int tickCounter;

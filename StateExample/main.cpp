@@ -4,7 +4,6 @@
 #include <chrono>
 #include "Framework/Robot.h"
 #include "Framework/StateStore.h"
-#include "QThread"
 
 using namespace std;
 using namespace std::literals;
@@ -28,6 +27,10 @@ példányosítja, tárolja, és bárhonnan el lehet kérni tőle bármely állap
 
 A tesztelés érdekében a főprogram a SimulateEvents függvény segítségével
 szimulálja az időzített eseményeket a robot számára.
+
+(A gyorsabb áttekinthetőség kedvéért számos osztályt csak header fájlokban
+implementáltam, hogy a forráskódot bemutatva ne kelljen folyton ugrálni a .h
+és .cpp fájlok között.)
 */
 
 void SimulateEvents(Robot& robot, int t)
@@ -74,11 +77,11 @@ int main()
     Robot robot;
     StateStore::Instance.Init(robot);
 
-    State *defaultState = StateStore::Instance.GetState("Default");
+    State *defaultState = StateStore::Instance.GetState(StateStore::States::Default);
     robot.SetState(defaultState);
 
     int timeCounter = 0;
-    while(1)
+    while(timeCounter < 30)
     {
         cout << "--- tick (t=" << timeCounter << ") ---" << endl;
         robot.Tick();
