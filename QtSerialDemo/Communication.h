@@ -81,9 +81,8 @@ protected:
     QByteArray sendBuffer;
 
     /** Visszaad egy streamet, ami a tényleges adatküldéshez a sendBuffer-be beírja a
-     * küldendő adatokat. Utána már csaa a sendBufferContent() metódust kell meghívni.
+     * küldendő adatokat. Utána már csak a sendBufferContent() metódust kell meghívni.
      * Kívülről a send() metódust kell használni, az tovább hív ide. */
-    // TODO: can we send correctly if the stream is already distroyed when calling send() ?!
     std::unique_ptr<QDataStream> getSendStream();
 
     /** Ténylegesen elküldi a sendBuffer tartalmát. A leszármazott osztályoknak a
