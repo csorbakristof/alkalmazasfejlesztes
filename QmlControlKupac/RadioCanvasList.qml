@@ -111,8 +111,8 @@ Item {
                         colorCode: "grey"
                     }
                     ListElement {
-                        message: "Pirossal kezdünk"
-                        colorCode: "red"
+                        message: "Szürkével kezdünk"
+                        colorCode: "grey"
                     }
                 }
             }
