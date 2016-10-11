@@ -28,7 +28,6 @@ Item {
         anchors.margins: margin
 
         // 1. oszlop
-
         GroupBox {
             Layout.fillHeight: true
 
@@ -76,7 +75,6 @@ Item {
         }
 
         // 2. oszlop
-
         GroupBox
         {
             Layout.fillHeight: true
@@ -84,7 +82,10 @@ Item {
 
             ListView {
                 id: eventLog
-                anchors.fill: parent
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
                 anchors.margins: 10
                 delegate: GroupBox {
                     anchors.left: parent.left
@@ -119,7 +120,6 @@ Item {
         }
 
         // 3. oszlop
-
         GroupBox {
             Layout.fillHeight: true
             width: 200
@@ -147,7 +147,7 @@ Item {
                     }
                 }
 
-                // Placeholder
+                // Helykitolto
                 Item {
                     Layout.fillHeight: true
                 }
