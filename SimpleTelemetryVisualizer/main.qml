@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.2
 
 // Ez lesz az alkalmazás főablaka
 ApplicationWindow {
-    title: qsTr("Hello World")
+    title: qsTr("Simple Telemetry Visualizer")
     width: 640
     height: 480
     visible: true
