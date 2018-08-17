@@ -27,6 +27,8 @@ public:
                 this, SLOT(replyFinished(QNetworkReply*)));
     }
 
+    virtual ~DemoWebRequest() { }
+
     void SendDemoRequest()
     {
         // A demó kérés elküldéséhez összeállítjuk magát a kérést
