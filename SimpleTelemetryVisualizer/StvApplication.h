@@ -22,6 +22,7 @@ public:
     ~StvApplication() = default;
 
 private:
+    std::unique_ptr<CommunicationTcpSocketServer> serverSocket;
     Simulator simulator;
     QQmlApplicationEngine engine;
     RobotStateHistory history;

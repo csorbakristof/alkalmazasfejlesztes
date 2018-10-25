@@ -22,7 +22,7 @@ public:
     /** Konstruktor.
      * @param port  A port, amin a létrehozott szerver hallgatózik.
     */
-    explicit Simulator(int port);
+    explicit Simulator(Communication *communication);
     ~Simulator() = default;
 
     /** Elindítja a szimulátort.
@@ -30,9 +30,14 @@ public:
      */
     void start(float intervalSec);
 
-private:
+protected:
+    /** Alapértékre állítja a belső paramétereket.
+     * @param intervalSec   A szimulátor periódusideje.
+     */
+    void reset(float intervalSec);
+
     /** Belső szerver a kommunikációhoz. */
-    CommunicationTcpSocketServer communication;
+    Communication *communication;
 
     /** Időzítő a tick() metódus periodikus hívására. */
     QTimer timer;
@@ -43,7 +48,7 @@ private:
     /** A szimulátor pillanatnyi állapota. */
     RobotState state;
 
-private slots:
+protected slots:
     /** A timer hívja meg, meghatározza a robot
      * állapotát a következő időpillanatban. */
     void tick();

@@ -1,7 +1,9 @@
 #include "StvApplication.h"
+#include "Communication/CommunicationTcpSocketServer.h"
 
 StvApplication::StvApplication(int argc, char *argv[])
-    : QApplication(argc, argv), simulator(3333), engine(), history(), communication(),
+    : QApplication(argc, argv), serverSocket(std::make_unique<CommunicationTcpSocketServer>(3333)),
+      simulator(serverSocket.get()), engine(), history(), communication(),
       robot(history, communication), handler(robot, *engine.rootContext(), history)
 {
     // Szimulátor indítása

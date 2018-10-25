@@ -20,8 +20,7 @@ INCLUDEPATH += ../SimpleTelemetryVisualizer/Communication \
 
 CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
-QT += qml quick widgets
-QT += serialport
+QT += quick
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -38,10 +37,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         tst_qtestthesimulatortest.cpp \ 
     ../SimpleTelemetryVisualizer/Communication/Communication.cpp \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationSerialPort.cpp \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocket.cpp \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocketClient.cpp \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocketServer.cpp \
     ../SimpleTelemetryVisualizer/Simulator/Simulator.cpp \
     ../SimpleTelemetryVisualizer/RobotState.cpp \
     CommunicationMock.cpp
@@ -50,10 +45,7 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
     ../SimpleTelemetryVisualizer/Communication/Communication.h \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationSerialPort.h \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocket.h \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocketClient.h \
-    ../SimpleTelemetryVisualizer/Communication/CommunicationTcpSocketServer.h \
     ../SimpleTelemetryVisualizer/Simulator/Simulator.h \
     ../SimpleTelemetryVisualizer/RobotState.h \
-    CommunicationMock.h
+    CommunicationMock.h \
+    TestSimulator.h

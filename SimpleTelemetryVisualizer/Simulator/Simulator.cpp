@@ -1,10 +1,10 @@
 #include "Simulator.h"
 
-Simulator::Simulator(int port)
-    : communication(port), state()
+Simulator::Simulator(Communication *communication)
+    : communication(communication), state()
 {
     // Fogadni akarjuk a parancsokat
-    connect(&communication, SIGNAL(dataReady(QDataStream&)), this, SLOT(dataReady(QDataStream&)));
+    connect(communication, SIGNAL(dataReady(QDataStream&)), this, SLOT(dataReady(QDataStream&)));
     // Periodikusan futnia kell a szimulációnak
     connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
 }
@@ -12,13 +12,19 @@ Simulator::Simulator(int port)
 void Simulator::start(float intervalSec)
 {
     dt = intervalSec;
-    state.setStatus(RobotState::Status::Default);
     state.setTimestamp(0);
+    reset(intervalSec);
+    timer.start((long)(intervalSec*1000.0F));
+}
+
+void Simulator::reset(float intervalSec)
+{
+    dt = intervalSec;
+    state.setStatus(RobotState::Status::Default);
     state.setX(0.0F);
     state.setV(0.0F);
     state.setA(0.0F);
     state.setLight(0);
-    timer.start((long)(intervalSec*1000.0F));
 }
 
 void Simulator::tick()
@@ -46,11 +52,7 @@ void Simulator::tick()
         break;
     case RobotState::Status::Reset:
         qDebug() << "Simulator: Reset";
-        state.setStatus(RobotState::Status::Default);
-        state.setX(0.0F);
-        state.setV(0.0F);
-        state.setA(0.0F);
-        state.setLight(0);
+        reset(dt);
         break;
     case RobotState::Status::Stopping:
         if (state.v() > 1.5F)
@@ -97,9 +99,9 @@ void Simulator::tick()
              << ", lámpa:" << state.light();
 
     // Állapot küldése
-    if (communication.isConnected())
+    if (communication->isConnected())
     {
-        communication.send(state);
+        communication->send(state);
     }
 }
 
