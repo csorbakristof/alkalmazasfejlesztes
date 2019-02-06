@@ -52,3 +52,24 @@ Window {
         onClicked: getData()
     }
 }
+
+/* Content of demo.json:
+{
+    "aim":"demo",
+    "items":
+    [
+    {
+        "color": "black",
+        "luminance": "0"
+    },
+    {
+        "color": "gray",
+        "luminance": "127"
+    },
+    {
+        "color": "white",
+        "luminance": "255"
+    }
+    ]
+}
+*/
