@@ -1,5 +1,4 @@
 using EnvironmentSimulator;
-using System;
 using Xunit;
 
 namespace EnvironmentSimulatorTests

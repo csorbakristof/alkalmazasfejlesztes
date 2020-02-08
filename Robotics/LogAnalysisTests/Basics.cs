@@ -2,7 +2,6 @@ using EnvironmentSimulator;
 using LogAnalysis;
 using RobotBrain;
 using RobotBrain.LogEntry;
-using System;
 using Xunit;
 
 namespace LogAnalysisTests

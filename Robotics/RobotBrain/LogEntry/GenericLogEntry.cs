@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RobotBrain.LogEntry
+﻿namespace RobotBrain.LogEntry
 {
     public class GenericLogEntry : ILogEntry
     {

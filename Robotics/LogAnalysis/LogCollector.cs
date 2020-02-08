@@ -1,6 +1,5 @@
 ﻿using RobotBrain;
 using RobotBrain.LogEntry;
-using System;
 
 namespace LogAnalysis
 {
