@@ -36,12 +36,14 @@ namespace EnvironmentSimulator
 
         public double Turn { get; set; }
 
-        public event OnSpeedChangedEvent OnSpeedChanged;
-        public event OnDirectionChangedEvent OnDirectionChanged;
+        public event OnSpeedChangedDelegate OnSpeedChanged;
+        public event OnDirectionChangedDelegate OnDirectionChanged;
+        public event OnTickDelegate OnTick;
 
         public void Tick()
         {
             Direction = Direction + Turn;
+            OnTick?.Invoke();
         }
     }
 }

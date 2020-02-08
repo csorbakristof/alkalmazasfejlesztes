@@ -1,5 +1,6 @@
 using EnvironmentSimulator;
 using RobotBrain;
+using RobotBrain.LogEntry;
 using System;
 using Xunit;
 

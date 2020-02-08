@@ -9,12 +9,14 @@ namespace EnvironmentSimulator
         double Direction { get; set; }
         double Turn { get; set; }
 
-        event OnSpeedChangedEvent OnSpeedChanged;
-        event OnDirectionChangedEvent OnDirectionChanged;
+        event OnSpeedChangedDelegate OnSpeedChanged;
+        event OnDirectionChangedDelegate OnDirectionChanged;
+        event OnTickDelegate OnTick;
 
         void Tick();
     }
 
-    public delegate void OnSpeedChangedEvent(double newValue);
-    public delegate void OnDirectionChangedEvent(double newValue);
+    public delegate void OnSpeedChangedDelegate(double newValue);
+    public delegate void OnDirectionChangedDelegate(double newValue);
+    public delegate void OnTickDelegate();
 }
