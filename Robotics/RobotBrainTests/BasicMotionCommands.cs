@@ -19,7 +19,7 @@ namespace RobotBrainTests
             Assert.Null(lastLogEntry);
             for(int i=0; i<10; i++)
                 sim.Tick();
-            Assert.True(lastLogEntry is CommandComplete);
+            Assert.True(lastLogEntry is CommandCompleteLogEntry);
 
         }
     }

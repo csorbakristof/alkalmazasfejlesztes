@@ -37,19 +37,19 @@ namespace RobotBrain
         #region Handle simulator events
         private void Environment_OnSpeedChanged(double newValue)
         {
-            OnLoggedEvent?.Invoke(new DefaultLogEntry());
+            OnLoggedEvent?.Invoke(new GenericLogEntry());
         }
 
         private void Environment_OnDirectionChanged(double newValue)
         {
-            OnLoggedEvent?.Invoke(new DefaultLogEntry());
+            OnLoggedEvent?.Invoke(new GenericLogEntry());
         }
 
         private void Environment_OnTick()
         {
             currentState.Tick();
             if (currentCommand?.IsComplete() ?? false)
-                OnLoggedEvent?.Invoke(new CommandComplete());
+                OnLoggedEvent?.Invoke(new CommandCompleteLogEntry());
         }
         #endregion
 
@@ -61,9 +61,5 @@ namespace RobotBrain
         }
 
         public event OnLoggedEventDelegate OnLoggedEvent;
-    }
-
-    internal class DefaultLogEntry : LogEntry.ILogEntry
-    {
     }
 }
