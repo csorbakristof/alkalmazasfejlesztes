@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EnvironmentSimulator
 {
-    public class Simulator : ISimulator
+    public class DefaultSimulator : ISimulator
     {
         double speed;
         public double Speed

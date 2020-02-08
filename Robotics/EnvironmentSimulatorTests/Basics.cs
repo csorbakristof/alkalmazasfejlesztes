@@ -6,10 +6,11 @@ namespace EnvironmentSimulatorTests
 {
     public class Basics
     {
+        ISimulator sim = new DefaultSimulator();
+
         [Fact]
         public void SetSpeedDirection_ExpectNotification()
         {
-            ISimulator sim = new Simulator();
             double reportedSpeed = 0.0;
             sim.OnSpeedChanged += (double newValue) => { reportedSpeed = newValue; };
             sim.Speed = 1.0;
@@ -21,9 +22,8 @@ namespace EnvironmentSimulatorTests
         }
 
         [Fact]
-        public void Turn()
+        public void Turns()
         {
-            ISimulator sim = new Simulator();
             double reportedDirection = 0.0;
             sim.OnDirectionChanged += (double newValue) => { reportedDirection = newValue; };
             sim.Direction = 0.0;

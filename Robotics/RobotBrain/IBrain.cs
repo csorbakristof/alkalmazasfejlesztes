@@ -2,7 +2,7 @@
 
 namespace RobotBrain
 {
-    public class Class1
+    public class IBrain
     {
     }
 }
