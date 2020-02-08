@@ -20,28 +20,32 @@ namespace RobotBrain
             {
                 currentState = value;
                 currentState.Brain = this;
+                currentState.Enter();
             }
         }
 
-        public DefaultBrain(ISimulator simulator)
+        public IEnvironment Environment { get; private set; }
+
+        public DefaultBrain(IEnvironment environment)
         {
-            simulator.OnDirectionChanged += Simulator_OnDirectionChanged;
-            simulator.OnSpeedChanged += Simulator_OnSpeedChanged;
-            simulator.OnTick += Simulator_OnTick;
+            Environment = environment;
+            environment.OnDirectionChanged += Environment_OnDirectionChanged;
+            environment.OnSpeedChanged += Environment_OnSpeedChanged;
+            environment.OnTick += Environment_OnTick;
         }
 
         #region Handle simulator events
-        private void Simulator_OnSpeedChanged(double newValue)
+        private void Environment_OnSpeedChanged(double newValue)
         {
             OnLoggedEvent?.Invoke(new DefaultLogEntry());
         }
 
-        private void Simulator_OnDirectionChanged(double newValue)
+        private void Environment_OnDirectionChanged(double newValue)
         {
             OnLoggedEvent?.Invoke(new DefaultLogEntry());
         }
 
-        private void Simulator_OnTick()
+        private void Environment_OnTick()
         {
             currentState.Tick();
             if (currentCommand?.IsComplete() ?? false)

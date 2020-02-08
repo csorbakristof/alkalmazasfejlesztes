@@ -4,17 +4,16 @@ using System.Text;
 
 namespace RobotBrain.State
 {
-    class SleepState : IState
+    public class SleepState : StateBase
     {
         int remainingDuration = 0;
-        public IBrain Brain { get; set; }
 
         public SleepState(int duration)
         {
             remainingDuration = duration;
         }
 
-        public void Tick()
+        public override void Tick()
         {
             remainingDuration--;
             if (remainingDuration <= 0)

@@ -2,24 +2,14 @@
 using RobotBrain;
 using RobotBrain.Command;
 using RobotBrain.LogEntry;
+using RobotBrain.State;
 using System;
 using Xunit;
 
 namespace RobotBrainTests
 {
-    public class CommandsExecution
+    public class CommandsExecution : BrainTestBase
     {
-        readonly ISimulator sim;
-        readonly IBrain brain;
-        ILogEntry lastLogEntry = null;
-
-        public CommandsExecution()
-        {
-            sim = new DefaultSimulator();
-            brain = new DefaultBrain(sim);
-            brain.OnLoggedEvent += (ILogEntry entry) => lastLogEntry = entry;
-        }
-
         [Fact]
         public void RunNopCommand()
         {
@@ -32,7 +22,7 @@ namespace RobotBrainTests
         [Fact]
         public void RunSleepCommand()
         {
-            brain.AddCommand(new SleepCommand(2));
+            brain.AddCommand(new GenericSingleStateCommand(new SleepState(2)));
             Assert.Null(lastLogEntry);
             sim.Tick();
             Assert.Null(lastLogEntry);

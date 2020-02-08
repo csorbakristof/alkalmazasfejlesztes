@@ -4,10 +4,7 @@ using System.Text;
 
 namespace RobotBrain.State
 {
-    class IdleState : IState
+    public class IdleState : StateBase
     {
-        public IBrain Brain { get; set; }
-
-        public void Tick() { }
     }
 }

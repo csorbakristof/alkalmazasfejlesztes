@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EnvironmentSimulator
 {
-    public interface ISimulator
+    public interface IEnvironment
     {
         double Speed { get; set; }
         double Direction { get; set; }
