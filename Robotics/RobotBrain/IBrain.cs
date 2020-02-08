@@ -7,12 +7,12 @@ namespace RobotBrain
 {
     public interface IBrain
     {
-        event OnLoggedEventEvent OnLoggedEvent;
+        event OnLoggedEventDelegate OnLoggedEvent;
 
         void AddCommand(ICommand cmd);
 
         IState CurrentState { get; set; }
     }
 
-    public delegate void OnLoggedEventEvent(ILogEntry newEntry);
+    public delegate void OnLoggedEventDelegate(ILogEntry newEntry);
 }

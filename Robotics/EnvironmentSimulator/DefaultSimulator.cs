@@ -42,7 +42,7 @@ namespace EnvironmentSimulator
 
         public void Tick()
         {
-            Direction = Direction + Turn;
+            Direction += Turn;
             OnTick?.Invoke();
         }
     }

@@ -11,6 +11,7 @@ namespace RobotBrain
     public class DefaultBrain : IBrain
     {
         ICommand currentCommand = null;
+
         private IState currentState = new IdleState();
         public IState CurrentState 
         {
@@ -21,7 +22,6 @@ namespace RobotBrain
                 currentState.Brain = this;
             }
         }
-
 
         public DefaultBrain(ISimulator simulator)
         {
@@ -56,7 +56,7 @@ namespace RobotBrain
             cmd.Execute();
         }
 
-        public event OnLoggedEventEvent OnLoggedEvent;
+        public event OnLoggedEventDelegate OnLoggedEvent;
     }
 
     internal class DefaultLogEntry : LogEntry.ILogEntry

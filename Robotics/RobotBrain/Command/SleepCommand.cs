@@ -9,7 +9,7 @@ namespace RobotBrain.Command
     {
         public IBrain Brain { get; set; }
 
-        private int duration;
+        readonly private int duration;
 
         public SleepCommand(int duration = 1)
         {

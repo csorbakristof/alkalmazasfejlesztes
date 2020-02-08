@@ -9,36 +9,35 @@ namespace RobotBrainTests
 {
     public class CommandsExecution
     {
+        readonly ISimulator sim;
+        readonly IBrain brain;
+        ILogEntry lastLogEntry = null;
+
+        public CommandsExecution()
+        {
+            sim = new DefaultSimulator();
+            brain = new DefaultBrain(sim);
+            brain.OnLoggedEvent += (ILogEntry entry) => lastLogEntry = entry;
+        }
+
         [Fact]
         public void RunNopCommand()
         {
-            ISimulator sim = new DefaultSimulator();
-            IBrain brain = new DefaultBrain(sim);
-            ILogEntry newEntry = null;
-            brain.OnLoggedEvent += (ILogEntry entry) => newEntry = entry;
-
-            ICommand cmd = new NopCommand();
-            brain.AddCommand(cmd);
+            brain.AddCommand(new NopCommand());
             sim.Tick();
-            Assert.NotNull(newEntry);
-            Assert.True(newEntry is CommandComplete);
+            Assert.NotNull(lastLogEntry);
+            Assert.True(lastLogEntry is CommandComplete);
         }
 
         [Fact]
         public void RunSleepCommand()
         {
-            ISimulator sim = new DefaultSimulator();
-            IBrain brain = new DefaultBrain(sim);
-            ILogEntry newEntry = null;
-            brain.OnLoggedEvent += (ILogEntry entry) => newEntry = entry;
-
-            ICommand cmd = new SleepCommand(2);
-            brain.AddCommand(cmd);
-            Assert.Null(newEntry);
+            brain.AddCommand(new SleepCommand(2));
+            Assert.Null(lastLogEntry);
             sim.Tick();
-            Assert.Null(newEntry);
+            Assert.Null(lastLogEntry);
             sim.Tick();
-            Assert.True(newEntry is CommandComplete);
+            Assert.True(lastLogEntry is CommandComplete);
         }
     }
 }
