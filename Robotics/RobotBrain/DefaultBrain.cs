@@ -9,6 +9,24 @@ namespace RobotBrain
     {
         public DefaultBrain(ISimulator simulator)
         {
+            simulator.OnDirectionChanged += Simulator_OnDirectionChanged;
+            simulator.OnSpeedChanged += Simulator_OnSpeedChanged;
         }
+
+        private void Simulator_OnSpeedChanged(double newValue)
+        {
+            OnLoggedEvent?.Invoke(new DefaultLogEntry());
+        }
+
+        private void Simulator_OnDirectionChanged(double newValue)
+        {
+            OnLoggedEvent?.Invoke(new DefaultLogEntry());
+        }
+
+        public event OnLoggedEventEvent OnLoggedEvent;
+    }
+
+    internal class DefaultLogEntry : ILogEntry
+    {
     }
 }
