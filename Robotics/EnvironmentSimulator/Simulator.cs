@@ -39,5 +39,9 @@ namespace EnvironmentSimulator
         public event OnSpeedChangedEvent OnSpeedChanged;
         public event OnDirectionChangedEvent OnDirectionChanged;
 
+        public void Tick()
+        {
+            Direction = Direction + Turn;
+        }
     }
 }

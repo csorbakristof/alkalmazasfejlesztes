@@ -11,6 +11,8 @@ namespace EnvironmentSimulator
 
         event OnSpeedChangedEvent OnSpeedChanged;
         event OnDirectionChangedEvent OnDirectionChanged;
+
+        void Tick();
     }
 
     public delegate void OnSpeedChangedEvent(double newValue);

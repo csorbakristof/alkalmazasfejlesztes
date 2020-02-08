@@ -19,5 +19,17 @@ namespace EnvironmentSimulatorTests
             Assert.Equal(1.0, reportedDirection);
             Assert.Equal(1.0, sim.Direction, 1);
         }
+
+        [Fact]
+        public void Turn()
+        {
+            ISimulator sim = new Simulator();
+            double reportedDirection = 0.0;
+            sim.OnDirectionChanged += (double newValue) => { reportedDirection = newValue; };
+            sim.Direction = 0.0;
+            sim.Turn = 1.0;
+            sim.Tick();
+            Assert.Equal(1.0, reportedDirection);
+        }
     }
 }
