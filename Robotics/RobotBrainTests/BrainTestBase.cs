@@ -1,4 +1,5 @@
-﻿using EnvironmentSimulator;
+﻿using Environment;
+using Robot;
 using RobotBrain;
 using RobotBrain.LogEntry;
 
@@ -6,14 +7,16 @@ namespace RobotBrainTests
 {
     public class BrainTestBase
     {
-        readonly protected IEnvironment sim;
+        readonly protected IEnvironment env;
+        readonly protected IRobot robot;
         readonly protected IBrain brain;
         protected ILogEntry lastLogEntry = null;
 
         public BrainTestBase()
         {
-            sim = new DefaultSimulator();
-            brain = new DefaultBrain(sim);
+            env = new DefaultEnvironment(null);
+            robot = new DefaultRobot(env);
+            brain = new DefaultBrain(robot);
             brain.OnLoggedEvent += (ILogEntry entry) => lastLogEntry = entry;
         }
     }

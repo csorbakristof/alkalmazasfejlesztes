@@ -1,4 +1,5 @@
-﻿using EnvironmentSimulator;
+﻿using Environment;
+using Robot;
 using RobotBrain.Command;
 using RobotBrain.LogEntry;
 using RobotBrain.State;
@@ -14,7 +15,7 @@ namespace RobotBrain
 
         IState CurrentState { get; set; }
 
-        IEnvironment Environment { get; }
+        IRobot Robot { get; }
     }
 
     public delegate void OnLoggedEventDelegate(ILogEntry newEntry);

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EnvironmentSimulator\EnvironmentSimulator.csproj" />
+    <ProjectReference Include="..\EnvironmentSimulator\Environment.csproj" />
     <ProjectReference Include="..\LogAnalysis\LogAnalysis.csproj" />
     <ProjectReference Include="..\RobotBrain\RobotBrain.csproj" />
   </ItemGroup>

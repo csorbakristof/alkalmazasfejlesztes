@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EnvironmentSimulator
+namespace Environment
 {
     public class Map
     {

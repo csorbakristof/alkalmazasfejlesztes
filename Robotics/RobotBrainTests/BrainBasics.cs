@@ -1,4 +1,4 @@
-using EnvironmentSimulator;
+using Environment;
 using RobotBrain;
 using RobotBrain.LogEntry;
 using System;
@@ -12,7 +12,7 @@ namespace RobotBrainTests
         public void Instantiation()
         {
             // Now simulate a change outside the brain and expect log entry about it.
-            sim.Direction = 1.0;
+            robot.Direction = 1.0;
             Assert.NotNull(lastLogEntry);
         }
     }

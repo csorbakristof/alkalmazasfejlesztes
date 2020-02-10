@@ -11,7 +11,7 @@ namespace RobotBrainTests
         public void RunNopCommand()
         {
             brain.AddCommand(new NopCommand());
-            sim.Tick();
+            env.Tick();
             Assert.NotNull(lastLogEntry);
             Assert.True(lastLogEntry is CommandCompleteLogEntry);
         }
@@ -21,9 +21,9 @@ namespace RobotBrainTests
         {
             brain.AddCommand(new GenericSingleStateCommand(new SleepState(2)));
             Assert.Null(lastLogEntry);
-            sim.Tick();
+            env.Tick();
             Assert.Null(lastLogEntry);
-            sim.Tick();
+            env.Tick();
             Assert.True(lastLogEntry is CommandCompleteLogEntry);
         }
 
@@ -37,15 +37,15 @@ namespace RobotBrainTests
             var turnAwayAndThenBackState = turnAwayState.Then(turnBackState);
 
             brain.AddCommand(new GenericSingleStateCommand(turnAwayAndThenBackState));
-            Assert.Equal(0.0, sim.Direction, 1);
+            Assert.Equal(0.0, robot.Direction, 1);
             for (int i = 0; i < 10; i++)
-                sim.Tick();
-            Assert.Equal(10.0, sim.Direction, 1);
+                env.Tick();
+            Assert.Equal(10.0, robot.Direction, 1);
             // Now the decorator should have modified the transition to IdleState to a transition
             //  to turnBackState.
             for (int i = 0; i < 10; i++)
-                sim.Tick();
-            Assert.Equal(0.0, sim.Direction, 1);
+                env.Tick();
+            Assert.Equal(0.0, robot.Direction, 1);
         }
     }
 }

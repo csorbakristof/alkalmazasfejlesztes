@@ -1,4 +1,5 @@
-﻿using EnvironmentSimulator;
+﻿using Environment;
+using Robot;
 using RobotBrain.Command;
 using RobotBrain.LogEntry;
 using RobotBrain.State;
@@ -21,14 +22,14 @@ namespace RobotBrain
             }
         }
 
-        public IEnvironment Environment { get; private set; }
+        public IRobot Robot { get; private set; }
 
-        public DefaultBrain(IEnvironment environment)
+        public DefaultBrain(IRobot robot)
         {
-            Environment = environment;
-            environment.OnDirectionChanged += Environment_OnDirectionChanged;
-            environment.OnSpeedChanged += Environment_OnSpeedChanged;
-            environment.OnTick += Environment_OnTick;
+            Robot = robot;
+            robot.OnDirectionChanged += Environment_OnDirectionChanged;
+            robot.OnSpeedChanged += Environment_OnSpeedChanged;
+            robot.OnTick += Environment_OnTick;
         }
 
         #region Handle simulator events

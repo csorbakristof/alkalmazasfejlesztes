@@ -17,13 +17,13 @@ namespace RobotBrain.State
 
         public override void Enter()
         {
-            Brain.Environment.Turn = angularVelocity;
+            Brain.Robot.Turn = angularVelocity;
         }
 
         public override void Tick()
         {
-            if ((angularVelocity > 0 && Brain.Environment.Direction >= targetDirection)
-                || (angularVelocity < 0 && Brain.Environment.Direction <= targetDirection))
+            if ((angularVelocity > 0 && Brain.Robot.Direction >= targetDirection)
+                || (angularVelocity < 0 && Brain.Robot.Direction <= targetDirection))
             {
                 Brain.CurrentState = new IdleState();
             }

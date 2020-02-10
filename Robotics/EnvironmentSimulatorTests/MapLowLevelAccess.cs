@@ -1,8 +1,8 @@
-﻿using EnvironmentSimulator;
+﻿using Environment;
 using System.Linq;
 using Xunit;
 
-namespace EnvironmentSimulatorTests
+namespace EnvironmentTests
 {
     public class MapLowLevelAccess
     {
