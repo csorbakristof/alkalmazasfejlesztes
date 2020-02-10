@@ -28,10 +28,9 @@ namespace LogAnalysisTests
         {
             var visitor = new TestVisitor();
             new LogCollector(brain, visitor);
-            Assert.Equal(0.0, robot.Direction, 1);
+            env.Tick();
             // Direction change will fire a log event which is captured by LogCollector
             //  and forwarded to TestVisitor.
-            robot.Direction = 1.0;
             Assert.True(visitor.Visited);
         }
 

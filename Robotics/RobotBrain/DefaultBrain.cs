@@ -27,25 +27,15 @@ namespace RobotBrain
         public DefaultBrain(IRobot robot)
         {
             Robot = robot;
-            robot.OnDirectionChanged += Environment_OnDirectionChanged;
-            robot.OnSpeedChanged += Environment_OnSpeedChanged;
             robot.OnTick += Environment_OnTick;
         }
 
         #region Handle simulator events
-        private void Environment_OnSpeedChanged(double newValue)
-        {
-            OnLoggedEvent?.Invoke(new GenericLogEntry());
-        }
-
-        private void Environment_OnDirectionChanged(double newValue)
-        {
-            OnLoggedEvent?.Invoke(new GenericLogEntry());
-        }
-
         private void Environment_OnTick()
         {
             currentState.Tick();
+            OnLoggedEvent?.Invoke(new GenericLogEntry());
+
             if (currentCommand?.IsComplete() ?? false)
                 OnLoggedEvent?.Invoke(new CommandCompleteLogEntry());
         }

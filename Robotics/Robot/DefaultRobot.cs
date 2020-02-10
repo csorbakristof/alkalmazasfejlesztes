@@ -5,32 +5,26 @@ namespace Robot
 {
     public class DefaultRobot : IRobot
     {
-        double speed;
+        private LocOri LocationOrientation;
+
+        private double speed;
         public double Speed
         {
             get => speed;
-            set
-            {
-                if (!Double.Equals(speed, value))
-                {
-                    speed = value;
-                    OnSpeedChanged?.Invoke(speed);
-                }
-            }
+            set => speed = value;
         }
 
-        double direction;
         public double Direction
         {
-            get => direction;
-            set
-            {
-                if (!Double.Equals(direction, value))
-                {
-                    direction = value;
-                    OnDirectionChanged?.Invoke(direction);
-                }
-            }
+            get => LocationOrientation.Orientation;
+            set => LocationOrientation.Orientation = value;
+        }
+
+        public double Turn { get; set; }
+
+        public Point Position {
+            get => LocationOrientation.Location;
+            set => LocationOrientation.Location = value;
         }
 
         public IEnvironment Environment { get; set; }
@@ -44,15 +38,10 @@ namespace Robot
         private void Env_OnTick()
         {
             // TODO use LogOri for abs and speed and acceleration
-            Direction += Turn;
+            LocationOrientation.Orientation += Turn;
             OnTick?.Invoke();
         }
 
-        public double Turn { get; set; }
-        public Point Position { get; set; }
-
-        public event OnSpeedChangedDelegate OnSpeedChanged;
-        public event OnDirectionChangedDelegate OnDirectionChanged;
         public event OnTickDelegate OnTick;
     }
 }

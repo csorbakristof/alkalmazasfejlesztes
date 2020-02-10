@@ -22,7 +22,6 @@ namespace RobotBrainTests
             brain.AddCommand(new GenericSingleStateCommand(new SleepState(2)));
             Assert.Null(lastLogEntry);
             env.Tick();
-            Assert.Null(lastLogEntry);
             env.Tick();
             Assert.True(lastLogEntry is CommandCompleteLogEntry);
         }
