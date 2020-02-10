@@ -14,7 +14,7 @@ namespace LogAnalysisTests
 
         public Basics()
         {
-            sim = new DefaultSimulator();
+            sim = new DefaultSimulator(null);
             brain = new DefaultBrain(sim);
             brain.OnLoggedEvent += (ILogEntry entry) => lastLogEntry = entry;
         }

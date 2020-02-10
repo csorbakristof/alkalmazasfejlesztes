@@ -5,7 +5,7 @@ namespace EnvironmentSimulatorTests
 {
     public class Basics
     {
-        readonly IEnvironment sim = new DefaultSimulator();
+        readonly IEnvironment sim = new DefaultSimulator(null);
 
         [Fact]
         public void SetSpeedDirection_ExpectNotification()

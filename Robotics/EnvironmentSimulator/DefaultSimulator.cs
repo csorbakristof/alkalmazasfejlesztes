@@ -6,6 +6,13 @@ namespace EnvironmentSimulator
 {
     public class DefaultSimulator : IEnvironment
     {
+        private readonly Map map;
+
+        public DefaultSimulator(Map map)
+        {
+            this.map = map;
+        }
+
         double speed;
         public double Speed
         {
@@ -44,6 +51,11 @@ namespace EnvironmentSimulator
         {
             Direction += Turn;
             OnTick?.Invoke();
+        }
+
+        public IEnumerable<int> Scan(int x1, int y1, int x2, int y2)
+        {
+            return map.GetValuesAlongLine(x1, y1, x2, y2);
         }
     }
 }

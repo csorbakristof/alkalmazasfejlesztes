@@ -25,3 +25,5 @@
 
 - Visitor design pattern in RobotBrain.LogEntry.ILogEntry, RobotBrain.LogEntry.ILogEntryVisitor,
 	see LogAnalysisTests.Instantiation()
+
+- RobotBrain.State.IState and its defaults in StateBase.
