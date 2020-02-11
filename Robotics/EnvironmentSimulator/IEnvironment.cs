@@ -21,28 +21,4 @@ namespace Environment
     }
 
     public delegate void OnTickDelegate();
-
-    public struct Point
-    {
-        public int X;
-        public int Y;
-        public Point(int x, int y) : this()
-        {
-            this.X = x;
-            this.Y = y;
-        }
-    }
-
-    public struct LocOri
-    {
-        public Point Location;
-        public double Orientation;
-
-        public LocOri(int x, int y, int orientation) : this()
-        {
-            this.Location.X = x;
-            this.Location.Y = y;
-            this.Orientation = orientation;
-        }
-    }
 }

@@ -22,7 +22,11 @@ namespace Environment
 
         public IEnumerable<int> Scan(Point p1, Point p2)
         {
-            return map.GetValuesAlongLine(p1.X, p1.Y, p2.X, p2.Y);
+            return map.GetValuesAlongLine(
+                (int)Math.Round(p1.X),
+                (int)Math.Round(p1.Y),
+                (int)Math.Round(p2.X),
+                (int)Math.Round(p2.Y));
         }
 
         public Point GetLocationOfRelativePoint(LocOri baseLocOri, double relativeDirection, double distance)
@@ -30,14 +34,9 @@ namespace Environment
             // Note: direction 0.0 is upwards, X and Y coordinates are increasing rightwards and downwards.
             return new Point()
             {
-                X = baseLocOri.Location.X + (int)Math.Round(Math.Sin(ToRad(baseLocOri.Orientation + relativeDirection)) * distance),
-                Y = baseLocOri.Location.Y - (int)Math.Round(Math.Cos(ToRad(baseLocOri.Orientation + relativeDirection)) * distance)
+                X = baseLocOri.Location.X + (int)Math.Round(Math.Sin(Helpers.ToRad(baseLocOri.Orientation + relativeDirection)) * distance),
+                Y = baseLocOri.Location.Y - (int)Math.Round(Math.Cos(Helpers.ToRad(baseLocOri.Orientation + relativeDirection)) * distance)
             };
-        }
-
-        private double ToRad(double degrees)
-        {
-            return degrees / 180.0 * Math.PI;
         }
 
         public IEnumerable<int> ScanRelative(LocOri baseLocOri,

@@ -7,11 +7,10 @@ namespace Robot
     {
         private LocOri LocationOrientation;
 
-        private double speed;
-        public double Speed
+        public Point Position
         {
-            get => speed;
-            set => speed = value;
+            get => LocationOrientation.Location;
+            set => LocationOrientation.Location = value;
         }
 
         public double Direction
@@ -20,12 +19,16 @@ namespace Robot
             set => LocationOrientation.Orientation = value;
         }
 
+        private double speed;
+        public double Speed
+        {
+            get => speed;
+            set => speed = value;
+        }
+
         public double Turn { get; set; }
 
-        public Point Position {
-            get => LocationOrientation.Location;
-            set => LocationOrientation.Location = value;
-        }
+        public double Acceleration { get; set; }
 
         public IEnvironment Environment { get; set; }
 
@@ -39,6 +42,8 @@ namespace Robot
         {
             // TODO use LogOri for abs and speed and acceleration
             LocationOrientation.Orientation += Turn;
+            LocationOrientation.Location += Helpers.GetVector(LocationOrientation.Orientation, speed);
+            Speed += Acceleration;
             OnTick?.Invoke();
         }
 
