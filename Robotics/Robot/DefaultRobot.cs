@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Robot
 {
-    public class DefaultRobot : IRobot, ILineSensor
+    public class DefaultRobot : IRobot, ILineSensor, IDistanceSensor
     {
         private LocOri LocationOrientation;
 
@@ -55,6 +55,16 @@ namespace Robot
         {
             // Scan in front of the vehicle +/-30 degrees, 11 pixels wide
             return Environment.ScanRelative(this.LocationOrientation, -30.0, 10.0, 30.0, 10.0).ToArray();
+        }
+        #endregion
+
+        #region IDistanceSensor implementation
+        public double GetDistance(double relativeDirection, int minMapValueForObstacles, int maxDistance)
+        {
+            var scan = Environment.ScanRelative(LocationOrientation,
+                relativeDirection, 0.0, relativeDirection, maxDistance).ToArray();
+            var dist = scan.TakeWhile(v => v < minMapValueForObstacles).Count();
+            return dist;
         }
         #endregion
     }

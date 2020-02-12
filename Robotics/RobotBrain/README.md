@@ -29,3 +29,9 @@
 - RobotBrain.State.IState and its defaults in StateBase.
 
 - Robot.IRobot, Robot.ILineSensor szétválasztása (Interface Segregation Principle)
+
+- RobotTests.DistanceSensorTests.wallHeight const
+
+- RobotTests.RobotTestBase: initializations moved into common base class.
+
+- Linq get first index: Robot.DefaultRobot.GetDistance uses TakeWhile and Count to do this.
