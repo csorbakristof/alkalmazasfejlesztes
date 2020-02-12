@@ -1,9 +1,10 @@
 ﻿using Environment;
 using System;
+using System.Linq;
 
 namespace Robot
 {
-    public class DefaultRobot : IRobot
+    public class DefaultRobot : IRobot, ILineSensor
     {
         private LocOri LocationOrientation;
 
@@ -13,7 +14,7 @@ namespace Robot
             set => LocationOrientation.Location = value;
         }
 
-        public double Direction
+        public double Orientation
         {
             get => LocationOrientation.Orientation;
             set => LocationOrientation.Orientation = value;
@@ -48,5 +49,13 @@ namespace Robot
         }
 
         public event OnTickDelegate OnTick;
+
+        #region ILineSensor implementation
+        public int[] Scan()
+        {
+            // Scan in front of the vehicle +/-30 degrees, 11 pixels wide
+            return Environment.ScanRelative(this.LocationOrientation, -30.0, 10.0, 30.0, 10.0).ToArray();
+        }
+        #endregion
     }
 }

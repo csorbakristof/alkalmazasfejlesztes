@@ -27,3 +27,5 @@
 	see LogAnalysisTests.Instantiation()
 
 - RobotBrain.State.IState and its defaults in StateBase.
+
+- Robot.IRobot, Robot.ILineSensor szétválasztása (Interface Segregation Principle)

@@ -5,7 +5,7 @@ namespace Robot
     public interface IRobot
     {
         Point Position { get; set; }
-        double Direction { get; set; }
+        double Orientation { get; set; }
         double Speed { get; set; }
         double Turn { get; set; }
         double Acceleration { get; set; }

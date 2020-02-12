@@ -36,15 +36,15 @@ namespace RobotBrainTests
             var turnAwayAndThenBackState = turnAwayState.Then(turnBackState);
 
             brain.AddCommand(new GenericSingleStateCommand(turnAwayAndThenBackState));
-            Assert.Equal(0.0, robot.Direction, 1);
+            Assert.Equal(0.0, robot.Orientation, 1);
             for (int i = 0; i < 10; i++)
                 env.Tick();
-            Assert.Equal(10.0, robot.Direction, 1);
+            Assert.Equal(10.0, robot.Orientation, 1);
             // Now the decorator should have modified the transition to IdleState to a transition
             //  to turnBackState.
             for (int i = 0; i < 10; i++)
                 env.Tick();
-            Assert.Equal(0.0, robot.Direction, 1);
+            Assert.Equal(0.0, robot.Orientation, 1);
         }
     }
 }

@@ -18,10 +18,10 @@ namespace EnvironmentTests
         [Fact]
         public void Turns()
         {
-            robot.Direction = 0.0;
+            robot.Orientation = 0.0;
             robot.Turn = 1.0;
             env.Tick();
-            Assert.Equal(1.0, robot.Direction);
+            Assert.Equal(1.0, robot.Orientation);
         }
     }
 }
