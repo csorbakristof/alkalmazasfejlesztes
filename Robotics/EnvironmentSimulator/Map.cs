@@ -19,9 +19,18 @@ namespace Environment
 
         public int this[int x, int y]
         {
-            get => fields[x, y];
-            set => fields[x, y] = value;
+            get
+            {
+                return IsPointInside(x,y) ? fields[x, y] : 0;
+            }
+            set
+            {
+                if (IsPointInside(x, y))
+                    fields[x, y] = value;
+            }
         }
+
+        private bool IsPointInside(int x, int y) => (x >= 0 && x < SizeX && y >= 0 && y < SizeY);
 
         /// <summary>
         /// Set all map values using a lambda expression taking the coordinates.
@@ -31,7 +40,7 @@ namespace Environment
         {
             for (int i = 0; i < SizeX; i++)
                 for (int j = 0; j < SizeY; j++)
-                    fields[i, j] = lambda(i, j);
+                    this[i, j] = lambda(i, j);
         }
 
         public IEnumerable<int> GetValuesAlongLine(int x1, int y1, int x2, int y2)
@@ -51,7 +60,7 @@ namespace Environment
                 if (lastRoundedX != roundedX || lastRoundedY != roundedY)
                 {
                     // New location
-                    yield return fields[roundedX, roundedY];
+                    yield return this[roundedX, roundedY];
                 }
                 lastRoundedX = roundedX;
                 lastRoundedY = roundedY;
@@ -60,14 +69,14 @@ namespace Environment
                 roundedX = (int)Math.Round(x);
                 roundedY = (int)Math.Round(y);
             }
-            yield return fields[x2, y2];
+            yield return this[x2, y2];
         }
 
         public void SetRect(int x1, int y1, int x2, int y2, int value)
         {
             for (int x = x1; x <= x2; x++)
                 for (int y = y1; y <= y2; y++)
-                    fields[x, y] = value;
+                    this[x, y] = value;
         }
 
     }

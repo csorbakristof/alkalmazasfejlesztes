@@ -55,5 +55,14 @@ namespace EnvironmentTests
             for (int i = 7; i <= 10; i++)
                 Assert.Equal(0, scan[i]);
         }
+
+        [Fact]
+        public void ScanOutOfMap()
+        {
+            var scan = env.Scan(new Point(-10,50), new Point(10,50)).ToArray();
+            Assert.Equal(21, scan.Length);
+            Assert.Equal(0, scan[0]);   // Out-of-range values should be 0.
+        }
+
     }
 }

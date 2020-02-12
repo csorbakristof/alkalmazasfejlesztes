@@ -36,10 +36,10 @@ namespace Robot
         public DefaultRobot(IEnvironment env)
         {
             Environment = env;
-            env.OnTick += Env_OnTick;
+            env.OnTick += Environment_OnTick;
         }
 
-        private void Env_OnTick()
+        private void Environment_OnTick()
         {
             // TODO use LogOri for abs and speed and acceleration
             LocationOrientation.Orientation += Turn;

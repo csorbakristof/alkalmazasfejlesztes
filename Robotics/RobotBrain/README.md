@@ -35,3 +35,12 @@
 - RobotTests.RobotTestBase: initializations moved into common base class.
 
 - Linq get first index: Robot.DefaultRobot.GetDistance uses TakeWhile and Count to do this.
+
+- RobotBrain.State.IState cannot be very generic anymore, as robots events need to be enumerated
+	(if we strictly follow the pattern and do not poll everything in OnTick()).
+
+- Test hierarchy across projects: WallFollowerRobotTests.Basics inherits from RobotTests.RobotTestBase
+
+
+- WallFollowerRobot.SmartSideSensor.PollSensorAndFireEventIfNeeded: event handler for OnTick, but name
+	is not about being an event handler, but about what is does.

@@ -31,7 +31,7 @@ namespace RobotBrain
         }
 
         #region Handle simulator events
-        private void Environment_OnTick()
+        protected virtual void Environment_OnTick()
         {
             currentState.Tick();
             OnLoggedEvent?.Invoke(new GenericLogEntry());
