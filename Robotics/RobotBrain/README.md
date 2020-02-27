@@ -44,3 +44,9 @@
 
 - WallFollowerRobot.SmartSideSensor.PollSensorAndFireEventIfNeeded: event handler for OnTick, but name
 	is not about being an event handler, but about what is does.
+
+
+- Robot.RobotBase.Environment_OnTick calls own virtual method to allow an insert point for sensor check before
+	the OnTick event is fired, so that the OnTick will be the last one to fire.
+
+- Named parameters for improved readability: RobotTests.RobotEventTests.ctor

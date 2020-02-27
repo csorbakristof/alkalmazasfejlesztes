@@ -5,8 +5,14 @@ namespace Environment
 {
     public interface IEnvironment
     {
+        /// <summary>
+        /// Indicates a new tick of time.
+        /// </summary>
         event OnTickDelegate OnTick;
 
+        /// <summary>
+        /// Calls manually force a time tick.
+        /// </summary>
         void Tick();
 
         Point GetLocationOfRelativePoint(LocOri basePoint, double relativeDirection, double distance);

@@ -1,21 +1,19 @@
 ﻿using Robot;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WallFollowerRobot
 {
+    /// <summary>
+    /// Wall detector sensor with OnWallDetected event.
+    /// </summary>
     public class SmartSideSensor
     {
-        private readonly IRobot robot;
-        private readonly IDistanceSensor distanceSensor;
-        private double relativeDirection;
-        private int minMapValueForObstacles;
-        private int maxDistance;
+        private readonly DistanceSensor distanceSensor;
+        private readonly double relativeDirection;
+        private readonly int minMapValueForObstacles;
+        private readonly int maxDistance;
 
-        public SmartSideSensor(IRobot robot, IDistanceSensor distanceSensor, double relativeDirection, int minMapValueForObstacles, int maxDistance)
+        public SmartSideSensor(IRobot robot, DistanceSensor distanceSensor, double relativeDirection, int minMapValueForObstacles, int maxDistance)
         {
-            this.robot = robot;
             this.distanceSensor = distanceSensor;
             this.relativeDirection = relativeDirection;
             this.minMapValueForObstacles = minMapValueForObstacles;

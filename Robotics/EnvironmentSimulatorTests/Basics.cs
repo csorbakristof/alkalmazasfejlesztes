@@ -12,7 +12,7 @@ namespace EnvironmentTests
         public Basics()
         {
             env = new DefaultEnvironment(null);
-            robot = new DefaultRobot(env);
+            robot = new RobotBase(env);
         }
 
         [Fact]

@@ -15,8 +15,8 @@ namespace RobotBrainTests
         public BrainTestBase()
         {
             env = new DefaultEnvironment(null);
-            robot = new DefaultRobot(env);
-            brain = new DefaultBrain(robot);
+            robot = new RobotBase(env);
+            brain = new BrainBase(robot);
             brain.OnLoggedEvent += (ILogEntry entry) => lastLogEntry = entry;
         }
     }

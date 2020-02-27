@@ -6,7 +6,7 @@ using RobotBrain.State;
 
 namespace RobotBrain
 {
-    public class DefaultBrain : IBrain
+    public class BrainBase : IBrain
     {
         ICommand currentCommand = null;
 
@@ -24,7 +24,7 @@ namespace RobotBrain
 
         public IRobot Robot { get; private set; }
 
-        public DefaultBrain(IRobot robot)
+        public BrainBase(IRobot robot)
         {
             Robot = robot;
             robot.OnTick += Environment_OnTick;
