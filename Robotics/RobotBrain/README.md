@@ -68,3 +68,13 @@ Facade: Robot.FixedDistanceSensor
 
 Robot.RobotBase: "public virtual bool CheckAndMoveRobot()" allows derived classes to implement collisions,
 	but now, default behaviour is also available.
+
+- Refactoring example: parametrizing two classes and extracting base class.
+commit: "Wall following states (before refactor)" and "DistanceBasedTurningStateBase extracted (after refactor)"
+(2020-03-05 15:26:08, hash:	7b2960b046e3515ad40a271d896139eeec8107d3)
+
+- Refactor of WallAndLineDetectorRobotTests: parametrizing two methods and extracting common parts, needed
+	significant changes in event mocking. Commits "WallAndLineDetectorRobotTests before refactor"
+	and "Revert "WallAndLineDetectorRobotTests before refactor""
+	(2020-03-05 17:05:38, hash: 45730ca785312d080b40ded659ea16b669f3ff8c)
+
