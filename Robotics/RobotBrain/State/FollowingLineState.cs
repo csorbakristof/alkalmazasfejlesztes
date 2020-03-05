@@ -41,6 +41,5 @@ namespace RobotBrain.State
                 Robot.Turn = 0.0;
             // If line is entirely lost, keep turning.
         }
-
     }
 }

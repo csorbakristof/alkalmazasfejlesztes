@@ -12,68 +12,30 @@ namespace RobotBrainTests
 {
     public class WallsAndLinesDemoBrainTests
     {
-        private Map map;
-        private DefaultEnvironment environment;
-        private LineAndWallDetectorRobot robot;
-        private WallsAndLinesDemoBrain brain;
+        private readonly Map map;
+        private readonly DefaultEnvironment environment;
+        private readonly LineAndWallDetectorRobot robot;
+        private readonly WallsAndLinesDemoBrain brain;
 
         public WallsAndLinesDemoBrainTests()
         {
-            map = CreateMap();
+            map = TestMap1Factory.Create();
             environment = new DefaultEnvironment(map);
             robot = new LineAndWallDetectorRobot(environment);
             brain = new WallsAndLinesDemoBrain(robot);
         }
 
-        #region Drawing the map
-        private Map CreateMap()
-        {
-            Map map = new Map(250, 250);
-            DrawHLine(map, x1: 50, x2: 100, y: 50);
-            DrawVLine(map, x: 50, y1: 50, y2: 200);
-            DrawHLine(map, x1: 50, x2: 100, y: 200);
-            DrawVLine(map, x: 100, y1: 50, y2: 100);
-            DrawVLine(map, x: 100, y1: 150, y2: 200);
-            DrawHLine(map, x1: 100, x2: 150, y: 150);
-            DrawFilledRect(map, 110, 60, 190, 140);
-            DrawFilledRect(map, 110, 160, 190, 190);
-            return map;
-        }
-
-        private void DrawHLine(Map map, int x1, int x2, int y, int value = 1)
-        {
-            for (int x = x1; x <= x2; x++)
-                map[x, y] = value;
-        }
-
-        private void DrawVLine(Map map, int x, int y1, int y2, int value = 1)
-        {
-            for (int y = y1; y <= y2; y++)
-                map[x, y] = value;
-        }
-
-        private void DrawFilledRect(Map map, int x1, int y1, int x2, int y2, int value = 255)
-        {
-            for (int x = x1; x <= x2; x++)
-                for (int y = y1; y <= y2; y++)
-                    map[x, y] = value;
-        }
-        #endregion
-
-        // To test: proper state transitions upon signals from robot
         [Fact]
         public void InitialState()
         {
             Assert.True(brain.CurrentState is IdleState);
         }
 
-        // Following a straight line
         [Fact]
-        public void CommandToEnterFollowingLineState()
+        public void FollowingLineWithCorner()
         {
             // put robot over the line
-            robot.Location = new Point(50, 100);
-            robot.Orientation = 0.0;
+            TestMap1Factory.PutRobotInA(robot);
             brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState()));
             Assert.True(brain.CurrentState is FollowingLineState);
 
@@ -88,13 +50,30 @@ namespace RobotBrainTests
             Assert.True(robot.Location.X > 60); // Turned and moved right (along line).
         }
 
-        // Command to start following the wall on the left
+        [Fact]
+        public void FollowingWallOnLeftWithCorner()
+        {
+            // put robot over the line
+            TestMap1Factory.PutRobotInB(robot);
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState()));
 
+            for (int t = 0; t < 100; t++)
+                environment.Tick();
 
-        // Command to start following the wall on the right
+            Assert.True(robot.Location.Y > 170); // Turned along wall and moved south.
+        }
 
+        [Fact]
+        public void FollowingWallOnRightWithCorner()
+        {
+            // put robot over the line
+            TestMap1Factory.PutRobotInB(robot);
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState()));
 
-        //  Separate test classes for the follower states (base class, as following is similar)
+            for (int t = 0; t < 100; t++)
+                environment.Tick();
 
+            Assert.True(robot.Location.Y < 130); // Turned along wall and moved north.
+        }
     }
 }

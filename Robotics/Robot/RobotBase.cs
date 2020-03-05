@@ -47,15 +47,31 @@ namespace Robot
 
         private void Environment_OnTick()
         {
-            Orientation += Turn;
-            Location += Helpers.GetVector(Orientation, speed);
-            Speed += Acceleration;
-            if (Speed < 0)
-                Speed = 0;
+            CheckAndMoveRobot();
             // Note: OnTick will be the last event to fire. After all sensor related events
             //  have been fired as necessary.
             CheckSensorValuesAndFireEvents();
             OnTick?.Invoke();
+        }
+
+        /// <summary>
+        /// If the robot can move with given speed, updates location.
+        /// In case of collision with wall, does not update location.
+        /// </summary>
+        /// <returns>True if the move could be performed (without collision).</returns>
+        public virtual bool CheckAndMoveRobot()
+        {
+            Orientation += Turn;
+            if (Orientation > 360.0)
+                Orientation -= 360.0;
+            if (Orientation < 0.0)
+                Orientation += 360.0;
+
+            Location += Helpers.GetVector(Orientation, speed);
+            Speed += Acceleration;
+            if (Speed < 0)
+                Speed = 0;
+            return true;
         }
 
         /// <summary>

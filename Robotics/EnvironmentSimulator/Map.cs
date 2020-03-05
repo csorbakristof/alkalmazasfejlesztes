@@ -79,5 +79,25 @@ namespace Environment
                     this[x, y] = value;
         }
 
+        #region Helper methods
+        public void DrawHLine(int x1, int x2, int y, int value = 1)
+        {
+            for (int x = x1; x <= x2; x++)
+                this[x, y] = value;
+        }
+
+        public void DrawVLine(int x, int y1, int y2, int value = 1)
+        {
+            for (int y = y1; y <= y2; y++)
+                this[x, y] = value;
+        }
+
+        public void DrawFilledRect(int x1, int y1, int x2, int y2, int value = 255)
+        {
+            for (int x = x1; x <= x2; x++)
+                for (int y = y1; y <= y2; y++)
+                    this[x, y] = value;
+        }
+        #endregion
     }
 }

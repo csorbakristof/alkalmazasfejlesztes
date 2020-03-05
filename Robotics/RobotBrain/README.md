@@ -53,7 +53,7 @@
 
 - LineAndWallDetectorRobot.UpdateSensorStatus: ref value, delegates as parameters, method extracted to helper
 	(Can pass events as parametes in the same class.)
-	But in WallAndLineDetectorRobotEventTests, one needs to be tricky.
+	But in WallAndLineDetectorRobotTests, one needs to be tricky.
 	AssertSingleFireEventAtLocation uses nameof and prior subscriptions, uses the fact that every test gets separate
 		instance, and uses Assert.Single
 
@@ -62,3 +62,9 @@
 
 - WallsAndLinesDemoBrainTests: testing the brain without actual robot (state transitions)
 	Unit test class implementing IRobot to simulate it for the brain!
+
+
+Facade: Robot.FixedDistanceSensor
+
+Robot.RobotBase: "public virtual bool CheckAndMoveRobot()" allows derived classes to implement collisions,
+	but now, default behaviour is also available.

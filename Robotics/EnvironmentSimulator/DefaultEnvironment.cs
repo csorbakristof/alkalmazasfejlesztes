@@ -48,5 +48,10 @@ namespace Environment
                 GetLocationOfRelativePoint(baseLocOri, relativeDirection2, distance2)
                 );
         }
+
+        public int GetMapValueAtLocation(Point p)
+        {
+            return this.map[(int)Math.Round(p.X), (int)Math.Round(p.Y)];
+        }
     }
 }

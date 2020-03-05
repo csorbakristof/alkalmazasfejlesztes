@@ -6,20 +6,36 @@ namespace Robot
 {
     /// <summary>
     /// Class of the actual robot with sensors for wall and line following.
-    /// On the map, 0 is empty, 1-9 is line, 10+ is wall.
+    /// On the map, 0 is empty, 1-9 is line, 10+ (MinMapValueForObstacle) is wall.
     /// Events indicate sensor status changes, they are not fired continuously, only once.
     /// </summary>
     public class LineAndWallDetectorRobot : RobotBase
     {
         public LineSensor LineSensor { get; set; }
-        public DistanceSensor LeftWallSensor { get; private set; }
-        public DistanceSensor RightWallSensor { get; private set; }
+        public FixedDistanceSensor LeftWallSensor { get; private set; }
+        public FixedDistanceSensor RightWallSensor { get; private set; }
+        public const int WallSensorMaxDistance = 20;
+        public const int MinMapValueForObstacle = 10;
 
         public LineAndWallDetectorRobot(IEnvironment env) : base(env)
         {
             LineSensor = new LineSensor(this);
-            LeftWallSensor = new DistanceSensor(this);
-            RightWallSensor = new DistanceSensor(this);
+            LeftWallSensor = new FixedDistanceSensor(this, -90.0, MinMapValueForObstacle, WallSensorMaxDistance);
+            RightWallSensor = new FixedDistanceSensor(this, 90.0, MinMapValueForObstacle, WallSensorMaxDistance);
+        }
+
+        public override bool CheckAndMoveRobot()
+        {
+            Point newLocation = Location + Helpers.GetVector(Orientation, Speed);
+            if (this.Environment.GetMapValueAtLocation(newLocation) < MinMapValueForObstacle)
+            {
+                return base.CheckAndMoveRobot();
+            }
+            else
+            {
+                Speed = 0.0;
+                return false;
+            }
         }
 
         protected override void CheckSensorValuesAndFireEvents()
@@ -61,7 +77,7 @@ namespace Robot
         private bool? lastLeftWallStatus = null;
         private void PollLeftWallSensor()
         {
-            double leftDistance = LeftWallSensor.GetDistance(-90.0, 10, 20);
+            double leftDistance = LeftWallSensor.GetDistance();
             UpdateSensorStatus(leftDistance < 20,
                 ref lastLeftWallStatus, OnWallOnLeft, OnNoWallOnLeft);
         }
@@ -69,7 +85,7 @@ namespace Robot
         private bool? lastRightWallStatus = null;
         private void PollRightWallSensor()
         {
-            double rightDistance = LeftWallSensor.GetDistance(90.0, 10, 20);
+            double rightDistance = RightWallSensor.GetDistance();
             UpdateSensorStatus(rightDistance < 20,
                 ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }

@@ -24,6 +24,8 @@ namespace Environment
 
         IEnumerable<int> ScanRelative(LocOri basePoint, double relativeDirection1, double distance1,
             double relativeDirection2, double distance2);
+
+        int GetMapValueAtLocation(Point p);
     }
 
     public delegate void OnTickDelegate();

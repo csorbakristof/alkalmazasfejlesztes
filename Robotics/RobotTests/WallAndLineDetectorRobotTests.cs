@@ -7,28 +7,21 @@ using Xunit;
 
 namespace RobotTests
 {
-    public class WallAndLineDetectorRobotEventTests
+    public class WallAndLineDetectorRobotTests
     {
         private readonly IEnvironment environment;
         private readonly LineAndWallDetectorRobot robot;
 
-        public WallAndLineDetectorRobotEventTests()
+        public WallAndLineDetectorRobotTests()
         {
             var map = new Map(100, 100);
             environment = new DefaultEnvironment(map);
             robot = new LineAndWallDetectorRobot(environment);
             SubscribeToAllRobotEvents();
 
-            DrawVerticalLineOnMap(map, x: 60, value: 255);   // Wall
-            DrawVerticalLineOnMap(map, x: 20, value: 1);     // Line
-
+            map.DrawVLine(x: 60, y1: 0, y2: 99, value: 255);    // Wall
+            map.DrawVLine(x: 20, y1: 0, y2: 99, value: 1);    // Line
             robot.Orientation = 0.0;
-        }
-
-        private void DrawVerticalLineOnMap(Map map, int x, int value)
-        {
-            for (int y = 0; y < 100; y++)
-                map[x, y] = value;
         }
 
         [Fact]
@@ -124,6 +117,12 @@ namespace RobotTests
         public void NoWallOnRight_Triggers_OnNoWallOnRight()
         {
             AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnNoWallOnRight));
+        }
+
+        [Fact]
+        public void RobotCannotGoIntoWall()
+        {
+
         }
     }
 }
