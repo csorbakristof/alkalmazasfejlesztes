@@ -78,3 +78,6 @@ commit: "Wall following states (before refactor)" and "DistanceBasedTurningState
 	and "Revert "WallAndLineDetectorRobotTests before refactor""
 	(2020-03-05 17:05:38, hash: 45730ca785312d080b40ded659ea16b669f3ff8c)
 
+Decorator pattern: RobotBrain.State.TimeoutStateDecorator
+(Unit test: RobotBrainTests.TimeoutStateDecoratorTests)
+
