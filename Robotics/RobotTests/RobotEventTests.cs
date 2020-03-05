@@ -7,16 +7,16 @@ using Xunit;
 
 namespace RobotTests
 {
-    public class RobotEventTests
+    public class WallAndLineDetectorRobotEventTests
     {
         private readonly IEnvironment environment;
-        private readonly FollowerRobot robot;
+        private readonly LineAndWallDetectorRobot robot;
 
-        public RobotEventTests()
+        public WallAndLineDetectorRobotEventTests()
         {
             var map = new Map(100, 100);
             environment = new DefaultEnvironment(map);
-            robot = new FollowerRobot(environment);
+            robot = new LineAndWallDetectorRobot(environment);
 
             DrawVerticalLineOnMap(map, x: 60, value: 255);   // Wall
             DrawVerticalLineOnMap(map, x: 20, value: 1);     // Line
@@ -31,7 +31,7 @@ namespace RobotTests
         }
 
         [Fact]
-        public void OverLine_TriggersLinePresence()
+        public void OverLine_Triggers_OnLineAppears()
         {
             // Check for line presence events. They should not be fired twice after each other if the
             //  line is continuous.
@@ -55,7 +55,7 @@ namespace RobotTests
         }
 
         [Fact]
-        public void WallOnLeft_TriggersLeftWallPresence()
+        public void WallOnLeft_Triggers_OnWallOnLeft()
         {
             // Note: this commented part is left intentionally to show original or refactored unit test.
             //robot.Location = new Point(70.0, 50.0);
@@ -75,8 +75,8 @@ namespace RobotTests
         }
 
         private void AssertSingleFireEventAtLocation(Point location, bool expectedStatus,
-            ref FollowerRobot.SensorStatusChangeDelegate trueEvent,
-            ref FollowerRobot.SensorStatusChangeDelegate falseEvent)
+            ref LineAndWallDetectorRobot.SensorStatusChangeDelegate trueEvent,
+            ref LineAndWallDetectorRobot.SensorStatusChangeDelegate falseEvent)
         {
             robot.Location = location;
             bool trueEventFired = false;

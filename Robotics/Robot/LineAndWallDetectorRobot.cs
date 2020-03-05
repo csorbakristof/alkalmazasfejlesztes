@@ -7,14 +7,15 @@ namespace Robot
     /// <summary>
     /// Class of the actual robot with sensors for wall and line following.
     /// On the map, 0 is empty, 1-9 is line, 10+ is wall.
+    /// Events indicate sensor status changes, they are not fired continuously, only once.
     /// </summary>
-    public class FollowerRobot : RobotBase
+    public class LineAndWallDetectorRobot : RobotBase
     {
         public LineSensor LineSensor { get; set; }
         public DistanceSensor LeftWallSensor { get; private set; }
         public DistanceSensor RightWallSensor { get; private set; }
 
-        public FollowerRobot(IEnvironment env) : base(env)
+        public LineAndWallDetectorRobot(IEnvironment env) : base(env)
         {
             LineSensor = new LineSensor(this);
             LeftWallSensor = new DistanceSensor(this);
