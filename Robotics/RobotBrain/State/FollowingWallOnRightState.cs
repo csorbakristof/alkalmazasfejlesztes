@@ -5,39 +5,14 @@ using System.Text;
 
 namespace RobotBrain.State
 {
-    public class FollowingWallOnRightState : StateBase
+    public class FollowingWallOnRightState : DistanceBasedTurningStateBase
     {
-        // This state requires a LineAndWallDetectorRobot.
-        LineAndWallDetectorRobot Robot => this.Brain.Robot as LineAndWallDetectorRobot;
-
-        public override void Tick()
+        protected override double GetDistance() => Robot.RightWallSensor.GetDistance();
+        public FollowingWallOnRightState() : base()
         {
-            base.Tick();
-
-            AccelerateIfStopped();
-
-            double distance = Robot.RightWallSensor.GetDistance();
-            if (distance < LineAndWallDetectorRobot.WallSensorMaxDistance)
-            {
-                if (distance > 10.0)
-                    Robot.Turn = 5.0;
-                else
-                    Robot.Turn = -5.0;
-            }
-            else
-            {
-                // Wall lost, turning
-                Robot.Turn = 5;
-            }
-        }
-
-        private void AccelerateIfStopped()
-        {
-            if (this.Brain.Robot.Speed < 1.0)
-                this.Brain.Robot.Acceleration = 1.0;
-            else
-                this.Brain.Robot.Acceleration = 0.0;
+            TurnValueOnTooSmallDistance = -5.0;
+            TurnValueOnTooHighDistance = 5.0;
+            TurnValueOnMaximalDistance = 5.0;
         }
     }
-
 }
