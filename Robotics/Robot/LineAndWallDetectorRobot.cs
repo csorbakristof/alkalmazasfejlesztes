@@ -76,12 +76,12 @@ namespace Robot
         #endregion
 
         #region Events indicating sensed environment changes
-        public SensorStatusChangeDelegate OnLineAppears;
-        public SensorStatusChangeDelegate OnLineDisappears;
-        public SensorStatusChangeDelegate OnWallOnLeft;
-        public SensorStatusChangeDelegate OnNoWallOnLeft;
-        public SensorStatusChangeDelegate OnWallOnRight;
-        public SensorStatusChangeDelegate OnNoWallOnRight;
+        public event SensorStatusChangeDelegate OnLineAppears;
+        public event SensorStatusChangeDelegate OnLineDisappears;
+        public event SensorStatusChangeDelegate OnWallOnLeft;
+        public event SensorStatusChangeDelegate OnNoWallOnLeft;
+        public event SensorStatusChangeDelegate OnWallOnRight;
+        public event SensorStatusChangeDelegate OnNoWallOnRight;
 
         public delegate void SensorStatusChangeDelegate();
         #endregion

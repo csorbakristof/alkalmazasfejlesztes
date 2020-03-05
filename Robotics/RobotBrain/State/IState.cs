@@ -14,5 +14,12 @@ namespace RobotBrain.State
 
         // Called by Brain when it is notified by the Simulator about a new time tick.
         void Tick();
+
+        void OnLineAppears();
+        void OnLineDisappears();
+        void OnWallOnLeft();
+        void OnNoWallOnLeft();
+        void OnWallOnRight();
+        void OnNoWallOnRight();
     }
 }

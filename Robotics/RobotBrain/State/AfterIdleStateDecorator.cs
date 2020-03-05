@@ -15,11 +15,6 @@
         //  decorated IState. The added functionality is only in Tick().
         public IBrain Brain { get => decorated.Brain; set => decorated.Brain = value; }
 
-        public void Enter()
-        {
-            decorated.Enter();
-        }
-
         public void Tick()
         {
             decorated.Tick();
@@ -28,5 +23,13 @@
             if (Brain.CurrentState is IdleState)
                 Brain.CurrentState = follower;
         }
+
+        public void Enter() => decorated.Enter();
+        public void OnLineAppears() => decorated.OnLineAppears();
+        public void OnLineDisappears() => decorated.OnLineDisappears();
+        public void OnNoWallOnLeft() => decorated.OnNoWallOnLeft();
+        public void OnNoWallOnRight() => decorated.OnNoWallOnRight();
+        public void OnWallOnLeft() => decorated.OnWallOnLeft();
+        public void OnWallOnRight() => decorated.OnWallOnRight();
     }
 }

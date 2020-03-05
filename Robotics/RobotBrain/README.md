@@ -51,7 +51,12 @@
 
 - Named parameters for improved readability: RobotTests.RobotEventTests.ctor
 
-- FollowerRobot.UpdateSensorStatus: ref value, events as parameters, method extracted to helper
+- LineAndWallDetectorRobot.UpdateSensorStatus: ref value, delegates as parameters, method extracted to helper
+	(Can pass events as parametes in the same class.)
+	But in WallAndLineDetectorRobotEventTests, one needs to be tricky.
+	AssertSingleFireEventAtLocation uses nameof and prior subscriptions, uses the fact that every test gets separate
+		instance, and uses Assert.Single
+
 
 - RobotEventTests: similar unit tests refactored, original left in comments intentionally
 

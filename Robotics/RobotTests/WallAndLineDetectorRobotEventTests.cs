@@ -17,6 +17,7 @@ namespace RobotTests
             var map = new Map(100, 100);
             environment = new DefaultEnvironment(map);
             robot = new LineAndWallDetectorRobot(environment);
+            SubscribeToAllRobotEvents();
 
             DrawVerticalLineOnMap(map, x: 60, value: 255);   // Wall
             DrawVerticalLineOnMap(map, x: 20, value: 1);     // Line
@@ -50,8 +51,7 @@ namespace RobotTests
             //environment.Tick();
             //Assert.False(lineAppeared);
 
-            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), true,
-                ref robot.OnLineAppears, ref robot.OnLineDisappears);
+            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnLineAppears));
         }
 
         [Fact]
@@ -70,56 +70,60 @@ namespace RobotTests
             //environment.Tick();
             //Assert.False(wallAppeared);
 
-            AssertSingleFireEventAtLocation(new Point(70.0, 50.0), true,
-                ref robot.OnWallOnLeft, ref robot.OnNoWallOnLeft);
+            AssertSingleFireEventAtLocation(new Point(70.0, 50.0), nameof(robot.OnWallOnLeft));
         }
 
-        private void AssertSingleFireEventAtLocation(Point location, bool expectedStatus,
-            ref LineAndWallDetectorRobot.SensorStatusChangeDelegate trueEvent,
-            ref LineAndWallDetectorRobot.SensorStatusChangeDelegate falseEvent)
+        #region Helper for event checks
+        private void SubscribeToAllRobotEvents()
+        {
+            robot.OnLineAppears += () => RobotEventFired(nameof(robot.OnLineAppears));
+            robot.OnLineDisappears += () => RobotEventFired(nameof(robot.OnLineDisappears));
+            robot.OnWallOnLeft += () => RobotEventFired(nameof(robot.OnWallOnLeft));
+            robot.OnNoWallOnLeft += () => RobotEventFired(nameof(robot.OnNoWallOnLeft));
+            robot.OnWallOnRight += () => RobotEventFired(nameof(robot.OnWallOnRight));
+            robot.OnNoWallOnRight += () => RobotEventFired(nameof(robot.OnNoWallOnRight));
+        }
+
+        private List<string> events = new List<string>();
+        private void RobotEventFired(string eventname)
+        {
+            events.Add(eventname);
+        }
+
+        private void AssertSingleFireEventAtLocation(Point location, string firedEventName)
         {
             robot.Location = location;
-            bool trueEventFired = false;
-            bool falseEventFired = false;
-            trueEvent += (() => trueEventFired = true);
-            falseEvent += (() => falseEventFired = true);
+            events.Clear();
             environment.Tick();
-            Assert.Equal(expectedStatus, trueEventFired);
-            Assert.Equal(!expectedStatus, falseEventFired);
+            Assert.Single(events, firedEventName);
             // Noting should fire again
-            trueEventFired = false;
-            falseEventFired = false;
             environment.Tick();
-            Assert.False(trueEventFired);
-            Assert.False(falseEventFired);
+            Assert.Single(events, firedEventName);
         }
+        #endregion
 
         [Fact]
         public void NotOverLine_Triggers_OnLineDisappears()
         {
-            AssertSingleFireEventAtLocation(new Point(70.0, 50.0), false,
-                ref robot.OnLineAppears, ref robot.OnLineDisappears);
+            AssertSingleFireEventAtLocation(new Point(70.0, 50.0), nameof(robot.OnLineDisappears));
         }
 
         [Fact]
         public void NoWallOnLeft_Triggers_OnNoWallOnLeft()
         {
-            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), false,
-                ref robot.OnWallOnLeft, ref robot.OnNoWallOnLeft);
+            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnNoWallOnLeft));
         }
 
         [Fact]
         public void WallOnRight_Triggers_OnWallOnRight()
         {
-            AssertSingleFireEventAtLocation(new Point(50.0, 50.0), true,
-                ref robot.OnWallOnRight, ref robot.OnNoWallOnRight);
+            AssertSingleFireEventAtLocation(new Point(50.0, 50.0), nameof(robot.OnWallOnRight));
         }
 
         [Fact]
         public void NoWallOnRight_Triggers_OnNoWallOnRight()
         {
-            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), false,
-                ref robot.OnWallOnRight, ref robot.OnNoWallOnRight);
+            AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnNoWallOnRight));
         }
 
 
