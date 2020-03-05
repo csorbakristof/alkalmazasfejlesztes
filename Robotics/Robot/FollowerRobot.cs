@@ -1,4 +1,5 @@
 ﻿using Environment;
+using System;
 using System.Linq;
 
 namespace Robot
@@ -28,49 +29,60 @@ namespace Robot
             PollRightWallSensor();
         }
 
-        #region Polling sensors
-        private void PollLineSensor()
+        /// <summary>
+        /// Helper method for bool sensor status updates. Fires event is status has changed.
+        /// </summary>
+        /// <param name="newStatus">New sensor status</param>
+        /// <param name="previousStatus">Reference to variable storing previous value</param>
+        /// <param name="onTrueEvent">Event to fire if status changed to true.</param>
+        /// <param name="onFalseEvent">Event to fire if status changed to false.</param>
+        private void UpdateSensorStatus(bool newStatus, ref bool? previousStatus,
+            SensorStatusChangeDelegate onTrueEvent, SensorStatusChangeDelegate onFalseEvent)
         {
-            int[] values = LineSensor.Scan();
-            if (values.Max() > 0)
-                OnLineAppears?.Invoke();
-            else
-                OnLineDisappears?.Invoke();
+            if (!previousStatus.HasValue || previousStatus != newStatus)
+            {
+                if (newStatus)
+                    onTrueEvent?.Invoke();
+                else
+                    onFalseEvent?.Invoke();
+                previousStatus = newStatus;
+            }
         }
 
+        #region Polling sensors
+        private bool? lastLineStatus = null;
+        private void PollLineSensor()
+        {
+            UpdateSensorStatus(LineSensor.Scan().Max() > 0,
+                ref lastLineStatus, OnLineAppears, OnLineDisappears);
+        }
+
+        private bool? lastLeftWallStatus = null;
         private void PollLeftWallSensor()
         {
             double leftDistance = LeftWallSensor.GetDistance(-90.0, 10, 20);
-            if (leftDistance < 20)
-                OnWallOnLeft?.Invoke();
-            else
-                OnNoWallOnLeft?.Invoke();
+            UpdateSensorStatus(leftDistance < 20,
+                ref lastLeftWallStatus, OnWallOnLeft, OnNoWallOnLeft);
         }
 
+        private bool? lastRightWallStatus = null;
         private void PollRightWallSensor()
         {
             double rightDistance = LeftWallSensor.GetDistance(90.0, 10, 20);
-            if (rightDistance < 20)
-                OnWallOnRight?.Invoke();
-            else
-                OnNoWallOnRight?.Invoke();
+            UpdateSensorStatus(rightDistance < 20,
+                ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }
         #endregion
 
         #region Events indicating sensed environment changes
-        public OnLineAppearsDelegate OnLineAppears;
-        public OnLineDisappearsDelegate OnLineDisappears;
-        public OnWallOnLeftDelegate OnWallOnLeft;
-        public OnNoWallOnLeftDelegate OnNoWallOnLeft;
-        public OnWallOnRightDelegate OnWallOnRight;
-        public OnNoWallOnRightDelegate OnNoWallOnRight;
+        public SensorStatusChangeDelegate OnLineAppears;
+        public SensorStatusChangeDelegate OnLineDisappears;
+        public SensorStatusChangeDelegate OnWallOnLeft;
+        public SensorStatusChangeDelegate OnNoWallOnLeft;
+        public SensorStatusChangeDelegate OnWallOnRight;
+        public SensorStatusChangeDelegate OnNoWallOnRight;
 
-        public delegate void OnLineAppearsDelegate();
-        public delegate void OnLineDisappearsDelegate();
-        public delegate void OnWallOnLeftDelegate();
-        public delegate void OnNoWallOnLeftDelegate();
-        public delegate void OnWallOnRightDelegate();
-        public delegate void OnNoWallOnRightDelegate();
+        public delegate void SensorStatusChangeDelegate();
         #endregion
     }
 }

@@ -50,3 +50,7 @@
 	the OnTick event is fired, so that the OnTick will be the last one to fire.
 
 - Named parameters for improved readability: RobotTests.RobotEventTests.ctor
+
+- FollowerRobot.UpdateSensorStatus: ref value, events as parameters, method extracted to helper
+
+- RobotEventTests: similar unit tests refactored, original left in comments intentionally
