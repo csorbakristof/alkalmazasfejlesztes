@@ -125,7 +125,5 @@ namespace RobotTests
         {
             AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnNoWallOnRight));
         }
-
-
     }
 }

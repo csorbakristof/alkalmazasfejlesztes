@@ -81,6 +81,11 @@ namespace RobotBrainTests
             environment.Tick();
             // State should accelerate
             Assert.True(robot.Acceleration > 0.1);
+
+            for (int t = 0; t < 100; t++)
+                environment.Tick();
+
+            Assert.True(robot.Location.X > 60); // Turned and moved right (along line).
         }
 
         // Command to start following the wall on the left
