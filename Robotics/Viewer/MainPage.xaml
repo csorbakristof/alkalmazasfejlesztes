@@ -10,6 +10,9 @@
 
     <StackPanel>
         <Button Content="Show map and robot" Click="Button_Click"/>
-        <Image x:Name="Image" Width="500" Height="500"/>
+        <Canvas>
+            <Image x:Name="Image" Width="500" Height="500" Canvas.Left="0" Canvas.Top="0"/>
+            <Ellipse x:Name="RobotEllipse" Fill="Aqua" Width="10" Height="10" Canvas.Left="10" Canvas.Top="10"/>
+        </Canvas>
     </StackPanel>
 </Page>

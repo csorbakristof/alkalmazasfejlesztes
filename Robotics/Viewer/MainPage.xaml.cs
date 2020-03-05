@@ -33,15 +33,24 @@ namespace Viewer
             colorDict.Add(0, Colors.White);
             colorDict.Add(1, Colors.Blue);
             colorDict.Add(255, Colors.Gray);
+
             using (bmp.GetBitmapContext())
             {
                 for (int x = 0; x < map.SizeX; x++)
+                {
                     for (int y = 0; y < map.SizeY; y++)
                     {
                         byte mapValue = (byte)(map[x, y]);
                         bmp.SetPixel(x, y, colorDict[mapValue]);
                     }
+                }
             }
+
+            var robot = new LineAndWallDetectorRobot(new DefaultEnvironment(map));
+            TestMap1Factory.PutRobotInA(robot);
+
+            RobotEllipse.SetValue(Canvas.LeftProperty, robot.Location.X * 2 - 5);
+            RobotEllipse.SetValue(Canvas.TopProperty, robot.Location.Y * 2 - 5);
 
             Image.Source = bmp;
         }
