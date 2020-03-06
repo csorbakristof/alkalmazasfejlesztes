@@ -14,8 +14,13 @@
             <Image x:Name="MapImage" Width="250" Height="250" Canvas.Left="0" Canvas.Top="0"/>
             <Image x:Name="RobotImage" Source="{x:Bind RobotViewModel.Image}"
                    Rotation="{x:Bind RobotViewModel.Orientation, Mode=OneWay}"
+                   CenterPoint="{x:Bind RobotViewModel.ImageCenterPoint, Mode=OneWay}"
                    Canvas.Left="{x:Bind RobotViewModel.X, Mode=OneWay}"
-                   Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}" />
+                   Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
+            </Image>
+            <Canvas.RenderTransform>
+                <ScaleTransform ScaleX="3.0" ScaleY="3.0"/>
+            </Canvas.RenderTransform>
         </Canvas>
     </StackPanel>
 </Page>

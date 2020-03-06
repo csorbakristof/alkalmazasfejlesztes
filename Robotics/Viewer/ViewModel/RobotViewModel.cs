@@ -1,6 +1,7 @@
 ﻿using Robot;
 using System;
 using System.ComponentModel;
+using System.Numerics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -17,6 +18,7 @@ namespace Viewer.ViewModel
         public Single Orientation => Convert.ToSingle(robot.Orientation);
 
         public BitmapImage Image;
+        public Vector3 ImageCenterPoint;
 
         public RobotViewModel(LineAndWallDetectorRobot robot)
         {
@@ -25,6 +27,7 @@ namespace Viewer.ViewModel
             {
                 UriSource = new Uri(@"ms-appx:///Assets/Robot.png")
             };
+            ImageCenterPoint = new Vector3(16.0F, 25.0F, 0.0F);
             InitAndStartPropertyChangedTimer();
         }
 
