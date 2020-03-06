@@ -36,7 +36,7 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInA(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState()));
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(1.0)));
             Assert.True(brain.CurrentState is FollowingLineState);
 
             Assert.Equal(0.0, robot.Acceleration, 2);

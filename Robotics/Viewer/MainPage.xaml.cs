@@ -4,6 +4,9 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Viewer.ViewModel;
+using RobotBrain;
+using RobotBrain.Command;
+using RobotBrain.State;
 
 namespace Viewer
 {
@@ -21,12 +24,11 @@ namespace Viewer
             this.MapViewModel = new MapViewModel(map);
 
             var robot = new LineAndWallDetectorRobot(new DefaultEnvironment(map));
+            var brain = new WallsAndLinesDemoBrain(robot);
             TestMap1Factory.PutRobotInA(robot);
-            robot.Speed = 1;
-            this.RobotViewModel = new RobotViewModel(robot);
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState()));
 
-            //RobotEllipse.SetValue(Canvas.LeftProperty, robot.Location.X * 2 - 5);
-            //RobotEllipse.SetValue(Canvas.TopProperty, robot.Location.Y * 2 - 5);
+            this.RobotViewModel = new RobotViewModel(robot);
 
             MapImage.Source = this.MapViewModel.Image;
 

@@ -10,11 +10,18 @@ namespace RobotBrain.State
         // This state requires a LineAndWallDetectorRobot.
         LineAndWallDetectorRobot Robot => this.Brain.Robot as LineAndWallDetectorRobot;
 
+        private readonly double targetSpeed;
+
+        public FollowingLineState(double targetSpeed = 1.0)
+        {
+            this.targetSpeed = targetSpeed;
+        }
+
         public override void Tick()
         {
             base.Tick();
 
-            if (this.Brain.Robot.Speed < 1.0)
+            if (this.Brain.Robot.Speed < targetSpeed)
                 this.Brain.Robot.Acceleration = 1.0;
             else
                 this.Brain.Robot.Acceleration = 0.0;

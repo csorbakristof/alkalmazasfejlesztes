@@ -132,7 +132,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Robot.png" />
+    <Content Include="Assets\Robot.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -164,6 +164,10 @@
     <ProjectReference Include="..\EnvironmentSimulator\Environment.csproj">
       <Project>{6959E5FD-2A7B-4993-BA2A-7B78A4290838}</Project>
       <Name>Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotBrain\RobotBrain.csproj">
+      <Project>{D81C4213-8137-425C-9F14-74B6E0A36840}</Project>
+      <Name>RobotBrain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Robot\Robot.csproj">
       <Project>{23fdd602-dc01-44fd-b606-73f9da1fba67}</Project>
