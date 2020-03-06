@@ -13,6 +13,8 @@ namespace Viewer.ViewModel
         // Shape (position and orientation and sensor ranges, sensor values)
         private readonly LineAndWallDetectorRobot robot;
 
+        public LineAndWallDetectorRobot Robot => robot;
+
         public double X => robot.Location.X;
         public double Y => robot.Location.Y;
         public Single Orientation => Convert.ToSingle(robot.Orientation);
@@ -20,6 +22,8 @@ namespace Viewer.ViewModel
         public BitmapImage Image;
         public Vector3 ImageCenterPoint;
         public Vector3 ImageCenterTranslation;
+
+        private DispatcherTimer timer;
 
         public RobotViewModel(LineAndWallDetectorRobot robot)
         {
@@ -30,19 +34,20 @@ namespace Viewer.ViewModel
             };
             ImageCenterPoint = new Vector3(16.0F, 25.0F, 0.0F);
             ImageCenterTranslation = new Vector3(-16.0F, -25.0F, 0.0F);
-            InitAndStartPropertyChangedTimer();
+
+            timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 1)
+            };
+            timer.Tick += Timer_Tick;
         }
 
-        #region INCP triggered by timer
-        private DispatcherTimer timer;
-        private void InitAndStartPropertyChangedTimer()
+        public void StartMonitoringModelProperties()
         {
-            timer = new DispatcherTimer();
-            timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
 
+        #region INCP triggered by timer
         // Now we use a timer to trigger the updates, not a full INCP chain starting from the model.
         private void Timer_Tick(object sender, object e)
         {

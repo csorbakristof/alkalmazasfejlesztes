@@ -9,19 +9,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <Button Content="Show map and robot"/>
+        <Button Content="Start" Click="StartButton_Click"/>
         <Canvas>
-            <Image x:Name="MapImage" Width="250" Height="250" Canvas.Left="0" Canvas.Top="0"/>
-            <Image x:Name="RobotImage" Source="{x:Bind RobotViewModel.Image}"
+            <Image x:Name="MapImage" Width="1000" Height="600" Canvas.Left="0" Canvas.Top="0"/>
+            <Image x:Name="RobotImage"
                    Rotation="{x:Bind RobotViewModel.Orientation, Mode=OneWay}"
                    CenterPoint="{x:Bind RobotViewModel.ImageCenterPoint, Mode=OneWay}"
                    Translation="{x:Bind RobotViewModel.ImageCenterTranslation, Mode=OneWay}"
                    Canvas.Left="{x:Bind RobotViewModel.X, Mode=OneWay}"
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
             </Image>
-            <Canvas.RenderTransform>
-                <ScaleTransform ScaleX="3.0" ScaleY="3.0"/>
-            </Canvas.RenderTransform>
         </Canvas>
     </StackPanel>
 </Page>

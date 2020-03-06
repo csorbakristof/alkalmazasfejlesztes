@@ -9,9 +9,13 @@ namespace Viewer.ViewModel
     {
         public WriteableBitmap Image;
 
-        public MapViewModel(Map map)
+        public MapViewModel()
         {
-            Image = ImageFromMap(map);
+        }
+
+        public void SetMap(Map newMap)
+        {
+            Image = ImageFromMap(newMap);
         }
 
         private WriteableBitmap ImageFromMap(Map map)

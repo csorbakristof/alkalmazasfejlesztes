@@ -6,11 +6,11 @@ namespace Environment
 {
     public class DefaultEnvironment : IEnvironment
     {
-        private readonly Map map;
+        public Map Map;
 
         public DefaultEnvironment(Map map)
         {
-            this.map = map;
+            this.Map = map;
         }
 
         public event OnTickDelegate OnTick;
@@ -22,7 +22,7 @@ namespace Environment
 
         public IEnumerable<int> Scan(Point p1, Point p2)
         {
-            return map.GetValuesAlongLine(
+            return Map.GetValuesAlongLine(
                 (int)Math.Round(p1.X),
                 (int)Math.Round(p1.Y),
                 (int)Math.Round(p2.X),
@@ -51,7 +51,7 @@ namespace Environment
 
         public int GetMapValueAtLocation(Point p)
         {
-            return this.map[(int)Math.Round(p.X), (int)Math.Round(p.Y)];
+            return this.Map[(int)Math.Round(p.X), (int)Math.Round(p.Y)];
         }
     }
 }
