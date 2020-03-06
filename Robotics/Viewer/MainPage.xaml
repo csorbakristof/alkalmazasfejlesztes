@@ -20,5 +20,7 @@
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
             </Image>
         </Canvas>
+        <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
+        <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
     </StackPanel>
 </Page>

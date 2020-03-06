@@ -19,6 +19,9 @@ namespace Viewer.ViewModel
         public double Y => robot.Location.Y;
         public Single Orientation => Convert.ToSingle(robot.Orientation);
 
+        public string LeftDistanceText => $"Left: {(int)robot.LeftWallSensor.GetDistance()}";
+        public string RightDistanceText => $"Right: {(int)robot.RightWallSensor.GetDistance()}";
+
         public BitmapImage Image;
         public Vector3 ImageCenterPoint;
         public Vector3 ImageCenterTranslation;
@@ -51,9 +54,12 @@ namespace Viewer.ViewModel
         // Now we use a timer to trigger the updates, not a full INCP chain starting from the model.
         private void Timer_Tick(object sender, object e)
         {
+            // Note: Left and right distances will be fully re-evaluated everytime!
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.X)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Orientation)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.LeftDistanceText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.RightDistanceText)));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
