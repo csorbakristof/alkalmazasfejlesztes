@@ -26,9 +26,9 @@ namespace Viewer
         {
             this.InitializeComponent();
             environment = new DefaultEnvironment(null); // Did not load the map yet...
-            var robot = new LineAndWallDetectorRobot(environment);
+            var robot = new LineAndWallDetectorRobot(environment, wallSensorMaxDistance:50);
             var brain = new WallsAndLinesDemoBrain(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState()));
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
 
             this.RobotViewModel = new RobotViewModel(robot);
             RobotImage.Source = RobotViewModel.Image;

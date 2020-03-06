@@ -14,20 +14,25 @@ namespace Robot
         public LineSensor LineSensor { get; set; }
         public FixedDistanceSensor LeftWallSensor { get; private set; }
         public FixedDistanceSensor RightWallSensor { get; private set; }
-        public const int WallSensorMaxDistance = 20;
-        public const int MinMapValueForObstacle = 10;
+        private readonly int wallSensorMaxDistance;
+        private readonly int minMapValueForObstacle;
 
-        public LineAndWallDetectorRobot(IEnvironment env) : base(env)
+        public int WallSensorMaxDistance => wallSensorMaxDistance;
+
+        public LineAndWallDetectorRobot(IEnvironment env, int wallSensorMaxDistance=20,
+            int minMapValueForObstacle=10) : base(env)
         {
+            this.wallSensorMaxDistance = wallSensorMaxDistance;
+            this.minMapValueForObstacle = minMapValueForObstacle;
             LineSensor = new LineSensor(this);
-            LeftWallSensor = new FixedDistanceSensor(this, -90.0, MinMapValueForObstacle, WallSensorMaxDistance);
-            RightWallSensor = new FixedDistanceSensor(this, 90.0, MinMapValueForObstacle, WallSensorMaxDistance);
+            LeftWallSensor = new FixedDistanceSensor(this, -90.0, this.minMapValueForObstacle, this.wallSensorMaxDistance);
+            RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle, this.wallSensorMaxDistance);
         }
 
         public override bool CheckAndMoveRobot()
         {
             Point newLocation = Location + Helpers.GetVector(Orientation, Speed);
-            if (this.Environment.GetMapValueAtLocation(newLocation) < MinMapValueForObstacle)
+            if (this.Environment.GetMapValueAtLocation(newLocation) < minMapValueForObstacle)
             {
                 return base.CheckAndMoveRobot();
             }
@@ -78,7 +83,7 @@ namespace Robot
         private void PollLeftWallSensor()
         {
             double leftDistance = LeftWallSensor.GetDistance();
-            UpdateSensorStatus(leftDistance < 20,
+            UpdateSensorStatus(leftDistance < wallSensorMaxDistance,
                 ref lastLeftWallStatus, OnWallOnLeft, OnNoWallOnLeft);
         }
 
@@ -86,7 +91,7 @@ namespace Robot
         private void PollRightWallSensor()
         {
             double rightDistance = RightWallSensor.GetDistance();
-            UpdateSensorStatus(rightDistance < 20,
+            UpdateSensorStatus(rightDistance < wallSensorMaxDistance,
                 ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }
         #endregion

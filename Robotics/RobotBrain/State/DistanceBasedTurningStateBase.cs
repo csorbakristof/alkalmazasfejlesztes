@@ -13,7 +13,7 @@ namespace RobotBrain.State
             AccelerateIfStopped();
 
             double distance = GetDistance();
-            if (distance < LineAndWallDetectorRobot.WallSensorMaxDistance)
+            if (distance < Robot.WallSensorMaxDistance)
             {
                 if (distance > 10.0)
                     Robot.Turn = TurnValueOnTooHighDistance;
