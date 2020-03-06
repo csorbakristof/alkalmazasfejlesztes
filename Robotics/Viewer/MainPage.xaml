@@ -15,6 +15,7 @@
             <Image x:Name="RobotImage" Source="{x:Bind RobotViewModel.Image}"
                    Rotation="{x:Bind RobotViewModel.Orientation, Mode=OneWay}"
                    CenterPoint="{x:Bind RobotViewModel.ImageCenterPoint, Mode=OneWay}"
+                   Translation="{x:Bind RobotViewModel.ImageCenterTranslation, Mode=OneWay}"
                    Canvas.Left="{x:Bind RobotViewModel.X, Mode=OneWay}"
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
             </Image>

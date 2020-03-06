@@ -19,6 +19,7 @@ namespace Viewer.ViewModel
 
         public BitmapImage Image;
         public Vector3 ImageCenterPoint;
+        public Vector3 ImageCenterTranslation;
 
         public RobotViewModel(LineAndWallDetectorRobot robot)
         {
@@ -28,6 +29,7 @@ namespace Viewer.ViewModel
                 UriSource = new Uri(@"ms-appx:///Assets/Robot.png")
             };
             ImageCenterPoint = new Vector3(16.0F, 25.0F, 0.0F);
+            ImageCenterTranslation = new Vector3(-16.0F, -25.0F, 0.0F);
             InitAndStartPropertyChangedTimer();
         }
 
