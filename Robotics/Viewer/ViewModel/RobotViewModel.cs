@@ -37,7 +37,7 @@ namespace Viewer.ViewModel
 
             timer = new DispatcherTimer
             {
-                Interval = new TimeSpan(0, 0, 1)
+                Interval = TimeSpan.FromMilliseconds(500)
             };
             timer.Tick += Timer_Tick;
         }
