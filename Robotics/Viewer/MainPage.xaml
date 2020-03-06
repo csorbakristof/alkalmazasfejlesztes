@@ -9,10 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <Button Content="Show map and robot" Click="Button_Click"/>
+        <Button Content="Show map and robot"/>
         <Canvas>
-            <Image x:Name="Image" Width="500" Height="500" Canvas.Left="0" Canvas.Top="0"/>
-            <Ellipse x:Name="RobotEllipse" Fill="Aqua" Width="10" Height="10" Canvas.Left="10" Canvas.Top="10"/>
+            <Image x:Name="MapImage" Width="500" Height="500" Canvas.Left="0" Canvas.Top="0"/>
+            <Ellipse x:Name="RobotEllipse" Fill="Aqua" Width="10" Height="10"
+                     Canvas.Left="{x:Bind RobotViewModel.X, Mode=OneWay}"
+                     Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}"/>
+            <Image x:Name="RobotImage" Source="{x:Bind RobotViewModel.Image}"
+                   Rotation="{x:Bind RobotViewModel.Orientation}" />
         </Canvas>
     </StackPanel>
 </Page>
