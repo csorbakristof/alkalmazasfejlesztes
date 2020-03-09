@@ -1,0 +1,1 @@
+﻿{"Title":"Title A","Author":"First Author","Year":2010,"Id":0,"Chapters":[{"Title":"First chapter","Number":1},{"Title":"Second chapter","Number":2}]}
