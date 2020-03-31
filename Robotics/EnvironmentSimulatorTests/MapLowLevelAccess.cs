@@ -42,7 +42,7 @@ namespace EnvironmentTests
         [Fact]
         public void ScanLineDiagonal()
         {
-            int[] scan = map.GetValuesAlongLine(10, 10, 20, 20).ToArray();
+            int[] scan = map.GetValuesAlongLine(10, 10, 20, 20, 11).ToArray();
             Assert.Equal(11, scan.Length);
             for (int i = 0; i < 11; i++)
                 Assert.Equal(i + 10, scan[i]);
@@ -53,7 +53,7 @@ namespace EnvironmentTests
         {
             int[] scan = map.GetValuesAlongLine(10, 10, 20, 30).ToArray();
             // Should have correct length and go along all values between 10 and 20 ascending.
-            Assert.Equal(21, scan.Length);
+            Assert.Equal(23, scan.Length);
             var unqiueValues = scan.Distinct().ToArray();
             Assert.Equal(11, unqiueValues.Length);
             for (int i = 0; i < 11; i++)

@@ -20,13 +20,13 @@ namespace Environment
             OnTick?.Invoke();
         }
 
-        public IEnumerable<int> Scan(Point p1, Point p2)
+        public IEnumerable<int> Scan(Point p1, Point p2, int? numberOfPoints)
         {
             return Map.GetValuesAlongLine(
                 (int)Math.Round(p1.X),
                 (int)Math.Round(p1.Y),
                 (int)Math.Round(p2.X),
-                (int)Math.Round(p2.Y));
+                (int)Math.Round(p2.Y), numberOfPoints);
         }
 
         public Point GetLocationOfRelativePoint(LocOri baseLocOri, double relativeDirection, double distance)
@@ -39,13 +39,15 @@ namespace Environment
             };
         }
 
-        public IEnumerable<int> ScanRelative(LocOri baseLocOri,
+
+        public IEnumerable<int> ScanRelative(LocOri basePoint,
             double relativeDirection1, double distance1,
-            double relativeDirection2, double distance2)
+            double relativeDirection2, double distance2, int? pointNumber)
         {
             return Scan(
-                GetLocationOfRelativePoint(baseLocOri, relativeDirection1, distance1),
-                GetLocationOfRelativePoint(baseLocOri, relativeDirection2, distance2)
+                GetLocationOfRelativePoint(basePoint, relativeDirection1, distance1),
+                GetLocationOfRelativePoint(basePoint, relativeDirection2, distance2),
+                pointNumber
                 );
         }
 

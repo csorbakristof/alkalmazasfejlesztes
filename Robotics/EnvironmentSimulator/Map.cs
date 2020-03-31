@@ -43,33 +43,24 @@ namespace Environment
                     this[i, j] = lambda(i, j);
         }
 
-        public IEnumerable<int> GetValuesAlongLine(int x1, int y1, int x2, int y2)
+        public IEnumerable<int> GetValuesAlongLine(int x1, int y1, int x2, int y2, int? numberOfPoints = null)
         {
-            double x = x1;
-            double y = y1;
-            double maxDistAlongAxis = Math.Max(Math.Abs(x2 - x1), Math.Abs(y2 - y1));
-            double dx = (x2 - x1) / maxDistAlongAxis / 2;
-            double dy = (y2 - y1) / maxDistAlongAxis / 2;
+            if (!numberOfPoints.HasValue)
+                numberOfPoints = (int)Math.Round(Math.Sqrt((x2 - x1) * (x2 - x1) + (y2-y1)*(y2-y1))+1.0);
 
-            int lastRoundedX = int.MinValue;
-            int lastRoundedY = int.MinValue;
-            int roundedX = x1;
-            int roundedY = y1;
-            while (roundedX != x2 || roundedY != y2)
+            return GetValuesAlongFixedLengthLine((double)x1, (double)y1, (double)x2, (double)y2, numberOfPoints.Value);
+        }
+
+        private IEnumerable<int> GetValuesAlongFixedLengthLine(double x1, double y1, double x2, double y2, int numberOfPoints)
+        {
+            for(int i=0; i<numberOfPoints; i++)
             {
-                if (lastRoundedX != roundedX || lastRoundedY != roundedY)
-                {
-                    // New location
-                    yield return this[roundedX, roundedY];
-                }
-                lastRoundedX = roundedX;
-                lastRoundedY = roundedY;
-                x += dx;
-                y += dy;
-                roundedX = (int)Math.Round(x);
-                roundedY = (int)Math.Round(y);
+                double dx = (x2 - x1) / (numberOfPoints - 1);
+                double dy = (y2 - y1) / (numberOfPoints - 1);
+                double x = x1 + dx * i;
+                double y = y1 + dy * i;
+                yield return this[(int)Math.Round(x), (int)Math.Round(y)];
             }
-            yield return this[x2, y2];
         }
 
         public void SetRect(int x1, int y1, int x2, int y2, int value)

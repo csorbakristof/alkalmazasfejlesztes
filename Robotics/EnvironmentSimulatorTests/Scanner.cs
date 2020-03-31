@@ -23,11 +23,11 @@ namespace EnvironmentTests
         {
             map.SetRect(10, 10, 20, 20, 1);
             var scan = env.Scan(new Point(15, 9), new Point(21, 15)).ToArray();
-            Assert.Equal(7, scan.Length);
+            Assert.Equal(9, scan.Length);
             Assert.Equal(0, scan[0]);
             Assert.Equal(1, scan[2]);
-            Assert.Equal(1, scan[5]);
-            Assert.Equal(0, scan[6]);
+            Assert.Equal(1, scan[7]);
+            Assert.Equal(0, scan[8]);
         }
 
         [Fact]
@@ -54,6 +54,23 @@ namespace EnvironmentTests
                 Assert.Equal(1, scan[i]);
             for (int i = 7; i <= 10; i++)
                 Assert.Equal(0, scan[i]);
+        }
+
+        [Fact]
+        public void RelativePositionedScanWithGivenLength()
+        {
+            map.SetRect(9, 0, 11, 20, 1); // Vertical strip
+            var scanLength = env.ScanRelative(new LocOri(10, 15, 0), -30.0, 10, +30.0, 10, 11).Count();
+            Assert.Equal(11, scanLength);
+
+            scanLength = env.ScanRelative(new LocOri(10, 15, 0), -30.0, 10, +30.0, 10, 10).Count();
+            Assert.Equal(10, scanLength);
+
+            // With arbitrary orientation and fixed length
+            scanLength = env.ScanRelative(new LocOri(10, 15, 17), -30.0, 10, +30.0, 10, 10).Count();
+            Assert.Equal(10, scanLength);
+            scanLength = env.ScanRelative(new LocOri(10, 15, 166), -30.0, 10, +30.0, 10, 22).Count();
+            Assert.Equal(22, scanLength);
         }
 
         [Fact]
