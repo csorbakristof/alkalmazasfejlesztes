@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
+using LogAnalysis;
 
 namespace Viewer
 {
@@ -32,12 +33,7 @@ namespace Viewer
             var brain = new WallsAndLinesDemoBrain(robot);
             brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
 
-            this.LogViewModel.LogEntries.Add(new LogEntryViewModel()
-            {
-                Text = "Starting app",
-                Brush = new SolidColorBrush(Windows.UI.Colors.DarkBlue),
-                Style = Windows.UI.Text.FontStyle.Normal
-            });
+            var collector = new LogCollector(brain, this.LogViewModel);
 
             this.RobotViewModel = new RobotViewModel(robot);
             RobotImage.Source = RobotViewModel.Image;

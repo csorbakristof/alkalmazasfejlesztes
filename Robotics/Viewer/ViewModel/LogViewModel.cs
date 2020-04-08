@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace Viewer.ViewModel
 {
@@ -13,14 +14,36 @@ namespace Viewer.ViewModel
         public ObservableCollection<LogEntryViewModel> LogEntries { get; set; }
             = new ObservableCollection<LogEntryViewModel>();
 
+        public LogViewModel()
+        {
+            AddLogEntry("Starting...");
+        }
+
         public void Visit(CommandCompleteLogEntry logEntry)
         {
-            throw new NotImplementedException();
+            AddLogEntry($"Command {logEntry.CommandType} complete", true);
         }
 
         public void Visit(GenericLogEntry logEntry)
         {
-            throw new NotImplementedException();
+            AddLogEntry($"Generic entry: {logEntry.Message}");
+        }
+
+        public void Visit(TickLogEntry logEntry)
+        {
+            // Note: TickLogEntry is not taken into account here.
+        }
+
+        private readonly Brush ImportantColorBrush = new SolidColorBrush(Windows.UI.Colors.Red);
+        private readonly Brush NormalColorBrush = new SolidColorBrush(Windows.UI.Colors.DarkBlue);
+        private void AddLogEntry(string text, bool isImportant = false)
+        {
+            LogEntries.Add(new LogEntryViewModel()
+            {
+                Text = text,
+                Brush = isImportant ? ImportantColorBrush : NormalColorBrush,
+                Style = Windows.UI.Text.FontStyle.Normal
+            });
         }
     }
 }

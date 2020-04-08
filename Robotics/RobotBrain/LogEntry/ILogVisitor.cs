@@ -5,5 +5,6 @@
     {
         void Visit(CommandCompleteLogEntry logEntry);
         void Visit(GenericLogEntry logEntry);
+        void Visit(TickLogEntry logEntry);
     }
 }

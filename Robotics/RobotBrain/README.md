@@ -81,3 +81,4 @@ commit: "Wall following states (before refactor)" and "DistanceBasedTurningState
 Decorator pattern: RobotBrain.State.TimeoutStateDecorator
 (Unit test: RobotBrainTests.TimeoutStateDecoratorTests)
 
+Adapter?: LogCollector, nothing will depend on this class, but it connects two other ones.

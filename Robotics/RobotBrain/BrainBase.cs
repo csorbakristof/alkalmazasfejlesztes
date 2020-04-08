@@ -34,10 +34,10 @@ namespace RobotBrain
         protected virtual void Environment_OnTick()
         {
             currentState.Tick();
-            OnLoggedEvent?.Invoke(new GenericLogEntry());
+            OnLoggedEvent?.Invoke(new TickLogEntry());
 
             if (currentCommand?.IsComplete() ?? false)
-                OnLoggedEvent?.Invoke(new CommandCompleteLogEntry());
+                OnLoggedEvent?.Invoke(new CommandCompleteLogEntry(currentCommand));
         }
         #endregion
 

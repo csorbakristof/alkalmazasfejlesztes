@@ -8,26 +8,35 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel>
-        <Button Content="Start" Click="StartButton_Click"/>
-        <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
-        <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
-        <ItemsControl ItemsSource="{x:Bind LogViewModel.LogEntries, Mode=TwoWay}" Height="100" Width="300">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="local:LogEntryViewModel">
-                    <TextBlock Text="{x:Bind Text}" Foreground="{x:Bind Brush}" FontStyle="{x:Bind Style}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Canvas>
-            <Image x:Name="MapImage" Width="1000" Height="600" Canvas.Left="0" Canvas.Top="0"/>
-            <Image x:Name="RobotImage"
+    <StackPanel Width="1100" Height="1000">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Content="Start" Click="StartButton_Click"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
+                <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
+            </StackPanel>
+            <Button Content="Dummy command button"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Canvas  Width="1000" Height="600">
+                <Image x:Name="MapImage" Width="1000" Height="600" Canvas.Left="0" Canvas.Top="0"/>
+                <Image x:Name="RobotImage"
                    Rotation="{x:Bind RobotViewModel.Orientation, Mode=OneWay}"
                    CenterPoint="{x:Bind RobotViewModel.ImageCenterPoint, Mode=OneWay}"
                    Translation="{x:Bind RobotViewModel.ImageCenterTranslation, Mode=OneWay}"
                    Canvas.Left="{x:Bind RobotViewModel.X, Mode=OneWay}"
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
-            </Image>
-        </Canvas>
+                </Image>
+            </Canvas>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Height="100" Width="600">
+                <ItemsControl ItemsSource="{x:Bind LogViewModel.LogEntries, Mode=TwoWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:LogEntryViewModel">
+                            <TextBlock Text="{x:Bind Text}" Foreground="{x:Bind Brush}" FontStyle="{x:Bind Style}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
     </StackPanel>
 </Page>

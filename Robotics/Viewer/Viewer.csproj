@@ -171,6 +171,10 @@
       <Project>{6959E5FD-2A7B-4993-BA2A-7B78A4290838}</Project>
       <Name>Environment</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogAnalysis\LogAnalysis.csproj">
+      <Project>{63a53cd1-8f2e-446f-8d72-5b887e39b3a8}</Project>
+      <Name>LogAnalysis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RobotBrain\RobotBrain.csproj">
       <Project>{D81C4213-8137-425C-9F14-74B6E0A36840}</Project>
       <Name>RobotBrain</Name>
