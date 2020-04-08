@@ -10,7 +10,7 @@ namespace Viewer.Helpers
     {
         public async Task<Map> LoadMap()
         {
-            WriteableBitmap bmp = await BitmapFactory.FromContent(new Uri("ms-appx:///Assets/Map.png"));
+            WriteableBitmap bmp = await BitmapFactory.FromContent(new Uri("ms-appx:///Assets/Map2.png"));
             Map map = new Map(bmp.PixelWidth, bmp.PixelHeight);
             using (bmp.GetBitmapContext())
             {

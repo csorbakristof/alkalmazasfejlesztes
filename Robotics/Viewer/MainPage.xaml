@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
 
-    <StackPanel Width="1100" Height="1000">
+    <StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Content="Start" Click="StartButton_Click"/>
             <StackPanel Orientation="Vertical">
