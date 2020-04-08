@@ -8,8 +8,9 @@ using RobotBrain;
 using RobotBrain.Command;
 using RobotBrain.State;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace Viewer
 {
@@ -17,6 +18,7 @@ namespace Viewer
     {
         public MapViewModel MapViewModel;
         public RobotViewModel RobotViewModel;
+        public LogViewModel LogViewModel = new LogViewModel();
 
         public DispatcherTimer SimulationTickTimer;
 
@@ -29,6 +31,13 @@ namespace Viewer
             var robot = new LineAndWallDetectorRobot(environment, wallSensorMaxDistance:50);
             var brain = new WallsAndLinesDemoBrain(robot);
             brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
+
+            this.LogViewModel.LogEntries.Add(new LogEntryViewModel()
+            {
+                Text = "Starting app",
+                Brush = new SolidColorBrush(Windows.UI.Colors.DarkBlue),
+                Style = Windows.UI.Text.FontStyle.Normal
+            });
 
             this.RobotViewModel = new RobotViewModel(robot);
             RobotImage.Source = RobotViewModel.Image;
@@ -52,7 +61,7 @@ namespace Viewer
             var map = await LoadMap();
             environment.Map = map;
 
-            RobotViewModel.Robot.Location = new Point(map.SizeX / 2, map.SizeY / 2);
+            RobotViewModel.Robot.Location = new Environment.Point(map.SizeX / 2, map.SizeY / 2);
             RobotViewModel.Robot.Orientation = 0.0;
 
             MapViewModel.SetMap(map);
