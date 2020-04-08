@@ -42,9 +42,13 @@ namespace LogAnalysisTests
             {
             }
 
-            public void Visit(GenericLogEntry logEntry)
+            public void Visit(TickLogEntry logEntry)
             {
                 Visited = true;
+            }
+
+            public void Visit(GenericLogEntry logEntry)
+            {
             }
         }
     }

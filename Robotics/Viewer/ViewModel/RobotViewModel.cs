@@ -50,16 +50,27 @@ namespace Viewer.ViewModel
             timer.Start();
         }
 
-        #region INCP triggered by timer
-        // Now we use a timer to trigger the updates, not a full INCP chain starting from the model.
-        private void Timer_Tick(object sender, object e)
+        public void NotifyAllPropertyChanges()
         {
+            // Used during initialization, before the simulation starts to update the UI
+            //  with initial values.
+            // And invoked by timer to update the UI periodically.
+
             // Note: Left and right distances will be fully re-evaluated everytime!
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.X)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Orientation)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.LeftDistanceText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.RightDistanceText)));
+        }
+
+        #region INPC triggered by timer
+        // Now we use a timer to trigger the updates, not a full INCP chain starting from the model.
+        // This simulates a monitoring environment which may not be able to react on every single
+        //  change in the underlying model.
+        private void Timer_Tick(object sender, object e)
+        {
+            NotifyAllPropertyChanges();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
