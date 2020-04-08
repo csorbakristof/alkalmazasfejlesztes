@@ -26,6 +26,8 @@ namespace Viewer
 
         private DefaultEnvironment environment;
 
+        private const int SimulationCycleLengthMs = 100;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,7 +45,7 @@ namespace Viewer
 
             SimulationTickTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(500)
+                Interval = TimeSpan.FromMilliseconds(SimulationCycleLengthMs)
             };
             SimulationTickTimer.Tick += SimulationTickTimer_Tick;
         }

@@ -28,6 +28,8 @@ namespace Viewer.ViewModel
 
         private DispatcherTimer timer;
 
+        private const int VisualizationSamplingTimeMs = 100;
+
         public RobotViewModel(LineAndWallDetectorRobot robot)
         {
             this.robot = robot;
@@ -40,7 +42,7 @@ namespace Viewer.ViewModel
 
             timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(500)
+                Interval = TimeSpan.FromMilliseconds(VisualizationSamplingTimeMs)
             };
             timer.Tick += Timer_Tick;
         }
