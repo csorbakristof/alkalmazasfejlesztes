@@ -22,7 +22,9 @@ namespace Viewer
         public RobotViewModel RobotViewModel;
         public LogViewModel LogViewModel = new LogViewModel();
 
-        public DispatcherTimer SimulationTickTimer;
+        private WallsAndLinesDemoBrain Brain;
+
+        public EnvironmentTickSource EnvironmentTickSource;
 
         private DefaultEnvironment environment;
 
@@ -32,22 +34,17 @@ namespace Viewer
         {
             this.InitializeComponent();
             environment = new DefaultEnvironment(new Map(1,1)); // Did not load the map yet...
-            var robot = new LineAndWallDetectorRobot(environment, wallSensorMaxDistance:50);
-            var brain = new WallsAndLinesDemoBrain(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
+            EnvironmentTickSource = new EnvironmentTickSource(environment, SimulationCycleLengthMs);
 
-            var collector = new LogCollector(brain, this.LogViewModel);
+            var robot = new LineAndWallDetectorRobot(environment, wallSensorMaxDistance:50);
+            Brain = new WallsAndLinesDemoBrain(robot);
+
+            var collector = new LogCollector(Brain, this.LogViewModel);
 
             this.RobotViewModel = new RobotViewModel(robot);
             RobotImage.Source = RobotViewModel.Image;
 
             this.MapViewModel = new MapViewModel();
-
-            SimulationTickTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(SimulationCycleLengthMs)
-            };
-            SimulationTickTimer.Tick += SimulationTickTimer_Tick;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -66,14 +63,10 @@ namespace Viewer
             RobotViewModel.NotifyAllPropertyChanges();
         }
 
-        private void SimulationTickTimer_Tick(object sender, object e)
-        {
-            RobotViewModel.TriggerSimulationTick();
-        }
-
         private async void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-            SimulationTickTimer.Start();
+        { 
+            Brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
+            EnvironmentTickSource.Start();
             RobotViewModel.StartMonitoringModelProperties();
         }
     }
