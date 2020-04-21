@@ -20,7 +20,7 @@
             <Button Content="Follow left wall" Command="{x:Bind FollowLeftWallCommand}"/>
             <Button Content="Follow right wall" Command="{x:Bind FollowRightWallCommand}"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="5">
             <Canvas  Width="1000" Height="600">
                 <Image x:Name="MapImage" Width="1000" Height="600" Canvas.Left="0" Canvas.Top="0"/>
                 <Image x:Name="RobotImage"
@@ -31,7 +31,7 @@
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
                 </Image>
             </Canvas>
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Height="100" Width="600">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Height="600" Width="600">
                 <ItemsControl ItemsSource="{x:Bind LogViewModel.LogEntries, Mode=TwoWay}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="local:LogEntryViewModel">

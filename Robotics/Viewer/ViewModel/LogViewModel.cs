@@ -17,7 +17,7 @@ namespace Viewer.ViewModel
 
         public LogViewModel()
         {
-            AddLogEntry("Starting...");
+            AddLogEntry("Starting...", true, false);
         }
 
         public void Visit(CommandCompleteLogEntry logEntry)
@@ -37,12 +37,13 @@ namespace Viewer.ViewModel
 
         public void Visit(RobotEventLogEntry logEntry)
         {
-            AddLogEntry($"Robot event: {logEntry.EventName}");
+            AddLogEntry($"Robot event: {logEntry.EventName}", false, true);
         }
 
         private readonly Brush ImportantColorBrush = new SolidColorBrush(Windows.UI.Colors.Red);
-        private readonly Brush NormalColorBrush = new SolidColorBrush(Windows.UI.Colors.DarkBlue);
-        private void AddLogEntry(string text, bool isImportant = false)
+        private readonly Brush RobotEventColorBrush = new SolidColorBrush(Windows.UI.Colors.Blue);
+        private readonly Brush NormalColorBrush = new SolidColorBrush(Windows.UI.Colors.Gray);
+        private void AddLogEntry(string text, bool isImportant = false, bool isRobotEvent=false)
         {
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             Windows.ApplicationModel.Core.CoreApplication.
@@ -50,10 +51,13 @@ namespace Viewer.ViewModel
                 RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    Brush brush = isRobotEvent ? RobotEventColorBrush : NormalColorBrush;
+                    if (isImportant)
+                        brush = ImportantColorBrush;
                     LogEntries.Add(new LogEntryViewModel()
                     {
                         Text = text,
-                        Brush = isImportant ? ImportantColorBrush : NormalColorBrush,
+                        Brush = brush,
                         Style = Windows.UI.Text.FontStyle.Normal
                     });
                 });
