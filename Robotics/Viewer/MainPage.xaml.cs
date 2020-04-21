@@ -1,6 +1,5 @@
 ﻿using Environment;
 using Robot;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Viewer.ViewModel;
@@ -45,9 +44,14 @@ namespace Viewer
             RobotImage.Source = RobotViewModel.Image;
 
             this.MapViewModel = new MapViewModel();
-        }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+            FollowLineCommand = new CommandButtonCommand(Brain, new FollowingLineState(5.0));
+            FollowLeftWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnLeftState());
+            FollowRightWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnRightState());
+
+    }
+
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var mapLoader = new MapLoader();
             var map = await mapLoader.LoadMap();
@@ -70,19 +74,10 @@ namespace Viewer
             RobotViewModel.StartMonitoringModelProperties();
         }
 
-        private void FollowLineButton_Click(object sender, RoutedEventArgs e)
-        {
-            Brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
-        }
-
-        private void FollowLeftWallButton_Click(object sender, RoutedEventArgs e)
-        {
-            Brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState()));
-        }
-
-        private void FollowRightWallButton_Click(object sender, RoutedEventArgs e)
-        {
-            Brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState()));
-        }
+        #region Command buttons (ICommand pattern)
+        public CommandButtonCommand FollowLineCommand;
+        public CommandButtonCommand FollowLeftWallCommand;
+        public CommandButtonCommand FollowRightWallCommand;
+        #endregion
     }
 }

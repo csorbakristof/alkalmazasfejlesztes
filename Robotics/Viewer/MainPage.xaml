@@ -16,9 +16,9 @@
                 <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
                 <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
             </StackPanel>
-            <Button Content="Follow line" Click="FollowLineButton_Click"/>
-            <Button Content="Follow left wall" Click="FollowLeftWallButton_Click"/>
-            <Button Content="Follow right wall" Click="FollowRightWallButton_Click"/>
+            <Button Content="Follow line" Command="{x:Bind FollowLineCommand}"/>
+            <Button Content="Follow left wall" Command="{x:Bind FollowLeftWallCommand}"/>
+            <Button Content="Follow right wall" Command="{x:Bind FollowRightWallCommand}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Canvas  Width="1000" Height="600">
