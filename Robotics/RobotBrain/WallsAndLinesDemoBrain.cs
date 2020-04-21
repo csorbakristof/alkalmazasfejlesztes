@@ -21,7 +21,6 @@ namespace RobotBrain
         private void Robot_OnNoWallOnRight()
         {
             CurrentState.OnNoWallOnRight();
-
         }
 
         private void Robot_OnWallOnRight()

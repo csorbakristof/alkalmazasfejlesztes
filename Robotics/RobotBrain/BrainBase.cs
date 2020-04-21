@@ -34,19 +34,24 @@ namespace RobotBrain
         protected virtual void Environment_OnTick()
         {
             currentState.Tick();
-            OnLoggedEvent?.Invoke(new TickLogEntry());
+            Log(new TickLogEntry());
 
             if (currentCommand?.IsComplete() ?? false)
-                OnLoggedEvent?.Invoke(new CommandCompleteLogEntry(currentCommand));
+                Log(new CommandCompleteLogEntry(currentCommand));
         }
         #endregion
 
         public void AddCommand(ICommand cmd)
         {
-            OnLoggedEvent?.Invoke(new GenericLogEntry($"New command received"));
+            Log(new GenericLogEntry($"New command received"));
             currentCommand = cmd;
             currentCommand.Brain = this;
             cmd.Execute();
+        }
+
+        protected void Log(ILogEntry entry)
+        {
+            OnLoggedEvent?.Invoke(entry);
         }
 
         public event OnLoggedEventDelegate OnLoggedEvent;
