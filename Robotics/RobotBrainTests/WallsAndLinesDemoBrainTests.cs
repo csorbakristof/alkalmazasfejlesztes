@@ -21,7 +21,7 @@ namespace RobotBrainTests
         {
             map = TestMap1Factory.Create();
             environment = new DefaultEnvironment(map);
-            robot = new LineAndWallDetectorRobot(environment);
+            robot = new LineAndWallDetectorRobot(environment, 50);
             brain = new WallsAndLinesDemoBrain(robot);
         }
 
@@ -55,9 +55,9 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInB(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState()));
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState(5,10)));
 
-            for (int t = 0; t < 100; t++)
+            for (int t = 0; t < 30; t++)
                 environment.Tick();
 
             Assert.True(robot.Location.Y > 170); // Turned along wall and moved south.
@@ -68,9 +68,9 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInB(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState()));
+            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState(5,10)));
 
-            for (int t = 0; t < 100; t++)
+            for (int t = 0; t < 30; t++)
                 environment.Tick();
 
             Assert.True(robot.Location.Y < 130); // Turned along wall and moved north.

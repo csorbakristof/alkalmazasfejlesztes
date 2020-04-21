@@ -16,7 +16,7 @@ namespace RobotTests
         {
             var map = new Map(100, 100);
             environment = new DefaultEnvironment(map);
-            robot = new LineAndWallDetectorRobot(environment);
+            robot = new LineAndWallDetectorRobot(environment, 30);
             SubscribeToAllRobotEvents();
 
             map.DrawVLine(x: 60, y1: 0, y2: 99, value: 255);    // Wall

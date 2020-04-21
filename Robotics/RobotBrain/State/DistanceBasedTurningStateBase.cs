@@ -33,7 +33,7 @@ namespace RobotBrain.State
         protected double TargetSpeed = 5.0;
         protected double TooSmallDistanceThreshold = 20;
         protected double TurnValueOnTooSmallDistance;
-        protected double TooHighDistanceThreshold = 70;
+        public double TooHighDistanceThreshold = 70;
         protected double TurnValueOnTooHighDistance;
         protected double TurnValueOnMaximalDistance;
 
