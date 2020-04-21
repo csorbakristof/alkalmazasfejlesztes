@@ -15,13 +15,13 @@ namespace RobotBrain
             robot.OnNoWallOnLeft += Robot_OnNoWallOnLeft;
             robot.OnWallOnRight += Robot_OnWallOnRight;
             robot.OnNoWallOnRight += Robot_OnNoWallOnRight;
-            
         }
 
         #region Event forwarding to CurrentState
         private void Robot_OnNoWallOnRight()
         {
             CurrentState.OnNoWallOnRight();
+
         }
 
         private void Robot_OnWallOnRight()

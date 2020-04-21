@@ -82,3 +82,5 @@ Decorator pattern: RobotBrain.State.TimeoutStateDecorator
 (Unit test: RobotBrainTests.TimeoutStateDecoratorTests)
 
 Adapter?: LogCollector, nothing will depend on this class, but it connects two other ones.
+
+Command pattern in Viewer: commit 2020-04-21 "Refactor: ICommand pattern instead of event handlers"

@@ -43,6 +43,7 @@ namespace RobotBrain
 
         public void AddCommand(ICommand cmd)
         {
+            OnLoggedEvent?.Invoke(new GenericLogEntry($"New command received"));
             currentCommand = cmd;
             currentCommand.Brain = this;
             cmd.Execute();
