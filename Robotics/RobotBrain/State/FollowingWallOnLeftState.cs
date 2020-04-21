@@ -7,9 +7,9 @@ namespace RobotBrain.State
         protected override double GetDistance() => Robot.LeftWallSensor.GetDistance();
         public FollowingWallOnLeftState() : base()
         {
-            TurnValueOnTooSmallDistance = 5.0;
-            TurnValueOnTooHighDistance = -5.0;
-            TurnValueOnMaximalDistance = -5.0;
+            TurnValueOnTooSmallDistance = 10.0;
+            TurnValueOnTooHighDistance = -10.0;
+            TurnValueOnMaximalDistance = -10.0;
         }
     }
 }

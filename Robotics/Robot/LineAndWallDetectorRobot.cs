@@ -14,19 +14,19 @@ namespace Robot
         public LineSensor LineSensor { get; set; }
         public FixedDistanceSensor LeftWallSensor { get; private set; }
         public FixedDistanceSensor RightWallSensor { get; private set; }
-        private readonly int wallSensorMaxDistance;
+
         private readonly int minMapValueForObstacle;
 
-        public int WallSensorMaxDistance => wallSensorMaxDistance;
+        public int WallSensorMaxDistance { get; }
 
-        public LineAndWallDetectorRobot(IEnvironment env, int wallSensorMaxDistance=20,
+        public LineAndWallDetectorRobot(IEnvironment env, int wallSensorMaxDistance=100,
             int minMapValueForObstacle=10) : base(env)
         {
-            this.wallSensorMaxDistance = wallSensorMaxDistance;
+            this.WallSensorMaxDistance = wallSensorMaxDistance;
             this.minMapValueForObstacle = minMapValueForObstacle;
             LineSensor = new LineSensor(this);
-            LeftWallSensor = new FixedDistanceSensor(this, -90.0, this.minMapValueForObstacle, this.wallSensorMaxDistance);
-            RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle, this.wallSensorMaxDistance);
+            LeftWallSensor = new FixedDistanceSensor(this, -90.0, this.minMapValueForObstacle, this.WallSensorMaxDistance);
+            RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle, this.WallSensorMaxDistance);
         }
 
         public override bool CheckAndMoveRobot()
@@ -83,7 +83,7 @@ namespace Robot
         private void PollLeftWallSensor()
         {
             double leftDistance = LeftWallSensor.GetDistance();
-            UpdateSensorStatus(leftDistance < wallSensorMaxDistance,
+            UpdateSensorStatus(leftDistance < WallSensorMaxDistance,
                 ref lastLeftWallStatus, OnWallOnLeft, OnNoWallOnLeft);
         }
 
@@ -91,7 +91,7 @@ namespace Robot
         private void PollRightWallSensor()
         {
             double rightDistance = RightWallSensor.GetDistance();
-            UpdateSensorStatus(rightDistance < wallSensorMaxDistance,
+            UpdateSensorStatus(rightDistance < WallSensorMaxDistance,
                 ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }
         #endregion

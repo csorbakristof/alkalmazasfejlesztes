@@ -12,7 +12,7 @@ namespace RobotBrain.State
 
         private readonly double targetSpeed;
 
-        public FollowingLineState(double targetSpeed = 1.0)
+        public FollowingLineState(double targetSpeed = 5.0)
         {
             this.targetSpeed = targetSpeed;
         }

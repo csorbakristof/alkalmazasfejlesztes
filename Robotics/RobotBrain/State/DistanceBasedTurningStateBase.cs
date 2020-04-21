@@ -15,10 +15,12 @@ namespace RobotBrain.State
             double distance = GetDistance();
             if (distance < Robot.WallSensorMaxDistance)
             {
-                if (distance > 10.0)
+                if (distance < TooSmallDistanceThreshold)
+                    Robot.Turn = TurnValueOnTooSmallDistance;
+                else if (distance > TooHighDistanceThreshold)
                     Robot.Turn = TurnValueOnTooHighDistance;
                 else
-                    Robot.Turn = TurnValueOnTooSmallDistance;
+                    Robot.Turn = 0.0;
             }
             else
             {
@@ -28,13 +30,16 @@ namespace RobotBrain.State
         }
 
         abstract protected double GetDistance();
+        protected double TargetSpeed = 5.0;
+        protected double TooSmallDistanceThreshold = 20;
         protected double TurnValueOnTooSmallDistance;
+        protected double TooHighDistanceThreshold = 70;
         protected double TurnValueOnTooHighDistance;
         protected double TurnValueOnMaximalDistance;
 
         protected void AccelerateIfStopped()
         {
-            if (this.Brain.Robot.Speed < 1.0)
+            if (this.Brain.Robot.Speed < TargetSpeed)
                 this.Brain.Robot.Acceleration = 1.0;
             else
                 this.Brain.Robot.Acceleration = 0.0;

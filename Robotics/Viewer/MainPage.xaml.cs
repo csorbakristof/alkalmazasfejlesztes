@@ -36,7 +36,7 @@ namespace Viewer
             environment = new DefaultEnvironment(new Map(1,1)); // Did not load the map yet...
             EnvironmentTickSource = new EnvironmentTickSource(environment, SimulationCycleLengthMs);
 
-            var robot = new LineAndWallDetectorRobot(environment, wallSensorMaxDistance:50);
+            var robot = new LineAndWallDetectorRobot(environment);
             Brain = new WallsAndLinesDemoBrain(robot);
 
             var collector = new LogCollector(Brain, this.LogViewModel);
@@ -68,6 +68,21 @@ namespace Viewer
             Brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
             EnvironmentTickSource.Start();
             RobotViewModel.StartMonitoringModelProperties();
+        }
+
+        private void FollowLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            Brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
+        }
+
+        private void FollowLeftWallButton_Click(object sender, RoutedEventArgs e)
+        {
+            Brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState()));
+        }
+
+        private void FollowRightWallButton_Click(object sender, RoutedEventArgs e)
+        {
+            Brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState()));
         }
     }
 }

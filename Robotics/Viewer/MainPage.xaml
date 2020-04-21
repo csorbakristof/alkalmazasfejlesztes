@@ -16,7 +16,9 @@
                 <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
                 <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
             </StackPanel>
-            <Button Content="Dummy command button"/>
+            <Button Content="Follow line" Click="FollowLineButton_Click"/>
+            <Button Content="Follow left wall" Click="FollowLeftWallButton_Click"/>
+            <Button Content="Follow right wall" Click="FollowRightWallButton_Click"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Canvas  Width="1000" Height="600">
