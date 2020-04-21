@@ -31,15 +31,19 @@
                    Canvas.Top="{x:Bind RobotViewModel.Y, Mode=OneWay}">
                 </Image>
             </Canvas>
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Height="600" Width="600">
-                <ItemsControl ItemsSource="{x:Bind LogViewModel.LogEntries, Mode=TwoWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="local:LogEntryViewModel">
-                            <TextBlock Text="{x:Bind Text}" Foreground="{x:Bind Brush}" FontStyle="{x:Bind Style}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <ListView ItemsSource="{x:Bind LogViewModel.LogEntries, Mode=TwoWay}"
+                      Width="300" Height="600">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:LogEntryViewModel">
+                        <TextBlock Text="{x:Bind Text}" Foreground="{x:Bind Brush}" FontStyle="{x:Bind Style}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </StackPanel>
 </Page>
