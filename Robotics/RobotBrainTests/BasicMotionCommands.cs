@@ -16,7 +16,7 @@ namespace RobotBrainTests
             Assert.True(brain.CurrentState is IdleState);
             Assert.Equal(0.0, robot.Orientation, 1);
             brain.AddCommand(new GenericSingleStateCommand(new TurnState(10.0, 1.0)));
-            Assert.Null(lastLogEntry);
+            Assert.False(lastLogEntry is CommandCompleteLogEntry);    // Note: it will be GenericLogEntry
             for(int i=0; i<10; i++)
                 env.Tick();
             Assert.True(lastLogEntry is CommandCompleteLogEntry);
