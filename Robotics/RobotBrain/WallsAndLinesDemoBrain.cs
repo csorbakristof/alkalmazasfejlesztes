@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Robot;
+using RobotBrain.LogEntry;
 
 namespace RobotBrain
 {
@@ -20,33 +22,44 @@ namespace RobotBrain
         #region Event forwarding to CurrentState
         private void Robot_OnNoWallOnRight()
         {
+            LogCall();
             CurrentState.OnNoWallOnRight();
         }
 
         private void Robot_OnWallOnRight()
         {
+            LogCall();
             CurrentState.OnWallOnRight();
         }
 
         private void Robot_OnNoWallOnLeft()
         {
+            LogCall();
             CurrentState.OnNoWallOnLeft();
         }
 
         private void Robot_OnWallOnLeft()
         {
+            LogCall();
             CurrentState.OnWallOnLeft();
         }
 
         private void Robot_OnLineDisappears()
         {
+            LogCall();
             CurrentState.OnLineDisappears();
         }
 
         private void Robot_OnLineAppears()
         {
+            LogCall();
             CurrentState.OnLineAppears();
         }
         #endregion
+
+        public void LogCall([CallerMemberName] string caller = null)
+        {
+            Log(new RobotEventLogEntry(caller));
+        }
     }
 }

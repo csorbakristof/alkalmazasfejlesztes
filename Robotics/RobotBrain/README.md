@@ -83,4 +83,11 @@ Decorator pattern: RobotBrain.State.TimeoutStateDecorator
 
 Adapter?: LogCollector, nothing will depend on this class, but it connects two other ones.
 
-Command pattern in Viewer: commit 2020-04-21 "Refactor: ICommand pattern instead of event handlers"
+refactor: Command pattern in Viewer: commit 2020-04-21 "Refactor: ICommand pattern instead of event handlers"
+
+Refactor: helper method extracted for event invocation. commit 2020-04-21 "Refactor: helper method introduced for event invocation"
+	Would it have been better to include the ILogEntry instatiation as well,
+	but hardwire the log entry type this way?
+
+LogViewModel: VM in MVVM and Visitor at the same time.
+	- Run on UI thread, no need to await
