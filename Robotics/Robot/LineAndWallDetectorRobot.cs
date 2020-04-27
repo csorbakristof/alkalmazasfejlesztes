@@ -51,26 +51,6 @@ namespace Robot
             PollRightWallSensor();
         }
 
-        /// <summary>
-        /// Helper method for bool sensor status updates. Fires event is status has changed.
-        /// </summary>
-        /// <param name="newStatus">New sensor status</param>
-        /// <param name="previousStatus">Reference to variable storing previous value</param>
-        /// <param name="onTrueEvent">Event to fire if status changed to true.</param>
-        /// <param name="onFalseEvent">Event to fire if status changed to false.</param>
-        private void UpdateSensorStatus(bool newStatus, ref bool? previousStatus,
-            SensorStatusChangeDelegate onTrueEvent, SensorStatusChangeDelegate onFalseEvent)
-        {
-            if (!previousStatus.HasValue || previousStatus != newStatus)
-            {
-                if (newStatus)
-                    onTrueEvent?.Invoke();
-                else
-                    onFalseEvent?.Invoke();
-                previousStatus = newStatus;
-            }
-        }
-
         #region Polling sensors
         private bool? lastLineStatus = null;
         private void PollLineSensor()
@@ -95,6 +75,26 @@ namespace Robot
                 ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }
         #endregion
+
+        /// <summary>
+        /// Helper method for bool sensor status updates. Fires event is status has changed.
+        /// </summary>
+        /// <param name="newStatus">New sensor status</param>
+        /// <param name="previousStatus">Reference to variable storing previous value</param>
+        /// <param name="onTrueEvent">Event to fire if status changed to true.</param>
+        /// <param name="onFalseEvent">Event to fire if status changed to false.</param>
+        private void UpdateSensorStatus(bool newStatus, ref bool? previousStatus,
+            SensorStatusChangeDelegate onTrueEvent, SensorStatusChangeDelegate onFalseEvent)
+        {
+            if (!previousStatus.HasValue || previousStatus != newStatus)
+            {
+                if (newStatus)
+                    onTrueEvent?.Invoke();
+                else
+                    onFalseEvent?.Invoke();
+                previousStatus = newStatus;
+            }
+        }
 
         #region Events indicating sensed environment changes
         public event SensorStatusChangeDelegate OnLineAppears;

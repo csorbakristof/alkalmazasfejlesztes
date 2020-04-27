@@ -33,7 +33,10 @@ namespace RobotBrain
         #region Handle simulator events
         protected virtual void Environment_OnTick()
         {
+            // Note: currentState is changing often. An OnTick event would need
+            //  many subscriptions and unsubscriptions.
             currentState.Tick();
+
             Log(new TickLogEntry());
 
             if (currentCommand?.IsComplete() ?? false)

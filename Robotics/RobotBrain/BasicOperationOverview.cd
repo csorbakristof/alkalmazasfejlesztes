@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RobotBrain.WallsAndLinesDemoBrain">
+    <Position X="3" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAAAAAAAABAAACAAAAAIAAAAAAAAAAAAAAgABAA=</HashCode>
+      <FileName>WallsAndLinesDemoBrain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotBrain.BrainBase">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACIAAAQCAABAgIAAAAAAABAAAAAAA=</HashCode>
+      <FileName>BrainBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Robot" />
+      <Property Name="CurrentState" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Robot.LineAndWallDetectorRobot">
+    <Position X="7.75" Y="7.75" Width="2.5" />
+    <NestedTypes>
+      <Class Name="Robot.LineAndWallDetectorRobot.SensorStatusChangeDelegate" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Robot.RobotBase">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Environment" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.206" />
+  </Class>
+  <Class Name="Environment.DefaultEnvironment">
+    <Position X="11.5" Y="6" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Environment.EnvironmentTickSource">
+    <Position X="14" Y="3.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="RobotBrain.State.StateBase">
+    <Position X="1" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAAAAAAACAAAAAAAAQACBAAGAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>State\StateBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Brain" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RobotBrain.State.TurnState">
+    <Position X="1" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAQAA=</HashCode>
+      <FileName>State\TurnState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Robot.IRobot">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="RobotBrain.State.IState">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAAAAAAACAAAAAAAAQACBAAGAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>State\IState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Brain" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Environment.IEnvironment">
+    <Position X="11.5" Y="3.25" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="RobotBrain.IBrain">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAACAABAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IBrain.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

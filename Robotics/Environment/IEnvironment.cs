@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Environment
 {
@@ -30,3 +29,4 @@ namespace Environment
 
     public delegate void OnTickDelegate();
 }
+
