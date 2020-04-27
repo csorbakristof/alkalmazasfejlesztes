@@ -1,5 +1,4 @@
-﻿using System;
-using Environment;
+﻿using Environment;
 
 namespace Robot
 {
@@ -84,3 +83,4 @@ namespace Robot
         public event OnTickDelegate OnTick;
     }
 }
+
