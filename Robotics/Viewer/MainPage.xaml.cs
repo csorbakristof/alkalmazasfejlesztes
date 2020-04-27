@@ -48,7 +48,6 @@ namespace Viewer
             FollowLineCommand = new CommandButtonCommand(Brain, new FollowingLineState(5.0));
             FollowLeftWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnLeftState());
             FollowRightWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnRightState());
-
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)

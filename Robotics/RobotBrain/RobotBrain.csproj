@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EnvironmentSimulator\Environment.csproj" />
     <ProjectReference Include="..\Robot\Robot.csproj" />
   </ItemGroup>
 

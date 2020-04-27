@@ -170,8 +170,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EnvironmentSimulator\Environment.csproj">
-      <Project>{6959E5FD-2A7B-4993-BA2A-7B78A4290838}</Project>
+    <ProjectReference Include="..\Environment\Environment.csproj">
+      <Project>{a7a4aea9-b8e7-4332-a38c-832cc52b3eeb}</Project>
       <Name>Environment</Name>
     </ProjectReference>
     <ProjectReference Include="..\LogAnalysis\LogAnalysis.csproj">
