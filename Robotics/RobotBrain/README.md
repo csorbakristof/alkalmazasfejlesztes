@@ -91,3 +91,8 @@ Refactor: helper method extracted for event invocation. commit 2020-04-21 "Refac
 
 LogViewModel: VM in MVVM and Visitor at the same time.
 	- Run on UI thread, no need to await
+
+The IState interface has methods for receiving robot events (transferred by Brain). Why are they not event delegates?
+(Because states change all the time and that would need many event subscriptions and unsubscriptions
+at every state change.)
+
