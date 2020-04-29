@@ -42,3 +42,4 @@ VisitorObserverPelda/build-*
 /Robotics/.vs/*
 obj/
 bin/
+.vs/
