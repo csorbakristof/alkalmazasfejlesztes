@@ -1,11 +1,5 @@
 ﻿using RobotBrain.LogEntry;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
 namespace Viewer.ViewModel
@@ -45,7 +39,7 @@ namespace Viewer.ViewModel
         private readonly Brush NormalColorBrush = new SolidColorBrush(Windows.UI.Colors.Gray);
         private void AddLogEntry(string text, bool isImportant = false, bool isRobotEvent=false)
         {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014 // Call not awaited...
             Windows.ApplicationModel.Core.CoreApplication.
                 MainView.CoreWindow.Dispatcher.
                 RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
@@ -61,7 +55,7 @@ namespace Viewer.ViewModel
                         Style = Windows.UI.Text.FontStyle.Normal
                     });
                 });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning restore CS4014
         }
     }
 }

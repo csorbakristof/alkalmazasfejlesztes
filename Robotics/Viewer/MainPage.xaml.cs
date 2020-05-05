@@ -6,10 +6,6 @@ using Viewer.ViewModel;
 using RobotBrain;
 using RobotBrain.Command;
 using RobotBrain.State;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
 using LogAnalysis;
 using Viewer.Helpers;
 

@@ -1,5 +1,4 @@
 ﻿using Environment;
-using System;
 using System.Linq;
 
 namespace Robot
@@ -25,8 +24,10 @@ namespace Robot
             this.WallSensorMaxDistance = wallSensorMaxDistance;
             this.minMapValueForObstacle = minMapValueForObstacle;
             LineSensor = new LineSensor(this);
-            LeftWallSensor = new FixedDistanceSensor(this, -90.0, this.minMapValueForObstacle, this.WallSensorMaxDistance);
-            RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle, this.WallSensorMaxDistance);
+            LeftWallSensor = new FixedDistanceSensor(this, -90.0, this.minMapValueForObstacle,
+                this.WallSensorMaxDistance);
+            RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle,
+                this.WallSensorMaxDistance);
         }
 
         public override bool CheckAndMoveRobot()

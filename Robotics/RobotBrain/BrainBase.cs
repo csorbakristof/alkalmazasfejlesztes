@@ -1,5 +1,4 @@
-﻿using Environment;
-using Robot;
+﻿using Robot;
 using RobotBrain.Command;
 using RobotBrain.LogEntry;
 using RobotBrain.State;
@@ -27,11 +26,11 @@ namespace RobotBrain
         public BrainBase(IRobot robot)
         {
             Robot = robot;
-            robot.OnTick += Environment_OnTick;
+            robot.OnTick += Robot_OnTick;
         }
 
         #region Handle simulator events
-        protected virtual void Environment_OnTick()
+        protected virtual void Robot_OnTick()
         {
             // Note: currentState is changing often. An OnTick event would need
             //  many subscriptions and unsubscriptions.

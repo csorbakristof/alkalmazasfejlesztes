@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using System.Numerics;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Viewer.ViewModel
