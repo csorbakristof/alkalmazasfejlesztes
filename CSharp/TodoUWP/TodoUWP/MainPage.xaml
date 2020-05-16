@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="TodoUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TodoUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:view="using:TodoUWP.View"
+    xmlns:viewModel="using:TodoUWP.ViewModel">
+
+    <Page.DataContext>
+        <viewModel:TodoPageViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Todo name:"/>
+                    <TextBlock Text="Description:"/>
+                    <TextBlock Text="Deadline"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox Text="{Binding NewTodoName, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding NewTodoDescription, Mode=TwoWay}"/>
+                    <DatePicker SelectedDate="{Binding NewTodoDeadline, Mode=TwoWay}"/>
+                </StackPanel>
+            </Grid>
+            <Button Content="Add todo" HorizontalAlignment="Center" Command="{Binding AddTodoCommand}"/>
+            <ListView ItemsSource="{Binding Todos, Mode=OneWay}">
+
+            </ListView>
+            <Button Content="Refresh todos" Command="{Binding GetTodosCommand}"/>
+
+            <ComboBox ItemsSource="{Binding Todos, Mode=TwoWay}" SelectedItem="{Binding SelectedTodo, Mode=TwoWay}"/>
+
+            <Button Content="Delete selected todo" Command="{Binding DeleteTodo}"/>
+        </StackPanel>
+
+    </Grid>
+</Page>
