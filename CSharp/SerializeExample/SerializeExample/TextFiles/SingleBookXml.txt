@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>Title A</Title>
+  <Author>First Author</Author>
+  <Year>2010</Year>
+  <Id>0</Id>
+  <Chapters>
+    <Chapter>
+      <Title>First chapter</Title>
+      <Number>1</Number>
+    </Chapter>
+    <Chapter>
+      <Title>Second chapter</Title>
+      <Number>2</Number>
+    </Chapter>
+  </Chapters>
+</Book>
