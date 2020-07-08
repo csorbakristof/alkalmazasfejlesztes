@@ -16,7 +16,7 @@ namespace HttpExample.Server
         private static object lockObject;
         private static HttpListener listener;
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             lockObject = new object();
             books = new List<Book>();
@@ -46,6 +46,7 @@ namespace HttpExample.Server
             Console.WriteLine("Stopped listening");
             Console.ReadKey();
         }
+
         private static async Task HandlerMethodAsync(HttpListenerContext ctx)
         {
             HttpListenerRequest req = ctx.Request;
@@ -53,11 +54,15 @@ namespace HttpExample.Server
             Console.WriteLine($"URL: {req.Url} \t{req.HttpMethod}");
             if (req.Url.ToString().Equals(Utilities.BooksUri))
             {
-                if (req.HttpMethod.Equals("POST")) await HandleBookPostAsync(req, resp);
-                else await HandleBookGet(req, resp);
+                if (req.HttpMethod.Equals("POST"))
+                    await HandleBookPostAsync(req, resp);
+                else
+                    await HandleBookGet(req, resp);
             }
-            else await HandleEchoAsync(req, resp);
+            else
+                await HandleEchoAsync(req, resp);
         }
+
         private static async Task<string> GetStringContentAsync(HttpListenerRequest req)
         {
             string result = "";
@@ -71,6 +76,7 @@ namespace HttpExample.Server
             }
             return result;
         }
+
         private static async Task BuildResponse(HttpListenerResponse resp, Encoding encoding, string content)
         {
             resp.StatusCode = 200;
@@ -80,6 +86,7 @@ namespace HttpExample.Server
             await resp.OutputStream.WriteAsync(buffer);
             resp.OutputStream.Close();
         }
+
         private static async Task HandleEchoAsync(HttpListenerRequest req, HttpListenerResponse resp)
         {
             string reqContent = await GetStringContentAsync(req);
@@ -88,6 +95,7 @@ namespace HttpExample.Server
 
             await BuildResponse(resp, req.ContentEncoding, $"Echo content:\t {reqContent}");
         }
+
         private static async Task HandleBookPostAsync(HttpListenerRequest req, HttpListenerResponse resp)
         {
             string reqcontent = await GetStringContentAsync(req);
@@ -105,6 +113,7 @@ namespace HttpExample.Server
 
             await BuildResponse(resp, req.ContentEncoding, $"New book id:\t {newid}");            
         }
+
         private static async Task HandleBookGet(HttpListenerRequest req, HttpListenerResponse resp)
         {
             string jsonString = JsonConvert.SerializeObject(books);

@@ -1,16 +1,11 @@
 ﻿using HttpExample.Common;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HttpExample.Client
 {
-
     public class ClientCalls
     {
         private static readonly HttpClient client = new HttpClient();
@@ -25,9 +20,9 @@ namespace HttpExample.Client
 
         public async Task<string> GetBooksStringAsync()
         {
-                var result = await client.GetAsync(Utilities.BooksUri);
-                string stringres = await result.Content.ReadAsStringAsync();
-                return stringres;
+            var result = await client.GetAsync(Utilities.BooksUri);
+            string stringres = await result.Content.ReadAsStringAsync();
+            return stringres;
         }
 
         public async Task<List<Book>> GetBooksListAsync()

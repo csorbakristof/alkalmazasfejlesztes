@@ -1,13 +1,12 @@
 ﻿using HttpExample.Common;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HttpExample.Client
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             Console.WriteLine("Send this string: \n");
             string str = Console.ReadLine();
