@@ -11,7 +11,6 @@ namespace TodoUWP.ViewModel
     {
         private Action execute;
         
-
         public CommandBase(Action execute)
         {
             this.execute = execute;

@@ -16,8 +16,6 @@ namespace TodoApp.Data
                 new DbContextOptionsBuilder<TodoDbContext>()
                 .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TodoDB;Trusted_Connection=True;");
 
-            
-            
             return new TodoDbContext(optionBuilder.Options);
         }
     }

@@ -339,7 +339,7 @@ namespace TodoApp
         }
         static void Main(string[] args)
         {
-            //Example1();
+            Example1();
 
             //Example2();
 
@@ -355,7 +355,7 @@ namespace TodoApp
 
             //Example8();
 
-            Example9();
+            //Example9();
 
             Console.ReadLine();
         }

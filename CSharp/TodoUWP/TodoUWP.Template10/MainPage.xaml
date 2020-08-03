@@ -29,12 +29,9 @@
             </Grid>
             <Button Content="Add todo" HorizontalAlignment="Center" Command="{Binding AddTodoCommand}"/>
             <ListView ItemsSource="{Binding Todos, Mode=OneWay}">
-
             </ListView>
             <Button Content="Refresh todos" Command="{Binding GetTodosCommand}"/>
-
             <ComboBox ItemsSource="{Binding Todos, Mode=TwoWay}" SelectedItem="{Binding SelectedTodo, Mode=TwoWay}"/>
-
             <Button Content="Delete selected todo" Command="{Binding DeleteTodo}"/>
         </StackPanel>
 

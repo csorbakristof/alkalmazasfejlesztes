@@ -20,7 +20,7 @@ namespace TodoUWP.Data
         {
             foreach (var item in todos)
             {
-                //don't add if theres an item with same name
+                //don't add if there is an item with same name
                 if (item.Name == name) return;
             }
             TodoItem todo = new TodoItem()
