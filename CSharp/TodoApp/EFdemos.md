@@ -7,7 +7,7 @@ Az egyes példák ```Example1```, ```Example2```,... függvényekben vannak, a m
 Először is hozzá kell adnunk a project-hez a megfelelő EF NuGet package-eket.
 A példákhoz használt provider-eket is hozzáadva a következőket kell látnunk, hogy telepítve vannak:
 
-![EF package-ek](img/04.png "EF package-ek")
+![EF package-ek](img/04.PNG "EF package-ek")
 
 - Microsoft.EntityFrameworkCore az alap package EF-hez.
 - Microsoft.EntityFrameworkCore.InMemory a memóriában létező "adatbázis" használatához, a példák egyrészében ezt használom szemléltetéshez, egyébként ez hasznos és használt provider teszteléshez.
