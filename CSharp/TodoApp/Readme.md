@@ -35,7 +35,7 @@ Persze, ha ragasznodunk ahhoz, hogy sajátkezűleg hozzuk létre az adatbázist 
 Egy ritkábban használt megoldás, hogy ezt az Entity Data Model-t hozzuk létre szerkesztőfelületen majd ebből generáltatunk adatbázist és model osztályokat is (Model-first).
 
 ## Connection string
-Ahhoz, hogy egy adatbázishoz kapcsolódni tudjunk szükségünk van a kapcsolatfelépítéshez bizonyos adatokra, információkra. Ilyen például, hogy hol található ada adatbázis, autentikácihoz felhasználónév és jelszó, biztonsági beállítások. (MSSQL szerverhez a connection string-et otthoni/fejlesztési fázisban általában localdb-vel konfigurálunk)
+Ahhoz, hogy egy adatbázishoz kapcsolódni tudjunk szükségünk van a kapcsolatfelépítéshez bizonyos adatokra, információkra. Ilyen például, hogy hol található az adatbázis, autentikácihoz felhasználónév és jelszó, biztonsági beállítások. (MSSQL szerverhez a connection string-et otthoni/fejlesztési fázisban általában localdb-vel konfigurálunk.)
 
 További információ ezen a linken https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-strings
 
@@ -46,7 +46,7 @@ Visual Studio-n belül View -> SQL Server Object Explorer-t választva az alább
 
 ![Visual Sturio Installer setup](img/01.png "Visual Sturio Installer setup")
 
-Itt láthatjuk, hogy jelenleg milyen a adatbázisokat tudunk elérni. A (localdb)\MSSQLLocalDB alatt láthatjuk az Installer által telepített localdb-nket. Vannak rendszer adatbázisok és olyanok, amiket mi hoztunk létre, a képen ilyen a TodoDB, amelyről a következő részben lesz szó.
+Itt láthatjuk, hogy jelenleg milyen adatbázisokat tudunk elérni. A (localdb)\MSSQLLocalDB alatt láthatjuk az Installer által telepített localdb-nket. Vannak rendszer adatbázisok és olyanok, amiket mi hoztunk létre, a képen ilyen a TodoDB, amelyről a következő részben lesz szó.
 
 ![SQL Server Object Explorer](img/02.png "SQL Server Object Explorer")
 
@@ -54,9 +54,9 @@ Nézzük meg, hogy milyen dolgokat tudunk meg a TodoDB-ről az SQL Server Object
 
 ![TodoDB](img/03.png "TodoDB")
 
-Megtudhatjuk, hogy az egyes táblákat milyen konkrét SQL query-vel lett létrehozva, ehhez válasszuk a View Code opciót az adott táblán jobb klikk után.
+Megtudhatjuk, hogy az egyes táblák milyen konkrét SQL query-vel lettek létrehozva, ehhez válasszuk a View Code opciót az adott táblán jobb klikk után.
 
-Megtudhatjuk, hogy jelenleg milyen rekordok vannak az alábbi táblában, ehhez válasszul a View Data opciót. Megjegyzendő, hogy ez nem összes rekordot adja vissza, hiszen elképzelhető, hogy több száz vagy ezer rekordunk van, ez csak az első x rekordot adja vissza, Max Rows-al szabályozhatjuk, hogy mennyi legyen ez az x.
+Megtudhatjuk, hogy jelenleg milyen rekordok vannak az alábbi táblában, ehhez válasszul a View Data opciót. Megjegyzendő, hogy ez nem az összes rekordot adja vissza, hiszen elképzelhető, hogy több száz vagy ezer rekordunk van, ez csak az első x rekordot adja vissza, Max Rows-al szabályozhatjuk, hogy mennyi legyen ez az x.
 
 
 
