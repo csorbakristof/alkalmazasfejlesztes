@@ -62,7 +62,7 @@ namespace DesignPatterns.Prototype
             Console.WriteLine(mage.ShowDetails());
             Console.WriteLine(archer.ShowDetails());
             Console.WriteLine(fighter.ShowDetails());
-            Console.WriteLine("Yout unit before LVL up");
+            Console.WriteLine("Your unit before LVL up");
             Console.WriteLine(yourUnit.ShowDetails());
 
             Console.WriteLine("LVL up stat:\n1 INT\n2 DEX\n3 STR");
@@ -82,7 +82,7 @@ namespace DesignPatterns.Prototype
                 default: throw new Exception("Invalid input!");
             }
             yourUnit.MaxHP += 10;
-            Console.WriteLine("Yout unit after LVL up");
+            Console.WriteLine("Your unit after LVL up");
             Console.WriteLine(yourUnit.ShowDetails());
         }
     }
