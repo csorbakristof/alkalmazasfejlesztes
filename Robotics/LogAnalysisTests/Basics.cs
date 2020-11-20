@@ -34,29 +34,13 @@ namespace LogAnalysisTests
             Assert.True(visitor.Visited);
         }
 
-        internal class TestVisitor : ILogEntryVisitor
+        internal class TestVisitor : LogEntryVisitorBase
         {
             public bool Visited = false;
 
-            public void Visit(CommandCompleteLogEntry logEntry)
-            {
-            }
-
-            public void Visit(TickLogEntry logEntry)
+            public override void Visit(TickLogEntry logEntry)
             {
                 Visited = true;
-            }
-
-            public void Visit(GenericLogEntry logEntry)
-            {
-            }
-
-            public void Visit(RobotEventLogEntry logEntry)
-            {
-            }
-
-            public void Visit(StateChangeLogEntry logEntry)
-            {
             }
         }
     }
