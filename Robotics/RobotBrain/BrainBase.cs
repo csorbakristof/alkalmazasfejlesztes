@@ -17,6 +17,7 @@ namespace RobotBrain
             {
                 currentState = value;
                 currentState.Brain = this;
+                Log(new StateChangeLogEntry(currentState));
                 currentState.Enter();
             }
         }

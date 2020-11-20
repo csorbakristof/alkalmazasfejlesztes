@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogAnalysis\LogAnalysis.csproj" />
     <ProjectReference Include="..\RobotBrain\RobotBrain.csproj" />
   </ItemGroup>
 

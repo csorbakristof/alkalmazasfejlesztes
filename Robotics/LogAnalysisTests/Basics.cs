@@ -54,6 +54,10 @@ namespace LogAnalysisTests
             public void Visit(RobotEventLogEntry logEntry)
             {
             }
+
+            public void Visit(StateChangeLogEntry logEntry)
+            {
+            }
         }
     }
 }

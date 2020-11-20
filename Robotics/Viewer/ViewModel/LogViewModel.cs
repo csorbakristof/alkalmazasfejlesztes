@@ -34,6 +34,11 @@ namespace Viewer.ViewModel
             AddLogEntry($"Robot event: {logEntry.EventName}", false, true);
         }
 
+        public void Visit(StateChangeLogEntry logEntry)
+        {
+            AddLogEntry($"State changed to: {logEntry.NewState}");
+        }
+
         private readonly Brush ImportantColorBrush = new SolidColorBrush(Windows.UI.Colors.Red);
         private readonly Brush RobotEventColorBrush = new SolidColorBrush(Windows.UI.Colors.Blue);
         private readonly Brush NormalColorBrush = new SolidColorBrush(Windows.UI.Colors.Gray);

@@ -13,5 +13,7 @@
         public virtual void OnNoWallOnRight() { }
         public virtual void OnWallOnLeft() { }
         public virtual void OnWallOnRight() { }
+
+        public override string ToString() => this.GetType().Name;
     }
 }

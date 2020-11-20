@@ -57,12 +57,10 @@
 	AssertSingleFireEventAtLocation uses nameof and prior subscriptions, uses the fact that every test gets separate
 		instance, and uses Assert.Single
 
-
 - RobotEventTests: similar unit tests refactored, original left in comments intentionally
 
 - WallsAndLinesDemoBrainTests: testing the brain without actual robot (state transitions)
 	Unit test class implementing IRobot to simulate it for the brain!
-
 
 Facade: Robot.FixedDistanceSensor
 
