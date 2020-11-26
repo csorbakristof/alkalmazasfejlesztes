@@ -31,6 +31,8 @@ namespace RobotBrainTests
             var turnCheckerVisitor = RegisterTestLogVisitor(typeof(TurnState));
 
             brain.AddCommand(new GenericSingleStateCommand(stateA));
+            for (int i = 0; i < 2; i++)
+                env.Tick();
             brain.AddCommand(new GenericSingleStateCommand(stateB));
 
             Assert.True(sleepCheckerVisitor.DidEnterCheckedState);
@@ -44,17 +46,26 @@ namespace RobotBrainTests
             var stateB = new TurnState(0.0, 1.0);
             var checker = new StateSequenceCheckingLogEntryVisitor();
             checker.RegisterAsVisitor(brain);
+            checker.IgnoreIdleState = true;
             checker.StateTypeSequence.Enqueue(stateA.GetType());
             checker.StateTypeSequence.Enqueue(stateB.GetType());
             Assert.False(checker.AreAllStatesVisited());
             brain.AddCommand(new GenericSingleStateCommand(stateA));
+            WaitTicks(2);
             Assert.False(checker.AreAllStatesVisited());
             brain.AddCommand(new GenericSingleStateCommand(stateB));
-
+            WaitTicks(3);
             Assert.True(checker.AreAllStatesVisited());
 
             brain.AddCommand(new GenericSingleStateCommand(stateA));
+            WaitTicks(2);
             Assert.False(checker.AreAllStatesVisited());
+        }
+
+        private void WaitTicks(int ticks)
+        {
+            for (int i = 0; i < ticks; i++)
+                env.Tick();
         }
 
         [Fact]

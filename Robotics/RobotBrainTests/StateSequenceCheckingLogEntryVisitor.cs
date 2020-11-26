@@ -15,6 +15,7 @@ namespace RobotBrainTests
     {
         public Queue<Type> StateTypeSequence { get; set; } = new Queue<Type>();
         private bool CheckOkUntilNow = true;
+        public bool IgnoreIdleState { get; set; } = false;
 
         public void RegisterAsVisitor(IBrain brain)
         {
@@ -28,6 +29,9 @@ namespace RobotBrainTests
 
         public override void Visit(StateChangeLogEntry logEntry)
         {
+            if (logEntry.NewState is RobotBrain.State.IdleState)
+                return;
+
             if (StateTypeSequence.Count > 0)
             {
                 var nextAssumedStateType = StateTypeSequence.Dequeue();

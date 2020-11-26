@@ -46,5 +46,21 @@ namespace RobotBrainTests
                 env.Tick();
             Assert.Equal(0.0, robot.Orientation, 1);
         }
+
+        [Fact]
+        public void MultipleCommands()
+        {
+            var turnAwayState = new TurnState(10.0, 1.0);
+            var turnBackState = new TurnState(5.0, -1.0);
+            brain.AddCommand(new GenericSingleStateCommand(turnAwayState));
+            brain.AddCommand(new GenericSingleStateCommand(turnBackState));
+            Assert.Equal(0.0, robot.Orientation, 1);
+            for (int i = 0; i < 10; i++)
+                env.Tick();
+            Assert.Equal(10.0, robot.Orientation, 1);
+            for (int i = 0; i < 5; i++)
+                env.Tick();
+            Assert.Equal(5.0, robot.Orientation, 1);
+        }
     }
 }
