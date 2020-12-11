@@ -98,6 +98,7 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
 
             AddBeaconAccelerationTaskButton();
+            AddComplexTaskButton();
         }
 
         private void AddBeaconAccelerationTaskButton()
@@ -113,6 +114,18 @@ namespace Viewer
             slowState.Follower = fastState;
             ButtonCommands.Add(new CommandButton("Task1", Brain, slowState));
         }
+
+        private void AddComplexTaskButton()
+        {
+            const int followWallBeaconId = 3;
+            var lineState = new UntilBeaconDecorator(
+                new FollowingLineState(), followWallBeaconId, null);
+            var wallState = new UntilLineAppearsDecorator(
+                new FollowingWallOnLeftState(turnSpeed:5), lineState);
+            lineState.Follower = wallState;
+            ButtonCommands.Add(new CommandButton("Task2", Brain, lineState));
+        }
+
 
         public ObservableCollection<CommandButton> ButtonCommands
             = new ObservableCollection<CommandButton>();
