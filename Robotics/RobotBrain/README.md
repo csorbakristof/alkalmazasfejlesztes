@@ -94,3 +94,4 @@ The IState interface has methods for receiving robot events (transferred by Brai
 (Because states change all the time and that would need many event subscriptions and unsubscriptions
 at every state change.)
 
+TurnState inherits from RotateState

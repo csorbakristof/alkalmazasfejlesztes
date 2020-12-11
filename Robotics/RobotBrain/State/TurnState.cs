@@ -1,19 +1,13 @@
 ﻿namespace RobotBrain.State
 {
-    public class TurnState : StateBase
+    public class TurnState : RotateState
     {
         readonly double targetDirection;
-        readonly double angularVelocity;
 
         public TurnState(double targetDirection, double angularVelocity)
+            : base(angularVelocity)
         {
             this.targetDirection = targetDirection;
-            this.angularVelocity = angularVelocity;
-        }
-
-        public override void Enter()
-        {
-            Brain.Robot.Turn = angularVelocity;
         }
 
         public override void Tick()

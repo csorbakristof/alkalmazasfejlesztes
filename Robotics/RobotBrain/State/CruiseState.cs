@@ -13,6 +13,7 @@
         {
             base.Tick();
 
+            Brain.Robot.Turn = 0.0;
             if (Brain.Robot.Speed < targetSpeed)
                 Brain.Robot.Acceleration = 1.0;
             else

@@ -119,7 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommandButtonCommand.cs" />
+    <Compile Include="ViewModel\CommandButton.cs" />
     <Compile Include="Helpers\MapLoader.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -137,8 +137,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Map.png" />
-    <Content Include="Assets\Map2.png" />
     <Content Include="Assets\MapWithBeacons.png" />
     <Content Include="Assets\Robot.png" />
     <Content Include="Properties\Default.rd.xml" />

@@ -49,11 +49,6 @@ namespace Viewer.Helpers
             return map;
         }
 
-        private bool IsClearColor(Color c)
-        {
-            return c.R > 200 && c.G > 200 && c.B > 200;
-        }
-
         private bool IsObstacleColor(Color c)
         {
             return c.R < 50 && c.G < 50 && c.B < 50;

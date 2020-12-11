@@ -16,9 +16,19 @@
                 <TextBlock Text="{x:Bind RobotViewModel.LeftDistanceText, Mode=OneWay}"/>
                 <TextBlock Text="{x:Bind RobotViewModel.RightDistanceText, Mode=OneWay}"/>
             </StackPanel>
-            <Button Content="Follow line" Command="{x:Bind FollowLineCommand}"/>
-            <Button Content="Follow left wall" Command="{x:Bind FollowLeftWallCommand}"/>
-            <Button Content="Follow right wall" Command="{x:Bind FollowRightWallCommand}"/>
+            <ListView ItemsSource="{x:Bind ButtonCommands}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:CommandButton">
+                        <Button Content="{x:Bind Title}"
+                            Command="{x:Bind }"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
             <Canvas x:Name="MapCanvas" Width="1000" Height="600">

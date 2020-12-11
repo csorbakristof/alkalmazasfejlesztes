@@ -8,6 +8,7 @@ using RobotBrain.State;
 using LogAnalysis;
 using Viewer.Helpers;
 using System;
+using System.Collections.ObjectModel;
 
 namespace Viewer
 {
@@ -41,12 +42,10 @@ namespace Viewer
 
             this.MapViewModel = new MapViewModel();
 
-            FollowLineCommand = new CommandButtonCommand(Brain, new FollowingLineState(5.0));
-            FollowLeftWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnLeftState());
-            FollowRightWallCommand = new CommandButtonCommand(Brain, new FollowingWallOnRightState());
-    }
+            InitButtonCommands();
+        }
 
-    private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var mapLoader = new MapLoader();
             var map = await mapLoader.LoadMap();
@@ -88,9 +87,16 @@ namespace Viewer
         }
 
         #region Command buttons (ICommand pattern)
-        public CommandButtonCommand FollowLineCommand;
-        public CommandButtonCommand FollowLeftWallCommand;
-        public CommandButtonCommand FollowRightWallCommand;
+        private void InitButtonCommands()
+        {
+            ButtonCommands.Add(new CommandButton("Follow line", Brain, new FollowingLineState(5.0)));
+            ButtonCommands.Add(new CommandButton("Follow left wall", Brain, new FollowingWallOnLeftState()));
+            ButtonCommands.Add(new CommandButton("Follow right wall", Brain, new FollowingWallOnRightState()));
+
+        }
+
+        public ObservableCollection<CommandButton> ButtonCommands
+            = new ObservableCollection<CommandButton>();
         #endregion
     }
 }
