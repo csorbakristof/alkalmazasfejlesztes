@@ -70,5 +70,26 @@ namespace EnvironmentTests
             Assert.Equal(1, map[20, 20]);
             Assert.Equal(0, map[21, 20]);
         }
+
+        [Fact]
+        public void RegisterBeacon()
+        {
+            map.AddBeacon(x:10, y:10, id:1);
+            Assert.Contains(map.Beacons, b => b.Id == 1);
+        }
+
+        [Fact]
+        public void FindCloseBeacons()
+        {
+            map.AddBeacon(x: 10, y: 10, id: 1);
+            map.AddBeacon(x: 20, y: 10, id: 2);
+            map.AddBeacon(x: 30, y: 10, id: 3);
+            var beaconsClose = map
+                .FindCloseBeacons(x: 10, y: 10, maxDistance: 15)
+                .Select(b => b.Id);
+            Assert.Contains(1, beaconsClose);
+            Assert.Contains(2, beaconsClose);
+            Assert.DoesNotContain(3, beaconsClose);
+        }
     }
 }

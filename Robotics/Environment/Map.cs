@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Environment
@@ -69,6 +70,35 @@ namespace Environment
                 for (int y = y1; y <= y2; y++)
                     this[x, y] = value;
         }
+
+        #region Beacon support
+        private List<Beacon> beacons = new List<Beacon>();
+        public IEnumerable<Beacon> Beacons => beacons;
+        public void AddBeacon(int x, int y, int id)
+        {
+            beacons.Add(new Beacon() { X=x, Y=y, Id=id });
+        }
+
+        public IEnumerable<Beacon> FindCloseBeacons(int x, int y, int maxDistance)
+        {
+            return Beacons.Where(b => isClose(b, x, y, maxDistance));
+
+            throw new NotImplementedException();
+        }
+
+        private bool isClose(Beacon b, int x, int y, double maxDistance)
+        {
+            return (Math.Sqrt((b.X-x)* (b.X - x) + (b.Y - y)* (b.Y - y)) <= maxDistance);
+        }
+
+        public struct Beacon
+        {
+            public int X;
+            public int Y;
+            public int Id;
+        }
+
+        #endregion
 
         #region Helper methods
         public void DrawHLine(int x1, int x2, int y, int value = 1)
