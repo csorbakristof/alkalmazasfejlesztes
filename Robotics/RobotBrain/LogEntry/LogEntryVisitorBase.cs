@@ -6,8 +6,6 @@ namespace RobotBrain.LogEntry
 {
     public class LogEntryVisitorBase : ILogEntryVisitor
     {
-        public virtual void Visit(CommandCompleteLogEntry logEntry) { }
-
         public virtual void Visit(StateChangeLogEntry logEntry) { }
 
         public virtual void Visit(GenericLogEntry logEntry) { }

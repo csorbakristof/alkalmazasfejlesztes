@@ -14,11 +14,6 @@ namespace Viewer.ViewModel
             AddLogEntry("Starting...", true, false);
         }
 
-        public void Visit(CommandCompleteLogEntry logEntry)
-        {
-            AddLogEntry($"Command {logEntry.CommandType} complete", true);
-        }
-
         public void Visit(GenericLogEntry logEntry)
         {
             AddLogEntry($"Generic entry: {logEntry.Message}");

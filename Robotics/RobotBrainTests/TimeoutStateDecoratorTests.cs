@@ -1,11 +1,7 @@
 ﻿using Environment;
 using Robot;
 using RobotBrain;
-using RobotBrain.Command;
 using RobotBrain.State;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RobotBrainTests

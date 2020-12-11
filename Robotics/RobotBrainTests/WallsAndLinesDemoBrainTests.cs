@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Environment;
+﻿using Environment;
 using Robot;
 using RobotBrain;
-using RobotBrain.Command;
 using RobotBrain.State;
 using Xunit;
 
@@ -36,7 +32,7 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInA(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(1.0)));
+            brain.CurrentState = new FollowingLineState(1.0);
             Assert.True(brain.CurrentState is FollowingLineState);
 
             Assert.Equal(0.0, robot.Acceleration, 2);
@@ -55,7 +51,7 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInB(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnLeftState(5,10)));
+            brain.CurrentState = new FollowingWallOnLeftState(5,10);
 
             for (int t = 0; t < 30; t++)
                 environment.Tick();
@@ -68,7 +64,7 @@ namespace RobotBrainTests
         {
             // put robot over the line
             TestMap1Factory.PutRobotInB(robot);
-            brain.AddCommand(new GenericSingleStateCommand(new FollowingWallOnRightState(5,10)));
+            brain.CurrentState = new FollowingWallOnRightState(5,10);
 
             for (int t = 0; t < 30; t++)
                 environment.Tick();

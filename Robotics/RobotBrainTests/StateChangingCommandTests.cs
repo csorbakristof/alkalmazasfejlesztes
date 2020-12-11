@@ -1,10 +1,7 @@
 ﻿using LogAnalysis;
-using RobotBrain.Command;
 using RobotBrain.LogEntry;
 using RobotBrain.State;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RobotBrainTests
@@ -15,9 +12,7 @@ namespace RobotBrainTests
         public void StateChangeLogEntryTriggeringTest()
         {
             var visitor = RegisterTestLogVisitor(typeof(SleepState));
-
-            var cmd = new GenericSingleStateCommand(new SleepState(10));
-            brain.AddCommand(cmd);
+            brain.CurrentState= new SleepState(10);
             Assert.True(visitor.DidEnterCheckedState);
         }
 
@@ -30,10 +25,10 @@ namespace RobotBrainTests
             var sleepCheckerVisitor = RegisterTestLogVisitor(typeof(SleepState));
             var turnCheckerVisitor = RegisterTestLogVisitor(typeof(TurnState));
 
-            brain.AddCommand(new GenericSingleStateCommand(stateA));
+            brain.CurrentState = stateA;
             for (int i = 0; i < 2; i++)
                 env.Tick();
-            brain.AddCommand(new GenericSingleStateCommand(stateB));
+            brain.CurrentState = stateB;
 
             Assert.True(sleepCheckerVisitor.DidEnterCheckedState);
             Assert.True(turnCheckerVisitor.DidEnterCheckedState);
@@ -50,14 +45,14 @@ namespace RobotBrainTests
             checker.StateTypeSequence.Enqueue(stateA.GetType());
             checker.StateTypeSequence.Enqueue(stateB.GetType());
             Assert.False(checker.AreAllStatesVisited());
-            brain.AddCommand(new GenericSingleStateCommand(stateA));
+            brain.CurrentState = stateA;
             WaitTicks(2);
             Assert.False(checker.AreAllStatesVisited());
-            brain.AddCommand(new GenericSingleStateCommand(stateB));
+            brain.CurrentState = stateB;
             WaitTicks(3);
             Assert.True(checker.AreAllStatesVisited());
 
-            brain.AddCommand(new GenericSingleStateCommand(stateA));
+            brain.CurrentState = stateA;
             WaitTicks(2);
             Assert.False(checker.AreAllStatesVisited());
         }
@@ -78,8 +73,8 @@ namespace RobotBrainTests
             checker.StateTypeSequence.Enqueue(stateA.GetType());
             checker.StateTypeSequence.Enqueue(stateB.GetType());
 
-            brain.AddCommand(new GenericSingleStateCommand(stateB));
-            brain.AddCommand(new GenericSingleStateCommand(stateA));
+            brain.CurrentState = stateB;
+            brain.CurrentState = stateA;
             Assert.False(checker.AreAllStatesVisited());
         }
 

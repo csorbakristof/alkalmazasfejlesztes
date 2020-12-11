@@ -1,6 +1,5 @@
 ﻿using System;
 using RobotBrain;
-using RobotBrain.Command;
 using RobotBrain.State;
 
 namespace Viewer
@@ -10,8 +9,8 @@ namespace Viewer
         #region Command buttons
         public class CommandButtonCommand : System.Windows.Input.ICommand
         {
-            private WallsAndLinesDemoBrain brain;
-            private IState targetState;
+            private readonly WallsAndLinesDemoBrain brain;
+            private readonly IState targetState;
 
             public CommandButtonCommand(WallsAndLinesDemoBrain brain, IState targetState)
             {
@@ -19,13 +18,18 @@ namespace Viewer
                 this.targetState = targetState;
             }
 
-            public event EventHandler CanExecuteChanged;
+            public event EventHandler CanExecuteChanged
+            {
+                // This event never happens as CanExecute is constant.
+                add { }
+                remove { }
+            }
 
             public bool CanExecute(object parameter) => true;
 
             public void Execute(object parameter)
             {
-                brain.AddCommand(new GenericSingleStateCommand(targetState));
+                brain.CurrentState = targetState;
             }
         }
         #endregion

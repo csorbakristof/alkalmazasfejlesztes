@@ -4,7 +4,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Viewer.ViewModel;
 using RobotBrain;
-using RobotBrain.Command;
 using RobotBrain.State;
 using LogAnalysis;
 using Viewer.Helpers;
@@ -17,11 +16,11 @@ namespace Viewer
         public RobotViewModel RobotViewModel;
         public LogViewModel LogViewModel = new LogViewModel();
 
-        private WallsAndLinesDemoBrain Brain;
+        private readonly WallsAndLinesDemoBrain Brain;
 
         public EnvironmentTickSource EnvironmentTickSource;
 
-        private DefaultEnvironment environment;
+        private readonly DefaultEnvironment environment;
 
         private const int SimulationCycleLengthMs = 100;
 
@@ -34,7 +33,7 @@ namespace Viewer
             var robot = new LineAndWallDetectorRobot(environment);
             Brain = new WallsAndLinesDemoBrain(robot);
 
-            var collector = new LogCollector(Brain, this.LogViewModel);
+            new LogCollector(Brain, this.LogViewModel); // Ctor performs registrations
 
             this.RobotViewModel = new RobotViewModel(robot);
             RobotImage.Source = RobotViewModel.Image;
@@ -62,9 +61,9 @@ namespace Viewer
             RobotViewModel.NotifyAllPropertyChanges();
         }
 
-        private async void StartButton_Click(object sender, RoutedEventArgs e)
+        private void StartButton_Click(object sender, RoutedEventArgs e)
         { 
-            Brain.AddCommand(new GenericSingleStateCommand(new FollowingLineState(5.0)));
+            Brain.CurrentState = new FollowingLineState(5.0);
             EnvironmentTickSource.Start();
             RobotViewModel.StartMonitoringModelProperties();
         }
