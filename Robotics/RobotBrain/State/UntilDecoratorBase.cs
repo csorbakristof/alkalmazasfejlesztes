@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RobotBrain.State
+﻿namespace RobotBrain.State
 {
+    /// <summary>
+    /// Decorator base storing a successor state which can be changed to
+    ///     after some kind of condition becomes true.
+    /// </summary>
     public class UntilDecoratorBase : IState
     {
         private readonly IState decorated;

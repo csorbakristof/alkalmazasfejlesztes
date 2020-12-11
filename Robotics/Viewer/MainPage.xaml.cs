@@ -7,7 +7,6 @@ using RobotBrain;
 using RobotBrain.State;
 using LogAnalysis;
 using Viewer.Helpers;
-using System;
 using System.Collections.ObjectModel;
 
 namespace Viewer

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RobotBrain.State
+﻿namespace RobotBrain.State
 {
     public class UntilLineAppearsDecorator : UntilDecoratorBase
     {
