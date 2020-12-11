@@ -15,6 +15,7 @@ namespace Environment
         void Tick();
 
         Point GetLocationOfRelativePoint(LocOri basePoint, double relativeDirection, double distance);
+        IEnumerable<int> GetCloseBeaconIds(double x, double y, double maxDistance);
 
         /// <summary>
         /// Returns the values of the map along the scanline (x1,y1)-(x2,y2)

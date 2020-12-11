@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Environment
 {
@@ -53,6 +54,14 @@ namespace Environment
         public int GetMapValueAtLocation(Point p)
         {
             return this.Map[(int)Math.Round(p.X), (int)Math.Round(p.Y)];
+        }
+
+        public IEnumerable<int> GetCloseBeaconIds(double x, double y, double maxDistance)
+        {
+            return Map.FindCloseBeacons(
+                (int)Math.Round(x),
+                (int)Math.Round(y),
+                (int)Math.Round(maxDistance)).Select(b => b.Id);
         }
     }
 }

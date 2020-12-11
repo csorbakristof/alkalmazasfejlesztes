@@ -72,7 +72,7 @@ namespace Environment
         }
 
         #region Beacon support
-        private List<Beacon> beacons = new List<Beacon>();
+        private readonly List<Beacon> beacons = new List<Beacon>();
         public IEnumerable<Beacon> Beacons => beacons;
         public void AddBeacon(int x, int y, int id)
         {
@@ -81,12 +81,10 @@ namespace Environment
 
         public IEnumerable<Beacon> FindCloseBeacons(int x, int y, int maxDistance)
         {
-            return Beacons.Where(b => isClose(b, x, y, maxDistance));
-
-            throw new NotImplementedException();
+            return Beacons.Where(b => IsClose(b, x, y, maxDistance));
         }
 
-        private bool isClose(Beacon b, int x, int y, double maxDistance)
+        private bool IsClose(Beacon b, int x, int y, double maxDistance)
         {
             return (Math.Sqrt((b.X-x)* (b.X - x) + (b.Y - y)* (b.Y - y)) <= maxDistance);
         }

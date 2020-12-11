@@ -1,4 +1,6 @@
 ﻿using Environment;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Robot
@@ -13,6 +15,7 @@ namespace Robot
         public LineSensor LineSensor { get; set; }
         public FixedDistanceSensor LeftWallSensor { get; private set; }
         public FixedDistanceSensor RightWallSensor { get; private set; }
+        public BeaconProximitySensor BeaconProximitySensor { get; private set; }
 
         private readonly int minMapValueForObstacle;
 
@@ -28,6 +31,7 @@ namespace Robot
                 this.WallSensorMaxDistance);
             RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle,
                 this.WallSensorMaxDistance);
+            BeaconProximitySensor = new BeaconProximitySensor(this, 20.0);
         }
 
         public override bool CheckAndMoveRobot()
@@ -50,6 +54,7 @@ namespace Robot
             PollLineSensor();
             PollLeftWallSensor();
             PollRightWallSensor();
+            PollBeaconProximitySensor();
         }
 
         #region Polling sensors
@@ -75,6 +80,18 @@ namespace Robot
             UpdateSensorStatus(rightDistance < WallSensorMaxDistance,
                 ref lastRightWallStatus, OnWallOnRight, OnNoWallOnRight);
         }
+
+        private readonly List<int> lastCloseBeaconIds = new List<int>();
+        private void PollBeaconProximitySensor()
+        {
+            var ids = BeaconProximitySensor.GetCloseBeaconIds();
+            foreach (var id in ids)
+                if (!lastCloseBeaconIds.Contains(id))
+                    OnBeaconClose?.Invoke(id);
+            lastCloseBeaconIds.Clear();
+            lastCloseBeaconIds.AddRange(ids);
+        }
+        
         #endregion
 
         /// <summary>
@@ -104,8 +121,10 @@ namespace Robot
         public event SensorStatusChangeDelegate OnNoWallOnLeft;
         public event SensorStatusChangeDelegate OnWallOnRight;
         public event SensorStatusChangeDelegate OnNoWallOnRight;
+        public event OnBeaconCloseDelegate OnBeaconClose;
 
         public delegate void SensorStatusChangeDelegate();
+        public delegate void OnBeaconCloseDelegate(int id);
         #endregion
     }
 }

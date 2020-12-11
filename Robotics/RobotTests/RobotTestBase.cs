@@ -13,6 +13,7 @@ namespace RobotTests
         protected LineSensor lineSensor;
         protected IRobot robot;
         protected DistanceSensor distanceSensor;
+        protected BeaconProximitySensor beaconSensor;
 
         public RobotTestBase()
         {
@@ -22,6 +23,7 @@ namespace RobotTests
             lineSensor = new LineSensor(defaultRobot);
             robot = defaultRobot as IRobot;
             distanceSensor = new DistanceSensor(defaultRobot);
+            beaconSensor = new BeaconProximitySensor(defaultRobot, 20);
 
             robot.Location = new Point(50.0, 50.0);
             robot.Orientation = 0.0;

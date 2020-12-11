@@ -15,6 +15,7 @@ namespace RobotTests
         public WallAndLineDetectorRobotTests()
         {
             var map = new Map(100, 100);
+            map.AddBeacon(10, 10, id:1);
             environment = new DefaultEnvironment(map);
             robot = new LineAndWallDetectorRobot(environment, 30);
             SubscribeToAllRobotEvents();
@@ -45,9 +46,10 @@ namespace RobotTests
             robot.OnNoWallOnLeft += () => RobotEventFired(nameof(robot.OnNoWallOnLeft));
             robot.OnWallOnRight += () => RobotEventFired(nameof(robot.OnWallOnRight));
             robot.OnNoWallOnRight += () => RobotEventFired(nameof(robot.OnNoWallOnRight));
+            robot.OnBeaconClose += (id) => RobotEventFired(nameof(robot.OnBeaconClose));
         }
 
-        private List<string> events = new List<string>();
+        private readonly List<string> events = new List<string>();
         private void RobotEventFired(string eventname)
         {
             events.Add(eventname);
@@ -87,6 +89,13 @@ namespace RobotTests
         public void NoWallOnRight_Triggers_OnNoWallOnRight()
         {
             AssertSingleFireEventAtLocation(new Point(20.0, 50.0), nameof(robot.OnNoWallOnRight));
+        }
+
+        [Fact]
+        public void BeaconProximity()
+        {
+            AssertSingleFireEventAtLocation(new Point(12, 12),
+                nameof(robot.OnBeaconClose));
         }
     }
 }
