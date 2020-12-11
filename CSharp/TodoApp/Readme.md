@@ -44,11 +44,11 @@ Gyakran használható adatbázis SqlServer provider-rel a localdb. Ahhoz, hogy e
 
 Visual Studio-n belül View -> SQL Server Object Explorer-t választva az alábbi nézetet tudjuk előhozni:
 
-![Visual Sturio Installer setup](img/01.png "Visual Sturio Installer setup")
+![Visual Sturio Installer setup](img/01.PNG "Visual Sturio Installer setup")
 
 Itt láthatjuk, hogy jelenleg milyen adatbázisokat tudunk elérni. A (localdb)\MSSQLLocalDB alatt láthatjuk az Installer által telepített localdb-nket. Vannak rendszer adatbázisok és olyanok, amiket mi hoztunk létre, a képen ilyen a TodoDB, amelyről a következő részben lesz szó.
 
-![SQL Server Object Explorer](img/02.png "SQL Server Object Explorer")
+![SQL Server Object Explorer](img/02.PNG "SQL Server Object Explorer")
 
 Nézzük meg, hogy milyen dolgokat tudunk meg a TodoDB-ről az SQL Server Object Explorer segítségével!
 
