@@ -92,7 +92,10 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Follow line", Brain, new FollowingLineState(5.0)));
             ButtonCommands.Add(new CommandButton("Follow left wall", Brain, new FollowingWallOnLeftState()));
             ButtonCommands.Add(new CommandButton("Follow right wall", Brain, new FollowingWallOnRightState()));
-
+            ButtonCommands.Add(new CommandButton("Cruise", Brain, new CruiseState()));
+            ButtonCommands.Add(new CommandButton("Turn left", Brain, new RotateState(-5.0)));
+            ButtonCommands.Add(new CommandButton("Turn right", Brain, new RotateState(5.0)));
+            ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
         }
 
         public ObservableCollection<CommandButton> ButtonCommands
