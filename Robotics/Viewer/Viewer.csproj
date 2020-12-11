@@ -137,7 +137,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Beacon.png" />
     <Content Include="Assets\Map.png" />
     <Content Include="Assets\Map2.png" />
     <Content Include="Assets\Robot.png" />

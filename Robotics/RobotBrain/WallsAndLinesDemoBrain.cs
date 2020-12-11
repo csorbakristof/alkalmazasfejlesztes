@@ -56,7 +56,7 @@ namespace RobotBrain
 
         private void Robot_OnBeaconClose(int id)
         {
-            LogCall();
+            Log(new RobotEventLogEntry($"Robot_OnBeaconClose({id})"));
             CurrentState.OnBeaconClose(id);
         }
         #endregion

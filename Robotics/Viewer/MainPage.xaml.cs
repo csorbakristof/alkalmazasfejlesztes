@@ -68,11 +68,11 @@ namespace Viewer
         {
             foreach(var b in MapViewModel.Beacons)
             {
-                var image = new Image()
+                var image = new TextBlock()
                 {
-                    Source = b.Image,
-                    CenterPoint = b.ImageCenterPoint,
-                    Translation = b.ImageCenterTranslation
+                    Text = b.Id,
+                    CenterPoint = b.TextBlockCenterPoint,
+                    Translation = b.TextBlockTranslation
                 };
                 MapCanvas.Children.Add(image);
                 Canvas.SetLeft(image, b.X);
