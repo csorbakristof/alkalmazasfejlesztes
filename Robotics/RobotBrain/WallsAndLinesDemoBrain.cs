@@ -14,6 +14,7 @@ namespace RobotBrain
             robot.OnNoWallOnLeft += Robot_OnNoWallOnLeft;
             robot.OnWallOnRight += Robot_OnWallOnRight;
             robot.OnNoWallOnRight += Robot_OnNoWallOnRight;
+            robot.OnBeaconClose += Robot_OnBeaconClose;
         }
 
         #region Event forwarding to CurrentState
@@ -51,6 +52,12 @@ namespace RobotBrain
         {
             LogCall();
             CurrentState.OnLineAppears();
+        }
+
+        private void Robot_OnBeaconClose(int id)
+        {
+            LogCall();
+            CurrentState.OnBeaconClose(id);
         }
         #endregion
 

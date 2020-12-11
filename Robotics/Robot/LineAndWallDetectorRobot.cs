@@ -31,7 +31,7 @@ namespace Robot
                 this.WallSensorMaxDistance);
             RightWallSensor = new FixedDistanceSensor(this, 90.0, this.minMapValueForObstacle,
                 this.WallSensorMaxDistance);
-            BeaconProximitySensor = new BeaconProximitySensor(this, 20.0);
+            BeaconProximitySensor = new BeaconProximitySensor(this, 50.0);
         }
 
         public override bool CheckAndMoveRobot()

@@ -13,6 +13,7 @@
         public virtual void OnNoWallOnRight() { }
         public virtual void OnWallOnLeft() { }
         public virtual void OnWallOnRight() { }
+        public virtual void OnBeaconClose(int id) { }
 
         public override string ToString() => this.GetType().Name;
     }

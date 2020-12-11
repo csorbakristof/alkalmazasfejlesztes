@@ -21,7 +21,7 @@
             <Button Content="Follow right wall" Command="{x:Bind FollowRightWallCommand}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
-            <Canvas  Width="1000" Height="600">
+            <Canvas x:Name="MapCanvas" Width="1000" Height="600">
                 <Image x:Name="MapImage" Width="1000" Height="600" Canvas.Left="0" Canvas.Top="0"/>
                 <Image x:Name="RobotImage"
                    Rotation="{x:Bind RobotViewModel.Orientation, Mode=OneWay}"

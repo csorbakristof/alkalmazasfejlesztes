@@ -25,7 +25,7 @@ namespace Viewer.ViewModel
         public Vector3 ImageCenterPoint;
         public Vector3 ImageCenterTranslation;
 
-        private DispatcherTimer timer;
+        private readonly DispatcherTimer timer;
 
         private const int VisualizationSamplingTimeMs = 100;
 

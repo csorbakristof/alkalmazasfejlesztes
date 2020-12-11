@@ -1,5 +1,6 @@
 ﻿using Environment;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -9,6 +10,9 @@ namespace Viewer.ViewModel
     {
         public WriteableBitmap Image;
 
+        public ObservableCollection<BeaconViewModel> Beacons =
+            new ObservableCollection<BeaconViewModel>();
+
         public MapViewModel()
         {
         }
@@ -16,6 +20,10 @@ namespace Viewer.ViewModel
         public void SetMap(Map newMap)
         {
             Image = ImageFromMap(newMap);
+            foreach(var b in newMap.Beacons)
+            {
+                Beacons.Add(new BeaconViewModel(b.X, b.Y, b.Id));
+            }
         }
 
         private WriteableBitmap ImageFromMap(Map map)

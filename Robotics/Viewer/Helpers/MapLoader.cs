@@ -34,6 +34,8 @@ namespace Viewer.Helpers
                     }
                 }
             }
+
+            map.AddBeacon(100, 100, 1);
             return map;
         }
 

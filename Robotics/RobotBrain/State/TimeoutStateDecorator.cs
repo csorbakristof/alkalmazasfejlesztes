@@ -36,5 +36,6 @@ namespace RobotBrain.State
         public void OnNoWallOnRight() => decorated.OnNoWallOnRight();
         public void OnWallOnLeft() => decorated.OnWallOnLeft();
         public void OnWallOnRight() => decorated.OnWallOnRight();
+        public void OnBeaconClose(int id) => decorated.OnBeaconClose(id);
     }
 }

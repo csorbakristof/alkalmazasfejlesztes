@@ -21,5 +21,7 @@ namespace RobotBrain.State
         void OnNoWallOnLeft();
         void OnWallOnRight();
         void OnNoWallOnRight();
+
+        void OnBeaconClose(int id);
     }
 }

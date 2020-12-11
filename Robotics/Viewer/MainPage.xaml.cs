@@ -7,6 +7,7 @@ using RobotBrain;
 using RobotBrain.State;
 using LogAnalysis;
 using Viewer.Helpers;
+using System;
 
 namespace Viewer
 {
@@ -57,8 +58,26 @@ namespace Viewer
             MapViewModel.SetMap(map);
             MapImage.Source = MapViewModel.Image;
 
+            AddBeaconsToTheCanvas();
+
             // Before simulation starts, update UI with initial values.
             RobotViewModel.NotifyAllPropertyChanges();
+        }
+
+        private void AddBeaconsToTheCanvas()
+        {
+            foreach(var b in MapViewModel.Beacons)
+            {
+                var image = new Image()
+                {
+                    Source = b.Image,
+                    CenterPoint = b.ImageCenterPoint,
+                    Translation = b.ImageCenterTranslation
+                };
+                MapCanvas.Children.Add(image);
+                Canvas.SetLeft(image, b.X);
+                Canvas.SetTop(image, b.Y);
+            }
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
