@@ -139,6 +139,7 @@
   <ItemGroup>
     <Content Include="Assets\Map.png" />
     <Content Include="Assets\Map2.png" />
+    <Content Include="Assets\MapWithBeacons.png" />
     <Content Include="Assets\Robot.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

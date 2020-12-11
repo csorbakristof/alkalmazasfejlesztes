@@ -10,8 +10,12 @@ namespace Viewer.Helpers
     {
         public async Task<Map> LoadMap()
         {
-            WriteableBitmap bmp = await BitmapFactory.FromContent(new Uri("ms-appx:///Assets/Map2.png"));
+            WriteableBitmap bmp = await BitmapFactory.FromContent(
+                new Uri("ms-appx:///Assets/MapWithBeacons.png"));
             Map map = new Map(bmp.PixelWidth, bmp.PixelHeight);
+            
+            Point[] beaconLocations = new Point[4];
+
             using (bmp.GetBitmapContext())
             {
                 for (int y = 0; y < bmp.PixelHeight; y++)
@@ -19,11 +23,8 @@ namespace Viewer.Helpers
                     for (int x = 0; x < bmp.PixelWidth; x++)
                     {
                         var currentPixel = bmp.GetPixel(x, y);
-                        if (IsClearColor(currentPixel))
-                        {
-                            map[x, y] = 0;
-                        }
-                        else if (IsObstacleColor(currentPixel))
+                        map[x, y] = 0;
+                        if (IsObstacleColor(currentPixel))
                         {
                             map[x, y] = 255;
                         }
@@ -31,11 +32,20 @@ namespace Viewer.Helpers
                         {
                             map[x, y] = 1;
                         }
+                        else
+                        {
+                            var beaconID = GetBeaconIdOrZero(currentPixel);
+                            if (beaconID != 0)
+                                beaconLocations[beaconID] = new Point(x, y);
+                        }
                     }
                 }
             }
 
-            map.AddBeacon(100, 100, 1);
+            for(int i=1; i<=3; i++)
+                map.AddBeacon((int)beaconLocations[i].X,
+                    (int)beaconLocations[i].Y,
+                    i);
             return map;
         }
 
@@ -52,6 +62,17 @@ namespace Viewer.Helpers
         private bool IsLineColor(Color c)
         {
             return (c.R < 50 && c.G < 50 && c.B > 200) || (c.R > 200 && c.G < 50 && c.B < 50);
+        }
+
+        private int GetBeaconIdOrZero(Color c)
+        {
+            if (c.R < 50 && c.G > 200 && c.B > 200) // Teal
+                return 1;
+            else if (c.R < 50 && c.G > 200 && c.B < 50) // Green
+                return 2;
+            else if (c.R > 200 && c.G > 200 && c.B < 50)    // Yellow
+                return 3;
+            return 0;
         }
     }
 }
