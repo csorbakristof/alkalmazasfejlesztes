@@ -96,6 +96,22 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Turn left", Brain, new RotateState(-5.0)));
             ButtonCommands.Add(new CommandButton("Turn right", Brain, new RotateState(5.0)));
             ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
+
+            AddBeaconAccelerationTaskButton();
+        }
+
+        private void AddBeaconAccelerationTaskButton()
+        {
+            const int accelerationBeaconId = 3;
+            const int decelerationBeaconId = 1;
+            var followSlowly = new FollowingLineState(4);
+            var followFaster = new FollowingLineState(6);
+            var slowState = new UntilBeaconDecorator(
+                followSlowly, accelerationBeaconId, null);
+            var fastState = new UntilBeaconDecorator(
+                followFaster, decelerationBeaconId, slowState);
+            slowState.Follower = fastState;
+            ButtonCommands.Add(new CommandButton("Task1", Brain, slowState));
         }
 
         public ObservableCollection<CommandButton> ButtonCommands

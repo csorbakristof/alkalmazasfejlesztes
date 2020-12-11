@@ -19,9 +19,9 @@ namespace RobotBrain.State
             base.Tick();
 
             if (this.Brain.Robot.Speed < targetSpeed)
-                this.Brain.Robot.Acceleration = 1.0;
+                this.Brain.Robot.Acceleration = 0.5;
             else
-                this.Brain.Robot.Acceleration = 0.0;
+                this.Brain.Robot.Acceleration = -0.5;
 
             int[] scan = Robot.LineSensor.Scan();
             int middleIndex = (scan.Length / 2) + 1;
