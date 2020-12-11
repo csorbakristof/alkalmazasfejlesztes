@@ -40,7 +40,7 @@ namespace RobotBrainTests
             // State should accelerate
             Assert.True(robot.Acceleration > 0.1);
 
-            for (int t = 0; t < 100; t++)
+            for (int t = 0; t < 150; t++)
                 environment.Tick();
 
             Assert.True(robot.Location.X > 60); // Turned and moved right (along line).
