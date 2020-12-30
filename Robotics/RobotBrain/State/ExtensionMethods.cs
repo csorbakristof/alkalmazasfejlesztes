@@ -9,7 +9,7 @@
 
         public static IState Timeout(this IState self, int timeoutInTicks, IState follower)
         {
-            return new TimeoutStateDecorator(self, timeoutInTicks, follower);
+            return new TimeoutDecorator(self, timeoutInTicks, follower);
         }
     }
 }

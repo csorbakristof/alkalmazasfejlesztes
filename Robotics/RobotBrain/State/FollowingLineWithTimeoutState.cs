@@ -2,6 +2,7 @@
 
 namespace RobotBrain.State
 {
+    [System.Obsolete("Used only temporarily in the lab. Use TimeoutDecorator instead.")]
     public class FollowingLineWithTimeoutState : StateBase
     {
         // This state requires a LineAndWallDetectorRobot.

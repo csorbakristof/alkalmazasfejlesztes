@@ -4,13 +4,13 @@ using System.Text;
 
 namespace RobotBrain.State
 {
-    public class TimeoutStateDecorator : IState
+    public class TimeoutDecorator : IState
     {
         private readonly IState decorated;
         private readonly IState follower;
         private int timeout;
 
-        public TimeoutStateDecorator(IState decorated, int timeoutInTicks, IState follower)
+        public TimeoutDecorator(IState decorated, int timeoutInTicks, IState follower)
         {
             this.decorated = decorated;
             this.follower = follower;
