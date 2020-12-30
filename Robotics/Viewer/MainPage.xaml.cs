@@ -97,9 +97,10 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Turn right", Brain, new RotateState(5.0)));
             ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
 
-            AddTask3Button();
+            //AddTask3Button();
             //AddTask4Button();
             //AddTask6Button();
+            AddTask10Button();
             //AddBeaconAccelerationTaskButton();
             //AddComplexTaskButton();
         }
@@ -134,6 +135,20 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Task6", Brain, state));
         }
 
+        private void AddTask10Button()
+        {
+            var state3 = new TimeoutDecorator(
+                new CruiseState(),
+                100, new StopState()
+                );
+            var state2 = new TimeoutDecorator(
+                new FollowingWallOnLeftState(),
+                50, state3);
+            var state1 = new UntilBeaconDecorator(
+                new FollowingLineState(),
+                3, state2);
+            ButtonCommands.Add(new CommandButton("Task10", Brain, state1));
+        }
 
         //private void AddBeaconAccelerationTaskButton()
         //{
@@ -147,17 +162,6 @@ namespace Viewer
         //        followFaster, decelerationBeaconId, slowState);
         //    slowState.Follower = fastState;
         //    ButtonCommands.Add(new CommandButton("Task1", Brain, slowState));
-        //}
-
-        //private void AddComplexTaskButton()
-        //{
-        //    const int followWallBeaconId = 3;
-        //    var lineState = new UntilBeaconDecorator(
-        //        new FollowingLineState(), followWallBeaconId, null);
-        //    var wallState = new UntilLineAppearsDecorator(
-        //        new FollowingWallOnLeftState(turnSpeed:5), lineState);
-        //    lineState.Follower = wallState;
-        //    ButtonCommands.Add(new CommandButton("Task2", Brain, lineState));
         //}
 
 
