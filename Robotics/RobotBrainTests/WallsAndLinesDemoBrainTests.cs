@@ -47,19 +47,6 @@ namespace RobotBrainTests
         }
 
         [Fact]
-        public void FollowingWallOnLeftWithCorner()
-        {
-            // put robot over the line
-            TestMap1Factory.PutRobotInB(robot);
-            brain.CurrentState = new FollowingWallOnLeftState(5,10);
-
-            for (int t = 0; t < 30; t++)
-                environment.Tick();
-
-            Assert.True(robot.Location.Y > 170); // Turned along wall and moved south.
-        }
-
-        [Fact]
         public void FollowingWallOnRightWithCorner()
         {
             // put robot over the line
