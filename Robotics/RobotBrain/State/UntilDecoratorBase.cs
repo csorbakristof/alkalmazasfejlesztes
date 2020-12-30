@@ -6,7 +6,7 @@
     /// </summary>
     public class UntilDecoratorBase : IState
     {
-        private readonly IState decorated;
+        protected readonly IState decorated;
         public IState Follower { get; set; }
 
         public UntilDecoratorBase(IState decorated, IState follower)
@@ -33,6 +33,5 @@
         {
             return $"{this.GetType().Name}({decorated})";
         }
-
     }
 }

@@ -98,7 +98,8 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
 
             AddTask3Button();
-            AddTask4Button();
+            //AddTask4Button();
+            //AddTask6Button();
             //AddBeaconAccelerationTaskButton();
             //AddComplexTaskButton();
         }
@@ -123,6 +124,16 @@ namespace Viewer
                 100, state2);
             ButtonCommands.Add(new CommandButton("Task4", Brain, state1));
         }
+
+        private void AddTask6Button()
+        {
+            //var state = new FollowingLineUntilBeaconState(5, new StopState(), 3);
+            var state = new UntilBeaconDecorator(
+                new FollowingLineState(),
+                3, new StopState());
+            ButtonCommands.Add(new CommandButton("Task6", Brain, state));
+        }
+
 
         //private void AddBeaconAccelerationTaskButton()
         //{
