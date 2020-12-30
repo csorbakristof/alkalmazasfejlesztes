@@ -8,6 +8,7 @@ using RobotBrain.State;
 using LogAnalysis;
 using Viewer.Helpers;
 using System.Collections.ObjectModel;
+using System;
 
 namespace Viewer
 {
@@ -96,34 +97,49 @@ namespace Viewer
             ButtonCommands.Add(new CommandButton("Turn right", Brain, new RotateState(5.0)));
             ButtonCommands.Add(new CommandButton("Stop", Brain, new StopState()));
 
-            AddBeaconAccelerationTaskButton();
-            AddComplexTaskButton();
+            //AddTask3Button();
+            AddTask4Button();
+            //AddBeaconAccelerationTaskButton();
+            //AddComplexTaskButton();
         }
 
-        private void AddBeaconAccelerationTaskButton()
+        private void AddTask3Button()
         {
-            const int accelerationBeaconId = 3;
-            const int decelerationBeaconId = 1;
-            var followSlowly = new FollowingLineState(4);
-            var followFaster = new FollowingLineState(6);
-            var slowState = new UntilBeaconDecorator(
-                followSlowly, accelerationBeaconId, null);
-            var fastState = new UntilBeaconDecorator(
-                followFaster, decelerationBeaconId, slowState);
-            slowState.Follower = fastState;
-            ButtonCommands.Add(new CommandButton("Task1", Brain, slowState));
+            var state = new FollowingLineWithTimeoutState(5, new StopState(), 100);
+            ButtonCommands.Add(new CommandButton("Task3", Brain, state));
         }
 
-        private void AddComplexTaskButton()
+        private void AddTask4Button()
         {
-            const int followWallBeaconId = 3;
-            var lineState = new UntilBeaconDecorator(
-                new FollowingLineState(), followWallBeaconId, null);
-            var wallState = new UntilLineAppearsDecorator(
-                new FollowingWallOnLeftState(turnSpeed:5), lineState);
-            lineState.Follower = wallState;
-            ButtonCommands.Add(new CommandButton("Task2", Brain, lineState));
+            var state2 = new CruiseWithTimeoutState(5, new StopState(), 50);
+            var state1 = new FollowingLineWithTimeoutState(5, state2, 100);
+            ButtonCommands.Add(new CommandButton("Task4", Brain, state1));
         }
+
+        //private void AddBeaconAccelerationTaskButton()
+        //{
+        //    const int accelerationBeaconId = 3;
+        //    const int decelerationBeaconId = 1;
+        //    var followSlowly = new FollowingLineState(4);
+        //    var followFaster = new FollowingLineState(6);
+        //    var slowState = new UntilBeaconDecorator(
+        //        followSlowly, accelerationBeaconId, null);
+        //    var fastState = new UntilBeaconDecorator(
+        //        followFaster, decelerationBeaconId, slowState);
+        //    slowState.Follower = fastState;
+        //    ButtonCommands.Add(new CommandButton("Task1", Brain, slowState));
+        //}
+
+        //private void AddComplexTaskButton()
+        //{
+        //    const int followWallBeaconId = 3;
+        //    var lineState = new UntilBeaconDecorator(
+        //        new FollowingLineState(), followWallBeaconId, null);
+        //    var wallState = new UntilLineAppearsDecorator(
+        //        new FollowingWallOnLeftState(turnSpeed:5), lineState);
+        //    lineState.Follower = wallState;
+        //    ButtonCommands.Add(new CommandButton("Task2", Brain, lineState));
+        //}
 
 
         public ObservableCollection<CommandButton> ButtonCommands

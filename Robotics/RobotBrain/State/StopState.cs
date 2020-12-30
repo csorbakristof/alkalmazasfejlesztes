@@ -12,6 +12,7 @@
             {
                 Brain.Robot.Speed = 0.0;
                 Brain.Robot.Acceleration = 0.0;
+                Brain.Robot.Turn = 0.0;
                 Brain.CurrentState = new IdleState();
             }
         }
