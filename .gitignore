@@ -43,3 +43,5 @@ VisitorObserverPelda/build-*
 obj/
 bin/
 .vs/
+/QtCpp/build-*
+*.user.*
