@@ -45,3 +45,4 @@ bin/
 .vs/
 /QtCpp/build-*
 *.user.*
+/TestingWithMoq/TestResults/*

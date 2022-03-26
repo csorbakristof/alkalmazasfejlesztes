@@ -1,6 +1,6 @@
-import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Item {
     anchors.fill: parent
@@ -31,15 +31,12 @@ Item {
         GroupBox {
             Layout.fillHeight: true
 
-            ExclusiveGroup { id: radioButtonExclusiveGroup }
-
             ColumnLayout {
                 anchors.fill: parent
 
                 RadioButton {
                     id: redRadioButton
                     text: "Piros"
-                    exclusiveGroup: radioButtonExclusiveGroup
                     onClicked: {
                         selectColor("Váltás pirosra.", "red");
                     }
@@ -48,7 +45,6 @@ Item {
                 RadioButton {
                     id: blueRadioButton
                     text: "Kék"
-                    exclusiveGroup: radioButtonExclusiveGroup
                     onClicked: {
                         selectColor("Váltás kékre.", "blue");
                     }
