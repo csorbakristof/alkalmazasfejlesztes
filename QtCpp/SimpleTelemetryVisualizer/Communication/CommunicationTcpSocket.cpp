@@ -11,11 +11,11 @@ void CommunicationTcpSocket::setSocket(QTcpSocket *newSocket)
     // Slotok csatlakoztatása az új sockethez
     if (socket != nullptr && newSocket != socket)
     {
-        QObject::disconnect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(CommunicationTcpSocket::handleError(QAbstractSocket::SocketError)));
+        //QObject::disconnect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(CommunicationTcpSocket::handleError(QAbstractSocket::SocketError)));
         QObject::disconnect(socket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
     }
     socket = newSocket;
-    QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
+    //QObject::connect(socket, SIGNAL(errorOccurred(QAbstractSocket::SocketError socketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
     QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
     // Alsóbb réteg (ősosztály) csatlakoztatása a sockethez

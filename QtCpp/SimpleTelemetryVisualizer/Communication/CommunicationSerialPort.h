@@ -2,7 +2,7 @@
 #ifndef COMMUNICATIONSERIALPORT_H
 #define COMMUNICATIONSERIALPORT_H
 #include "Communication/Communication.h"
-#include <QtSerialPort/QSerialPort>
+#include <QSerialPort>
 
 // http://doc.qt.io/qt-5/qtserialport-index.html
 // http://doc.qt.io/qt-5/qserialport.html
