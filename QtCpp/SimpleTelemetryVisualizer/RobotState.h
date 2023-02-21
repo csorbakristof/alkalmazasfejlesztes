@@ -1,6 +1,7 @@
 #pragma once
 #ifndef ROBOTSTATE_H
 #define ROBOTSTATE_H
+#include "qobject.h"
 #include <QDataStream>
 #include <QString>
 

@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Item {
     width: 500
@@ -33,30 +33,18 @@ Item {
             //  a signal látható innen, mivel a Button egyik ősében definiáltuk.)
             Button {
                 id: resetBtn
-                anchors.left: parent.left
-                anchors.right: parent.right
                 text: qsTr("Reset")
-                anchors.leftMargin: 0
-                anchors.rightMargin: 0
                 onClicked: resetCommand()
             }
 
             Button {
                 id: accelerateBtn
-                anchors.left: parent.left
-                anchors.right: parent.right
                 text: qsTr("Gyorsítás")
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
                 onClicked: accelerateCommand()
             }
             Button {
                 id: stopBtn
-                anchors.left: parent.left
-                anchors.right: parent.right
                 text: qsTr("Stop")
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
                 onClicked: stopCommand()
             }
         }
