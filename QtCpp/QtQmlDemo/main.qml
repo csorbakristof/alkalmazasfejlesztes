@@ -1,7 +1,8 @@
-import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.2
+import Qt.labs.platform as Platform // for MessageDialog, https://github.com/qmlbook/qmlbook/issues/252
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Dialogs
 
 ApplicationWindow {
     title: qsTr("Hello World")
@@ -33,6 +34,7 @@ ApplicationWindow {
     MessageDialog {
         id: messageDialog
         title: qsTr("May I have your attention, please?")
+        buttons: MessageDialog.Ok
 
         function show(caption) {
             messageDialog.text = caption;
