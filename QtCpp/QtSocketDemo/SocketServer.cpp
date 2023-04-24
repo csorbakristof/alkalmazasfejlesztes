@@ -48,7 +48,6 @@ void SocketServer::newConnection()
         qDebug() << "SocketServer::newConnection: Új socket signaljainak csatlakoztatása.";
         // Elmentjük a socketet
         currentConnectionSocket = newSocket;
-        connect(currentConnectionSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
         connect(currentConnectionSocket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 
         // Létrehozzuk az adatfogadási streamet és a sockethez kötjük.
@@ -98,11 +97,6 @@ void SocketServer::dataReceived()
         //  ebbe a slotba, hogy feldolgozza a maradék fogadott bytokat is.
         QTimer::singleShot(0, this, SLOT(dataReceived()));
     }
-}
-
-void SocketServer::handleError(QAbstractSocket::SocketError socketError)
-{
-    qDebug() << "SocketServer::handleError: A socket hibát jelzett: " << socketError;
 }
 
 void SocketServer::send(QString text)

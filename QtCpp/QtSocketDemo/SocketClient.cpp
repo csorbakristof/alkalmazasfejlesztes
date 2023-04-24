@@ -12,17 +12,11 @@ SocketClient::SocketClient()
 void SocketClient::connect(QString url, int port)
 {
     qDebug() << "SocketClient::connect: Socket signaljainak csatlakoztatása.";
-    QObject::connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
     QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(dataReceived()));
     qDebug() << "SocketClient::connect: Csatlakozás a szerverhez...";
     socket.connectToHost(url, port, QIODevice::ReadWrite);
     receiveStream = std::make_unique<QDataStream>(&socket);
     qWarning() << "SocketClient::connect: Az új kapcsolat felépült.";
-}
-
-void SocketClient::handleError(QAbstractSocket::SocketError socketError)
-{
-    qWarning() << "SocketClient::handleError: A socket hibát jelzett: " << socketError;
 }
 
 void SocketClient::dataReceived()

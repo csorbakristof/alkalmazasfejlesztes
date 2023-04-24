@@ -43,10 +43,6 @@ public:
         cout << "- HTTP keres kuldese..." << endl;
         QNetworkReply *reply = manager->get(request);
         connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
-        connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
-                this, SLOT(slotError(QNetworkReply::NetworkError)));
-        connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
-                this, SLOT(slotSslErrors(QList<QSslError>)));
     }
 
 signals:
@@ -64,7 +60,7 @@ public slots:
         cout << "- Tartalom merete: " << answer.size() << endl;
         cout << "- HTTP header bejegyzesek: " << endl;
         QList<QNetworkReply::RawHeaderPair> headerList = reply->rawHeaderPairs();
-        for(auto h : headerList)
+        for(auto& h : headerList)
             cout << "  " << h.first.toStdString() << ": " << h.second.toStdString() << endl;
 
         emit DemoFinished();
@@ -75,18 +71,6 @@ public slots:
         // Ezt a reply objektum hívja akkor, amikor adatokat kap a socketen keresztül.
         //  A replyFinished mellett igazából nem szükséges figyelni...
         cout << "- Adat erkezett..." << endl;
-    }
-
-    void slotError(QNetworkReply::NetworkError)
-    {
-        cout << "- Kommunikacios hiba. :(" << endl;
-        emit DemoFinished();
-    }
-
-    void slotSslErrors(QList<QSslError>)
-    {
-        cout << "- SSL hiba. :(" << endl;
-        emit DemoFinished();
     }
 
 private:

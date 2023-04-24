@@ -61,9 +61,6 @@ private slots:
     /** A kapcsolat lezárását jelzi. */
     void disconnected();
 
-    /** A socket hibát jelez. */
-    void handleError(QAbstractSocket::SocketError socketError);
-
     /** Adat érkezett. Nem biztos, hogy egy teljes üzenetnyi. */
     void dataReceived();
 };

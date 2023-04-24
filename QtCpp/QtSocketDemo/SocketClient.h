@@ -49,8 +49,6 @@ signals:
     void dataReady(QDataStream&);
 
 private slots:
-    /** A socket hibák fogadására szolgál. */
-    void handleError(QAbstractSocket::SocketError socketError);
     /** A socket adatfogadását jelzi. */
     void dataReceived();
 };
