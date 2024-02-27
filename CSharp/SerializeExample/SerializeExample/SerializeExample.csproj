@@ -2,8 +2,30 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TextFiles\BookListJson.txt" />
+    <None Remove="TextFiles\BookListXml.txt" />
+    <None Remove="TextFiles\SingleBookJson.txt" />
+    <None Remove="TextFiles\SingleBookXml.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TextFiles\BookListJson.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TextFiles\BookListXml.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TextFiles\SingleBookJson.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TextFiles\SingleBookXml.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
