@@ -1,7 +1,7 @@
 ﻿using HttpExample.Common;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HttpExample.Client
@@ -28,13 +28,13 @@ namespace HttpExample.Client
         public async Task<List<Book>> GetBooksListAsync()
         {
             string stringres = await this.GetBooksStringAsync();
-            List<Book> result = JsonConvert.DeserializeObject<List<Book>>(stringres);
+            List<Book> result = JsonSerializer.Deserialize<List<Book>>(stringres);
             return result;
         }
 
         public async Task<string> PostBookAsync(Book book)
         {
-            string jsonString = JsonConvert.SerializeObject(book);
+            string jsonString = JsonSerializer.Serialize(book);
             StringContent content = new StringContent(jsonString);
             var result = await client.PostAsync(Utilities.BooksUri, content);
             string stringres = await result.Content.ReadAsStringAsync();
