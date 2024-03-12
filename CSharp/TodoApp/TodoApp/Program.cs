@@ -8,7 +8,7 @@ namespace TodoApp
 {
     class Program
     {
-        public static void Example1()
+        public static void Example1()   // Egyszerű adatbeszúrás
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -33,7 +33,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example2()
+        public static void Example2()   // Id használata
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -59,7 +59,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example3()
+        public static void Example3()   // Több tantárgy, több todo
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -93,7 +93,7 @@ namespace TodoApp
             }
 
         }
-        public static void Example4()
+        public static void Example4()   // Módosítás
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -116,14 +116,13 @@ namespace TodoApp
 
             DbService.EditTodo(alkfejlId, "HF", "Megajánlott jegy", new DateTime(2020, 12, 10), new DateTime(2020, 12, 15));
 
-            
             alkfejlTodos = DbService.GetTodosForSubject(alkfejlId);
             foreach (var item in alkfejlTodos)
             {
                 Console.WriteLine(item);
             }
         }
-        public static void Example5()
+        public static void Example5()   // EditTodo más paraméterezéssel (polymorfizmus)
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -153,7 +152,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example6()
+        public static void Example6()   // Törlés
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -190,7 +189,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example7()
+        public static void Example7()   // Törlés - nem sikerül
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -237,7 +236,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example8()
+        public static void Example8()   // Függő rekord törlése
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "TodoDB");
@@ -285,7 +284,7 @@ namespace TodoApp
                 Console.WriteLine(item);
             }
         }
-        public static void Example9()
+        public static void Example9()   // SqlServer használata
         {
             DbContextOptionsBuilder<TodoDbContext> optionBuilder =
                 new DbContextOptionsBuilder<TodoDbContext>()

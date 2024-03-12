@@ -111,7 +111,8 @@ namespace HttpExample.Server
                 books.Add(newbook);
             }
 
-            await BuildResponse(resp, req.ContentEncoding, $"New book id:\t {newid}");            
+            await BuildResponse(resp, req.ContentEncoding,
+                $"New book id:\t {newid}");            
         }
 
         private static async Task HandleBookGet(HttpListenerRequest req, HttpListenerResponse resp)

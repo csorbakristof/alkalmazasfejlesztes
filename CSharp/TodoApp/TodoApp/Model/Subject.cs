@@ -14,7 +14,7 @@ namespace TodoApp.Model
 
         public override string ToString()
         {
-            return $"Id: {Id}\tName: {Name}";
+            return $"SUBJECT Id: {Id}\tName: {Name}";
         }
     }
 }
