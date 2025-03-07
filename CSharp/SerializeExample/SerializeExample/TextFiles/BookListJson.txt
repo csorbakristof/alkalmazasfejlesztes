@@ -1,1 +1,8 @@
-﻿[{"Title":"Title A","Author":"First Author","Year":2010,"Id":0,"Chapters":[{"Title":"First chapter","Number":1},{"Title":"Second chapter","Number":2}]},{"Title":"The second book","Author":"Second Author","Year":2015,"Id":1,"Chapters":[{"Title":"Other first chapter","Number":1},{"Title":"Other second chapter","Number":2}]}]
+﻿[
+{"Title":"Title A","Author":"First Author","Year":2010,"Id":0,"Chapters":
+[{"Title":"First chapter","Number":1},{"Title":"Second chapter","Number":2}]
+},
+
+{"Title":"The second book","Author":"Second Author","Year":2015,"Id":1,"Chapters":
+[{"Title":"Other first chapter","Number":1},{"Title":"Other second chapter","Number":2}]
+}]

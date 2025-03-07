@@ -10,7 +10,7 @@ namespace ReturnValueVsException
         {
             if (Math.Abs(degrees) > 25)
                 throw new ArgumentOutOfRangeException(
-                    "Robot cannot turn that much.");
+                    $"Robot cannot turn that much ({degrees} deg).");
             // Turning operation...
         }
 

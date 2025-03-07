@@ -15,7 +15,7 @@ namespace ReturnValueVsException
 
             try
             {
-                r.Turn(20);
+                r.Turn(27);
             }
             catch (ArgumentOutOfRangeException e)
             {

@@ -117,7 +117,7 @@ namespace TodoApp.Data
                 .FirstOrDefault();
 
             dbContext.TodoItems.Remove(todo);
-
+            
             dbContext.SaveChanges();
         }
 

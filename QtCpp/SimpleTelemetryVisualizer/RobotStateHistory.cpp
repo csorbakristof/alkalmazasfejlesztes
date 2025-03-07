@@ -8,7 +8,6 @@ RobotStateHistory::RobotStateHistory()
 
 void RobotStateHistory::Add(const RobotState& state)
 {
-    // TODO Add history cleanup function!
     std::unique_ptr<RobotState> newState = std::make_unique<RobotState>();
     newState->CopyFrom(state);
     stateList.append(newState.get());
